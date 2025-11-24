@@ -40,19 +40,13 @@ UrunId (FK)
 
 Palet
 
-Palet
-
 Id
 
 PaletKodu
 
 LotId (FK)
 
-UrunId (FK) – istersen sadece lot üzerinden de gidebilirsin
-
 UrunAdedi (0–24) 
-
-Ahmet Sql Ödev
 
 PaletAgirligi
 
@@ -65,8 +59,6 @@ Statü (Tam / Eksik / DepoGirişineHazır / Depoda / SevkiyatAlanında / SevkEdi
 OlusturanKullaniciId, OlusturmaTarihi
 
 İş kuralı: ÜrünAdedi = 24 ise “Tam Palet”, 0–23 ise “Eksik Palet” statüsü atanmalı. 
-
-Ahmet Sql Ödev
 
 Depo Giriş Fişi
 
@@ -149,8 +141,6 @@ SevkiyatId (FK)
 PaletId (FK)
 
 TIR / plaka, şoför, firma, kapı no, güzergah, palet listesi vs. hep burada. 
-
-Ahmet Sql Ödev
 
 Log / İzlenebilirlik
 
