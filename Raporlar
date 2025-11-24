@@ -1,0 +1,42 @@
+Raporlar Nasıl Tasarlanır?
+Depo Giriş Raporu
+
+Kaynak: DepoGirisFisi + DepoGirisFisiPalet
+
+Filtreler: Günlük / haftalık / aylık, tedarikçi, kullanıcı
+
+Stok Durum Raporu
+
+Kaynak: Palet + RafPalet + Lot + Urun
+
+Raf bazlı, lot bazlı filtre
+
+Tam / eksik palet sayıları
+
+Eksik Palet Raporu
+
+Kaynak: Palet
+
+Filtre: Statü = “Eksik Palet” 
+
+Ahmet Sql Ödev
+
+Sevkiyat Raporu
+
+Kaynak: Sevkiyat + SevkiyatPalet
+
+TIR bilgisi, müşteri, tarih, palet listesi
+
+Kullanıcı İşlem Raporu
+
+Kaynak: IslemLog
+
+“Kim ne yaptı? Ne zaman yaptı?” 
+
+Ahmet Sql Ödev
+
+C# tarafında bunlar için:
+
+Her rapor için ayrı bir Application servisi (ör: RaporServisi)
+
+Veritabanı tarafında view açmayı da düşünebilirsin, karmaşık join’leri basitleştirir.
