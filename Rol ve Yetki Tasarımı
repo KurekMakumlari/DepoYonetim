@@ -1,0 +1,34 @@
+Rol ve Yetki Tasarımı
+Personel:
+
+Palet oluşturma
+
+Forklift ile yerleştirme
+
+Toplama görevlerini tamamlama
+
+Depo Sorumlusu:
+
+Depo giriş fişi oluşturma ve onaylama
+
+Raf yönetimi
+
+Stok kontrolleri
+
+Sevkiyat Sorumlusu:
+
+TIR sevkiyatı oluşturma
+
+TIR bilgisi girme
+
+Görev atama
+
+Sevkiyat onayı
+
+Admin:
+
+Kullanıcı / rol yönetimi
+
+Tüm kayıt ve log takibi
+
+Sistem ayarları
