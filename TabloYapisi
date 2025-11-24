@@ -1,0 +1,173 @@
+Ana tablolar
+
+Kullanıcı & Rol
+
+Kullanici
+
+Id
+
+AdSoyad
+
+KullaniciAdi
+
+SifreHash
+
+RolId (FK)
+
+Rol
+
+Id
+
+Ad (Personel / DepoSorumlusu / SevkiyatSorumlusu / Admin)
+
+Ürün & Lot
+
+Urun
+
+Id
+
+UrunKodu
+
+UrunAdi
+
+Lot
+
+Id
+
+LotNo
+
+UrunId (FK)
+
+Palet
+
+Palet
+
+Id
+
+PaletKodu
+
+LotId (FK)
+
+UrunId (FK) – istersen sadece lot üzerinden de gidebilirsin
+
+UrunAdedi (0–24) 
+
+Ahmet Sql Ödev
+
+PaletAgirligi
+
+PaletEtiketNo
+
+PaletlemeTarihi
+
+Statü (Tam / Eksik / DepoGirişineHazır / Depoda / SevkiyatAlanında / SevkEdildi)
+
+OlusturanKullaniciId, OlusturmaTarihi
+
+İş kuralı: ÜrünAdedi = 24 ise “Tam Palet”, 0–23 ise “Eksik Palet” statüsü atanmalı. 
+
+Ahmet Sql Ödev
+
+Depo Giriş Fişi
+
+DepoGirisFisi
+
+Id
+
+FisNo
+
+TedarikciAdi / GonderenFirma
+
+GirisTarihi
+
+OnaylayanKullaniciId
+
+DepoGirisFisiPalet
+
+DepoGirisFisiId (FK)
+
+PaletId (FK)
+
+Kural: Depoya giren her palet için depo fişi zorunlu. Yani Palet, DepoGirisFisiPalet’te olmalı. 
+
+Ahmet Sql Ödev
+
+Raf / Stok
+
+Raf
+
+Id
+
+Kod (ör: A-01-01)
+
+Açıklama
+
+RafPalet
+
+Id
+
+RafId (FK)
+
+PaletId (FK)
+
+YerlesmeTarihi
+
+AktifMi (palet kalkınca false)
+
+Sevkiyat / TIR
+
+Sevkiyat
+
+Id
+
+SevkiyatNo
+
+TirPlakaNo
+
+SoforAdi
+
+SoforTelefon
+
+Firma (Lojistik)
+
+TirKapiNo
+
+SevkiyatTarihiSaati
+
+Guzergah
+
+CikisDeposu
+
+TeslimatMusterisi
+
+Durum (Olusturuldu / YüklemeDevam / SevkEdildi)
+
+SevkiyatPalet
+
+SevkiyatId (FK)
+
+PaletId (FK)
+
+TIR / plaka, şoför, firma, kapı no, güzergah, palet listesi vs. hep burada. 
+
+Ahmet Sql Ödev
+
+Log / İzlenebilirlik
+
+IslemLog
+
+Id
+
+KullaniciId
+
+TarihSaat
+
+IslemTipi (PaletOlusturma, DepoGirisOnayi, SevkiyatOnayi vb.)
+
+ReferansTablo (Palet, Sevkiyat, DepoGirisFisi)
+
+ReferansId
+
+Açıklama
+
+Kural: “Kim ne yaptı, ne zaman yaptı?” hepsi burada
