@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace DepoYonetim
 {
-    public partial class Form1 : Form
+    public partial class PersonelAnaForm : Form
     {
-        public Form1()
+        public PersonelAnaForm()
         {
             InitializeComponent();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

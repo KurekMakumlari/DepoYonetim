@@ -46,16 +46,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="PersonelAnaForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="PersonelAnaForm.Designer.cs">
+      <DependentUpon>PersonelAnaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PersonelGirisForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PersonelGirisForm.Designer.cs">
+      <DependentUpon>PersonelGirisForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Transfer.cs" />
+    <EmbeddedResource Include="PersonelAnaForm.resx">
+      <DependentUpon>PersonelAnaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PersonelGirisForm.resx">
+      <DependentUpon>PersonelGirisForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
