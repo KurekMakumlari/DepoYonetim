@@ -1,9 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36705.20 d17.14
+VisualStudioVersion = 17.14.36705.20
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DepoYonetim", "DepoYonetim\DepoYonetim.csproj", "{5CD3A9C9-6043-4D86-B247-ACD448714D37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DepoYonetim.DataAccess", "DepoYonetim.DataAccess\DepoYonetim.DataAccess.csproj", "{88FD0115-DAD0-4D46-A9DF-C36615915E00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DepoYonetim.Core", "DepoYonetim.Core\DepoYonetim.Core.csproj", "{82248B43-9D90-4863-A6F5-331A07FE5244}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DepoYonetim.Aplication", "DepoYonetim.Aplication\DepoYonetim.Aplication.csproj", "{0CDB2293-999F-4F2A-9A3B-50C37CEAE8A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{5CD3A9C9-6043-4D86-B247-ACD448714D37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CD3A9C9-6043-4D86-B247-ACD448714D37}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CD3A9C9-6043-4D86-B247-ACD448714D37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88FD0115-DAD0-4D46-A9DF-C36615915E00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88FD0115-DAD0-4D46-A9DF-C36615915E00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88FD0115-DAD0-4D46-A9DF-C36615915E00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88FD0115-DAD0-4D46-A9DF-C36615915E00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82248B43-9D90-4863-A6F5-331A07FE5244}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82248B43-9D90-4863-A6F5-331A07FE5244}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82248B43-9D90-4863-A6F5-331A07FE5244}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82248B43-9D90-4863-A6F5-331A07FE5244}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CDB2293-999F-4F2A-9A3B-50C37CEAE8A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CDB2293-999F-4F2A-9A3B-50C37CEAE8A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CDB2293-999F-4F2A-9A3B-50C37CEAE8A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CDB2293-999F-4F2A-9A3B-50C37CEAE8A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
