@@ -16,7 +16,7 @@ namespace DepoYonetim
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new PersonelGirisForm());
+            Application.Run(new Forms.Main());
         }
     }
 }
