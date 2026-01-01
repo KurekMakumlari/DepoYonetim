@@ -50,19 +50,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\PersonelIslem.cs">
+    <Compile Include="Forms\Islem.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\PersonelIslem.Designer.cs">
-      <DependentUpon>PersonelIslem.cs</DependentUpon>
+    <Compile Include="Forms\Islem.Designer.cs">
+      <DependentUpon>Islem.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\MDTabControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <EmbeddedResource Include="Forms\PersonelIslem.resx">
-      <DependentUpon>PersonelIslem.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Islem.resx">
+      <DependentUpon>Islem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
