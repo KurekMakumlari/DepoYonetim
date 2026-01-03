@@ -21,22 +21,24 @@ namespace DepoYonetim.Aplication
 
         public List<PersonelRol> GetAllPersonelRol()
         {
+            // Retrieve user data
             var request_Kullanici = _repository.GetByData("SELECT * FROM Tbl_Kullanici");
 
-            if (request_Kullanici._state != Core.Enums.State.Success)
-            {
-                throw new Exception("Kullanıcı verileri alınamadı: " + request_Kullanici.message);
-            }
+            // Check if the data retrieval was failed
+            if (request_Kullanici._state != Core.Enums.State.Success) throw new Exception("Kullanıcı verileri alınamadı: " + request_Kullanici.message);
 
+            // Retrieve role data
             var request_Rol = _repository.GetByData("SELECT * FROM Tbl_Role");
 
-            if (request_Rol._state != Core.Enums.State.Success)
-            {
-                throw new Exception("Rol verileri alınamadı: " + request_Rol.message);
-            }
+            // Check if the data retrieval was failed
+            if (request_Rol._state != Core.Enums.State.Success) throw new Exception("Rol verileri alınamadı: " + request_Rol.message);
+
+            // Join user and role data
+
             var query = from kullanici in request_Kullanici.dt.AsEnumerable()
                         join rol in request_Rol.dt.AsEnumerable()
                         on kullanici.Field<int>("RoleID") equals rol.Field<int>("ID")
+                        // Project the result into PersonelRol objects
                         select new PersonelRol
                         {
                             ID = kullanici.Field<int>("Id"),
@@ -46,21 +48,25 @@ namespace DepoYonetim.Aplication
                             RoleName = rol.Field<string>("RoleName"),
                             Status = kullanici.Field<bool>("Status")
                         };
+            // Return the result as a list
             return query.ToList();
         }
 
         public TblRole GetRoleByRoleName(string roleName)
         {
             var request_Rol = _repository.GetByData($"SELECT * FROM Tbl_Role WHERE RoleName = '{roleName}'");
-            if (request_Rol._state != Core.Enums.State.Success)
-            {
-                throw new Exception("Rol verileri alınamadı: " + request_Rol.message);
-            }
+
+            // Check if the data retrieval was failed
+            if (request_Rol._state != Core.Enums.State.Success) throw new Exception("Rol verileri alınamadı: " + request_Rol.message);
+
+            // Get the first matching role
             var rolRow = request_Rol.dt.AsEnumerable().FirstOrDefault();
-            if (rolRow == null)
-            {
-                throw new Exception("Belirtilen rol bulunamadı.");
-            }
+
+            // If no matching role is found, throw an exception
+            if (rolRow == null) throw new Exception("Belirtilen rol bulunamadı.");
+
+            // Map the DataRow to TblRole object and return
+
             return new TblRole
             {
                 ID = rolRow.Field<int>("ID"),
@@ -68,14 +74,13 @@ namespace DepoYonetim.Aplication
                 Explanation = rolRow.Field<string>("Explanation")
             };
         }
-
+        // Get all roles
         public List<TblRole> GetAllRoles()
         {
             var request_Rol = _repository.GetByData("SELECT * FROM Tbl_Role");
-            if (request_Rol._state != Core.Enums.State.Success)
-            {
-                throw new Exception("Rol verileri alınamadı: " + request_Rol.message);
-            }
+            if (request_Rol._state != Core.Enums.State.Success) throw new Exception("Rol verileri alınamadı: " + request_Rol.message);
+
+            // Map DataTable rows to TblRole objects
             var roles = request_Rol.dt.AsEnumerable().Select(rolRow => new TblRole
             {
                 ID = rolRow.Field<int>("ID"),
@@ -84,6 +89,7 @@ namespace DepoYonetim.Aplication
             }).ToList();
             return roles;
         }
+        // Add new personnel
         public bool PersonelKaydet(TblKullanici tblKullanici)
         {
             string insertQuery = $"INSERT INTO Tbl_Kullanici (AdSoyad, KullaniciAdi, SifreHash, RoleID, Status) " +
@@ -95,18 +101,22 @@ namespace DepoYonetim.Aplication
             }
             return true;
         }
+        // Get personnel by ID
         public TblKullanici GetPersonelById(int personelId)
         {
+            // Retrieve user data
             var request_Kullanici = _repository.GetByData($"SELECT * FROM Tbl_Kullanici WHERE ID = {personelId}");
-            if (request_Kullanici._state != Core.Enums.State.Success)
-            {
-                throw new Exception("Kullanıcı verileri alınamadı: " + request_Kullanici.message);
-            }
+
+            // Check if the data retrieval was failed
+            if (request_Kullanici._state != Core.Enums.State.Success) throw new Exception("Kullanıcı verileri alınamadı: " + request_Kullanici.message);
+
+            // Get the first matching user
             var kullaniciRow = request_Kullanici.dt.AsEnumerable().FirstOrDefault();
-            if (kullaniciRow == null)
-            {
-                throw new Exception("Belirtilen kullanıcı bulunamadı.");
-            }
+
+            // If no matching user is found, throw an exception
+            if (kullaniciRow == null) throw new Exception("Belirtilen kullanıcı bulunamadı.");
+
+            // Map the DataRow to TblKullanici object and return
             return new TblKullanici
             {
                 ID = kullaniciRow.Field<int>("ID"),
@@ -118,6 +128,7 @@ namespace DepoYonetim.Aplication
             };
         }
 
+        // Update personnel
         public bool PersonelGuncelle(TblKullanici tblKullanici)
         {
             string updateQuery = $"UPDATE Tbl_Kullanici SET " +
@@ -135,6 +146,7 @@ namespace DepoYonetim.Aplication
             return true;
         }
 
+        // Soft delete personnel
         public bool PersonelSoftSil(int personelId)
         {
             string updateQuery = $"UPDATE Tbl_Kullanici SET Status = 0 WHERE ID = {personelId}";
@@ -146,6 +158,7 @@ namespace DepoYonetim.Aplication
             return true;
         }
 
+        // Hard delete personnel
         public bool PersonelKaldir(int personelId)
         {
             string deleteQuery = $"DELETE FROM Tbl_Kullanici WHERE ID = {personelId}";

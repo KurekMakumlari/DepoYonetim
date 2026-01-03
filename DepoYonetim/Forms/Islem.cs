@@ -39,16 +39,10 @@ namespace DepoYonetim.Forms
         {
             textBox_AdSoyad.Text = dataGridViewKullanıcıList.Rows[dataGridViewKullanıcıList.SelectedCells[0].RowIndex].Cells["AdSoyad"].Value.ToString();
             personelId = Convert.ToInt32(dataGridViewKullanıcıList.Rows[dataGridViewKullanıcıList.SelectedCells[0].RowIndex].Cells["ID"].Value.ToString());
-            // textBox_Sifre.Text = dataGridViewKullanıcıList.Rows[dataGridViewKullanıcıList.SelectedCells[0].RowIndex].Cells["SifreHash"].Value.ToString();
             textBox_KullaniciAd.Text = dataGridViewKullanıcıList.Rows[dataGridViewKullanıcıList.SelectedCells[0].RowIndex].Cells["KullaniciAdi"].Value.ToString();
             comboBox_RolSecim.Text = dataGridViewKullanıcıList.Rows[dataGridViewKullanıcıList.SelectedCells[0].RowIndex].Cells["RoleName"].Value.ToString();
             label1.Text = dataGridViewKullanıcıList.Rows[dataGridViewKullanıcıList.SelectedCells[0].RowIndex].Cells["Status"].Value.ToString();
             radioButton_Status.Checked = label1.Text == "True" ? true : false;
-        }
-
-        private void ComboBoxClick_RolSecim(object sender, EventArgs e)
-        {
-
         }
 
         private void button_PerKayit_Click(object sender, EventArgs e)
