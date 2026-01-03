@@ -40,6 +40,7 @@
             this.textBox_UrunKod = new System.Windows.Forms.TextBox();
             this.dataGridView_UrunList = new System.Windows.Forms.DataGridView();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button_KaliciSil = new System.Windows.Forms.Button();
             this.button_PerDelete = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.radioButton_Status = new System.Windows.Forms.RadioButton();
@@ -64,7 +65,6 @@
             this.label_UrunID = new System.Windows.Forms.Label();
             this.dataGridView_LotList = new System.Windows.Forms.DataGridView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.button_KaliciSil = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_UrunList)).BeginInit();
@@ -200,6 +200,16 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Personel İşlem";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // button_KaliciSil
+            // 
+            this.button_KaliciSil.Location = new System.Drawing.Point(519, 244);
+            this.button_KaliciSil.Name = "button_KaliciSil";
+            this.button_KaliciSil.Size = new System.Drawing.Size(75, 23);
+            this.button_KaliciSil.TabIndex = 19;
+            this.button_KaliciSil.Text = "Kalıcı Sil";
+            this.button_KaliciSil.UseVisualStyleBackColor = true;
+            this.button_KaliciSil.Click += new System.EventHandler(this.button_KaliciSil_Click);
             // 
             // button_PerDelete
             // 
@@ -423,16 +433,6 @@
             // 
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
-            // button_KaliciSil
-            // 
-            this.button_KaliciSil.Location = new System.Drawing.Point(519, 244);
-            this.button_KaliciSil.Name = "button_KaliciSil";
-            this.button_KaliciSil.Size = new System.Drawing.Size(75, 23);
-            this.button_KaliciSil.TabIndex = 19;
-            this.button_KaliciSil.Text = "Kalıcı Sil";
-            this.button_KaliciSil.UseVisualStyleBackColor = true;
-            this.button_KaliciSil.Click += new System.EventHandler(this.button_KaliciSil_Click);
             // 
             // Islem
             // 

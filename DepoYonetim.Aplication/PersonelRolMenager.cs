@@ -19,6 +19,7 @@ namespace DepoYonetim.Aplication
             _repository = repository;
         }
 
+        // Get all personnel with their roles
         public List<PersonelRol> GetAllPersonelRol()
         {
             // Retrieve user data
@@ -52,6 +53,7 @@ namespace DepoYonetim.Aplication
             return query.ToList();
         }
 
+        // Get role by role name
         public TblRole GetRoleByRoleName(string roleName)
         {
             var request_Rol = _repository.GetByData($"SELECT * FROM Tbl_Role WHERE RoleName = '{roleName}'");

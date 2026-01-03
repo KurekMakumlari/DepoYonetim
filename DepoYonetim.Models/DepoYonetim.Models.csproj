@@ -41,9 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\PersonelRol.cs" />
-    <Compile Include="Entities\TblKullanici.cs" />
-    <Compile Include="Entities\TblRole.cs" />
+    <Compile Include="Entities\Personel\PersonelRol.cs" />
+    <Compile Include="Entities\Personel\TblKullanici.cs" />
+    <Compile Include="Entities\Urun\TblLot.cs" />
+    <Compile Include="Entities\Personel\TblRole.cs" />
+    <Compile Include="Entities\Urun\TblUrun.cs" />
+    <Compile Include="Entities\Urun\UrunLot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

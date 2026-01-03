@@ -262,6 +262,6 @@ namespace DepoYonetim.Forms
             comboBox_RolSecim.Items.AddRange(_personelRolMenager.GetAllRoles().Select(r => r.RoleName).ToArray());
         }
 
-
+       
     }
 }
