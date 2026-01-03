@@ -23,15 +23,17 @@ namespace DepoYonetim.Forms
 
         Repository Repo = new Repository("Data Source=.\\SQLEXPRESS01;Initial Catalog=DepoYonetimi;Integrated Security=True;");
         PersonelRolMenager _personelRolMenager;
+        UrunLotMenager _urunLotMenager;
 
         int personelId;
+        int urunId;
         private void PersonelIslem_Load(object sender, EventArgs e)
         {
             _personelRolMenager = new PersonelRolMenager(Repo);
             RolGetir();
             textBox_AdSoyad.Focus();
-            PersonelDataGridViewListeleme();
-            UrunDataGridViewListeleme();
+            PersonelRolGetir();
+            UrunLotGetir();
             LotDataGridViewListeleme();
         }
         #region Personel
@@ -59,20 +61,17 @@ namespace DepoYonetim.Forms
             bool isSave = _personelRolMenager.PersonelKaydet(kul);
 
             DialogResult result = isSave ? MessageBox.Show("Kullanıcı Kaydı Başarılı Olmuştur.") : MessageBox.Show("Kullanıcı Kaydı Başarısız Olmuştur.");
-
-
-            PersonelDataGridViewListeleme();
+            PersonelRolGetir();
         }
         private void button_PerUpdate_Click(object sender, EventArgs e)
         {
             DialogResult confirmResult = MessageBox.Show("Kullanıcı bilgilerini güncellemek istediğinize emin misiniz?", "Onay", MessageBoxButtons.YesNo);
-            if (confirmResult == DialogResult.No)
-            {
-                return; // Kullanıcı hayır dedi, işlemi iptal et
-            }
-
+            if (confirmResult == DialogResult.No) return;
+            {/* Kullanıcı hayır dedi, işlemi iptal et*/}
+            // Ürün ID'sini al
             var personel = _personelRolMenager.GetPersonelById(personelId);
 
+            // Ürünü güncelle
             if (personel != null)
             {
                 personel.AdSoyad = textBox_AdSoyad.Text;
@@ -83,7 +82,7 @@ namespace DepoYonetim.Forms
                 personel.Status = radioButton_Status.Checked ? true : false;
                 bool isUpdate = _personelRolMenager.PersonelGuncelle(personel);
                 DialogResult result = isUpdate ? MessageBox.Show("Kullanıcı Güncelleme Başarılı Olmuştur.") : MessageBox.Show("Kullanıcı Güncelleme Başarısız Olmuştur.");
-                PersonelDataGridViewListeleme();
+                PersonelRolGetir();
             }
             else MessageBox.Show("Güncellenecek kullanıcı bulunamadı.");
         }
@@ -97,7 +96,7 @@ namespace DepoYonetim.Forms
             bool isDelete = _personelRolMenager.PersonelSoftSil(personelId);
             DialogResult result = isDelete ? MessageBox.Show("Kullanıcı Silme Başarılı Olmuştur.") : MessageBox.Show("Kullanıcı Silme Başarısız Olmuştur.");
 
-            PersonelDataGridViewListeleme();
+            PersonelRolGetir();
         }
         private void button_KaliciSil_Click(object sender, EventArgs e)
         {
@@ -109,16 +108,7 @@ namespace DepoYonetim.Forms
             bool isDelete = _personelRolMenager.PersonelKaldir(personelId);
             DialogResult result = isDelete ? MessageBox.Show("Kullanıcı Kalıcı Silme Başarılı Olmuştur.") : MessageBox.Show("Kullanıcı Kalıcı Silme Başarısız Olmuştur.");
         }
-        public void PersonelDataGridViewListeleme()
-        {
-            //var (dt, state, message) = Repo.GetByData("SELECT * FROM Tbl_Kullanici");
-            //if (state == State.Success)
-            //{
-            //    dataGridViewKullanıcıList.DataSource = dt;
-            //}
-            //else MessageBox.Show("Veri çekme işlemi başarısız: " + message);
-            PersonelRolGetir();
-        }
+
         #endregion
 
         #region Urun
@@ -127,46 +117,40 @@ namespace DepoYonetim.Forms
             textBox_UrunAdi.Text = dataGridView_UrunList.Rows[dataGridView_UrunList.SelectedCells[0].RowIndex].Cells["UrunAdi"].Value.ToString();
             textBox_UrunKod.Text = dataGridView_UrunList.Rows[dataGridView_UrunList.SelectedCells[0].RowIndex].Cells["UrunKod"].Value.ToString();
         }
-
         private void button_UrunKayit_Click(object sender, EventArgs e)
         {
-            var (dt, state, message) = Repo.ExecuteSql("INSERT INTO Tbl_Urun (UrunAdi,UrunKod) VALUES ('" + textBox_UrunAdi.Text + "','" + textBox_UrunKod.Text + "')", null);
-            #region Islemin Basarılı Olma Basarısız Olma Durumu
-            string Show2 = state == State.Success ? "Urun başarıyla eklendi." : "Urun  ekleme işlemi başarısız: " + message;
-            MessageBox.Show(Show2);
-            #endregion
-            UrunDataGridViewListeleme();
+            TblUrun urun = new TblUrun();
+            urun.UrunAdi = textBox_UrunAdi.Text;
+            urun.UrunKod = textBox_UrunKod.Text;
+            bool isSave = _urunLotMenager.UrunKaydet(urun);
+            DialogResult result = isSave ? MessageBox.Show("Urun başarıyla eklendi.") : MessageBox.Show("Urun ekleme işlemi başarısız.");
+            UrunLotGetir();
         }
-
         private void button_UrunGuncelle_Click(object sender, EventArgs e)
         {
-            var (dt, state, message) = Repo.ExecuteSql("UPDATE Tbl_Urun SET UrunAdi='" + textBox_UrunAdi.Text + "', UrunKod='" + textBox_UrunKod.Text + "' WHERE ID=" + dataGridView_UrunList.Rows[dataGridView_UrunList.SelectedCells[0].RowIndex].Cells["ID"].Value.ToString(), null);
-            #region Islemin Basarılı Olma Basarısız Olma Durumu
-            string Show3 = state == State.Success ? "Urun başarıyla güncellendi." : "Urun güncelleme işlemi başarısız: " + message;
-            MessageBox.Show(Show3);
-            #endregion
-            UrunDataGridViewListeleme();
+            DialogResult confirmResult = MessageBox.Show("Ürün bilgilerini güncellemek istediğinize emin misiniz?", "Onay", MessageBoxButtons.YesNo);
+            if (confirmResult == DialogResult.No) { return; /* Kullanıcı hayır dedi, işlemi iptal et*/}
+            // Ürün ID'sini al
+            var urun = _urunLotMenager.GetUrunById(urunId);
+            // Ürünü güncelle
+            if (urun != null)
+            {
+                // Güncelleme işlemi
+                urun.UrunAdi = textBox_UrunAdi.Text;
+                urun.UrunKod = textBox_UrunKod.Text;
+                // Diğer alanlar da güncellenebilir
+                bool isUpdate = _urunLotMenager.UrunGuncelle(urun);
+                DialogResult result = isUpdate ? MessageBox.Show("Urun başarıyla güncellendi.") : MessageBox.Show("Urun güncelleme işlemi başarısız.");
+            }
+            else MessageBox.Show("Güncellenecek ürün bulunamadı.");
+            UrunLotGetir();
         }
         private void button_UrunSil_Click(object sender, EventArgs e)
         {
-            var (dt, state, message) = Repo.ExecuteSql("DELETE FROM Tbl_Urun WHERE ID=" + dataGridView_UrunList.Rows[dataGridView_UrunList.SelectedCells[0].RowIndex].Cells["ID"].Value, null);
-            #region Islemin Basarılı Olma Basarısız Olma Durumu
-            string Show4 = state == State.Success ? "Urun başarıyla silindi." : "Urun silme işlemi başarısız: " + message;
-            MessageBox.Show(Show4);
-            #endregion
-            UrunDataGridViewListeleme();
+            
+            UrunLotGetir();
         }
 
-        public void UrunDataGridViewListeleme()
-        {
-
-            var (dt, state, message) = Repo.GetByData("SELECT * FROM Tbl_Urun");
-            if (state == State.Success)
-            {
-                dataGridView_UrunList.DataSource = dt;
-            }
-            else MessageBox.Show("Veri çekme işlemi başarısız: " + message);
-        }
         #endregion
 
         #region Lot
@@ -247,21 +231,18 @@ namespace DepoYonetim.Forms
             comboBox_UrunLot.SelectedIndex = -1;
         }
 
-        public void PersonelRolGetir()
-        {
-            dataGridViewKullanıcıList.DataSource = _personelRolMenager.GetAllPersonelRol();
-        }
+        // Personel Rol Listeleme
+        public void PersonelRolGetir() => dataGridViewKullanıcıList.DataSource = _personelRolMenager.GetAllPersonelRol();
+
+        // Ürün Lot Listeleme
+        public void UrunLotGetir() => dataGridView_LotList.DataSource = _urunLotMenager.GetAllUrunLot();
 
         public void RolGetir()
         {
-            if (comboBox_RolSecim.Items.Count > 0)
-            {
-                comboBox_RolSecim.Items.Clear();
-            }
-
+            if (comboBox_RolSecim.Items.Count > 0) { comboBox_RolSecim.Items.Clear(); }
             comboBox_RolSecim.Items.AddRange(_personelRolMenager.GetAllRoles().Select(r => r.RoleName).ToArray());
         }
 
-       
+
     }
 }
