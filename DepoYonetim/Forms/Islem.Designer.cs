@@ -65,6 +65,7 @@
             this.label_UrunID = new System.Windows.Forms.Label();
             this.dataGridView_LotList = new System.Windows.Forms.DataGridView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.button_UrunSoftSil = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_UrunList)).BeginInit();
@@ -88,6 +89,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.button_UrunSoftSil);
             this.tabPage2.Controls.Add(this.button_UrunSil);
             this.tabPage2.Controls.Add(this.button_UrunGuncelle);
             this.tabPage2.Controls.Add(this.button_UrunKayit);
@@ -106,7 +108,7 @@
             // 
             // button_UrunSil
             // 
-            this.button_UrunSil.Location = new System.Drawing.Point(347, 186);
+            this.button_UrunSil.Location = new System.Drawing.Point(474, 186);
             this.button_UrunSil.Name = "button_UrunSil";
             this.button_UrunSil.Size = new System.Drawing.Size(75, 23);
             this.button_UrunSil.TabIndex = 21;
@@ -434,6 +436,16 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
+            // button_UrunSoftSil
+            // 
+            this.button_UrunSoftSil.Location = new System.Drawing.Point(348, 186);
+            this.button_UrunSoftSil.Name = "button_UrunSoftSil";
+            this.button_UrunSoftSil.Size = new System.Drawing.Size(75, 23);
+            this.button_UrunSoftSil.TabIndex = 22;
+            this.button_UrunSoftSil.Text = "Soft Sil";
+            this.button_UrunSoftSil.UseVisualStyleBackColor = true;
+            this.button_UrunSoftSil.Click += new System.EventHandler(this.button_UrunSoftSil_Click);
+            // 
             // Islem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -495,5 +507,6 @@
         private System.Windows.Forms.Button button_LotGuncelle;
         private System.Windows.Forms.Button button_LotKayit;
         private System.Windows.Forms.Button button_KaliciSil;
+        private System.Windows.Forms.Button button_UrunSoftSil;
     }
 }

@@ -114,6 +114,7 @@ namespace DepoYonetim.Forms
         #region Urun
         private void UrunDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            urunId = Convert.ToInt32(dataGridView_UrunList.Rows[dataGridView_UrunList.SelectedCells[0].RowIndex].Cells["ID"].Value.ToString());
             textBox_UrunAdi.Text = dataGridView_UrunList.Rows[dataGridView_UrunList.SelectedCells[0].RowIndex].Cells["UrunAdi"].Value.ToString();
             textBox_UrunKod.Text = dataGridView_UrunList.Rows[dataGridView_UrunList.SelectedCells[0].RowIndex].Cells["UrunKod"].Value.ToString();
         }
@@ -145,9 +146,24 @@ namespace DepoYonetim.Forms
             else MessageBox.Show("Güncellenecek ürün bulunamadı.");
             UrunLotGetir();
         }
+        private void button_UrunSoftSil_Click(object sender, EventArgs e)
+        {
+            var urun = _urunLotMenager.GetUrunById(urunId);
+            if (urun != null)
+            {
+                DialogResult confirmResult = MessageBox.Show("Urunu silmek istediğinize emin misiniz?", "Onay", MessageBoxButtons.YesNo);
+                if (confirmResult == DialogResult.No) { return; /* Kullanıcı hayır dedi, işlemi iptal et*/}
+                bool isDelete = _urunLotMenager.UrunSoftSil(urunId);
+                DialogResult result = isDelete ? MessageBox.Show("Urun başarıyla silindi.") : default;
+            }
+            else MessageBox.Show("Urun silme işlemi başarısız. Silinecek ürün bulunamadı.");
+            UrunLotGetir();
+
+        }
         private void button_UrunSil_Click(object sender, EventArgs e)
         {
-            
+            bool isPermenantDelete = _urunLotMenager.KaliciSil(urunId);
+            DialogResult result = isPermenantDelete ? MessageBox.Show("Urun kalıcı olarak silindi.") : MessageBox.Show("Urun kalıcı silme işlemi başarısız.");
             UrunLotGetir();
         }
 

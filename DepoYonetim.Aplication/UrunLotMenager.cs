@@ -46,7 +46,6 @@ namespace DepoYonetim.Aplication
             // Return the result as a list
             return query.ToList();
         }
-
         public bool UrunKaydet(TblUrun urun)
         {
             string insertQuery = $"INSERT INTO Tbl_Urun (UrunKod, UrunAdi) VALUES ('{urun.UrunKod}', '{urun.UrunAdi}')";
@@ -54,7 +53,6 @@ namespace DepoYonetim.Aplication
             bool Ret = Core.Enums.State.Success == result._state ? true : false;
             return Ret;
         }
-
         public TblUrun GetUrunById(int urunId)
         {
             var request_Urun = _repository.GetByData($"SELECT * FROM Tbl_Urun WHERE ID = {urunId}");
@@ -69,18 +67,29 @@ namespace DepoYonetim.Aplication
                 UrunKod = urunRow.Field<string>("UrunKod"),
                 UrunAdi = urunRow.Field<string>("UrunAdi")
             };
-
-
         }
-
         public bool UrunGuncelle(TblUrun urun)
         {
             string updateQuery = $"UPDATE TBL_Urun SET (UrunKod = '{urun.UrunKod}', UrunAdi = '{urun.UrunAdi}' WHERE ID = {urun.ID}";
             var result = _repository.ExecuteSql(updateQuery, null);
             if (result._state != State.Success) throw new Exception("Ürün güncellenemedi: " + result.message);
             else return true;
+        }
 
+        public bool UrunSoftSil(int urunId)
+        {
+            string deleteQuery = $"UPDATE Tbl_Urun SET Status = 0 WHERE ID = {urunId}";
+            var result = _repository.ExecuteSql(deleteQuery, null);
+            if (result._state != State.Success) throw new Exception("Ürün silinemedi: " + result.message);
+            else return true;
+        }
 
+        public bool KaliciSil(int urunId)
+        {
+            string deleteQuery = $"DELETE FROM Tbl_Urun WHERE ID = {urunId}";
+            var result = _repository.ExecuteSql(deleteQuery, null);
+            if (result._state != State.Success) throw new Exception("Ürün silinemedi: " + result.message);
+            else return true;
         }
     }
 }
