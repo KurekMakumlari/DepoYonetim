@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DepoYonetim.Core", "DepoYon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DepoYonetim.Aplication", "DepoYonetim.Aplication\DepoYonetim.Aplication.csproj", "{0CDB2293-999F-4F2A-9A3B-50C37CEAE8A9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DepoYonetim.Models", "DepoYonetim.Models\DepoYonetim.Models.csproj", "{1A22CD1C-9330-40C9-8C3E-B7B243F64389}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{0CDB2293-999F-4F2A-9A3B-50C37CEAE8A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CDB2293-999F-4F2A-9A3B-50C37CEAE8A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CDB2293-999F-4F2A-9A3B-50C37CEAE8A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A22CD1C-9330-40C9-8C3E-B7B243F64389}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A22CD1C-9330-40C9-8C3E-B7B243F64389}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A22CD1C-9330-40C9-8C3E-B7B243F64389}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A22CD1C-9330-40C9-8C3E-B7B243F64389}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

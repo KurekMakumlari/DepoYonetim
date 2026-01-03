@@ -43,8 +43,6 @@
             this.button_PerDelete = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.radioButton_Status = new System.Windows.Forms.RadioButton();
-            this.label_RoleID = new System.Windows.Forms.Label();
-            this.textBox_RoleID = new System.Windows.Forms.TextBox();
             this.label_KullaniciAd = new System.Windows.Forms.Label();
             this.textBox_KullaniciAd = new System.Windows.Forms.TextBox();
             this.button_PerUpdate = new System.Windows.Forms.Button();
@@ -56,18 +54,31 @@
             this.textBox_Sifre = new System.Windows.Forms.TextBox();
             this.button_PerKayit = new System.Windows.Forms.Button();
             this.textBox_AdSoyad = new System.Windows.Forms.TextBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.button_LotSil = new System.Windows.Forms.Button();
+            this.button_LotGuncelle = new System.Windows.Forms.Button();
+            this.button_LotKayit = new System.Windows.Forms.Button();
+            this.comboBox_UrunLot = new System.Windows.Forms.ComboBox();
+            this.textBox_LotNo = new System.Windows.Forms.TextBox();
+            this.label_LotNo = new System.Windows.Forms.Label();
+            this.label_UrunID = new System.Windows.Forms.Label();
+            this.dataGridView_LotList = new System.Windows.Forms.DataGridView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.button_KaliciSil = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_UrunList)).BeginInit();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKullanıcıList)).BeginInit();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_LotList)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -90,7 +101,7 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(1023, 492);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.Text = "Urun İşlem";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // button_UrunSil
@@ -167,11 +178,10 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.button_KaliciSil);
             this.tabPage1.Controls.Add(this.button_PerDelete);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.radioButton_Status);
-            this.tabPage1.Controls.Add(this.label_RoleID);
-            this.tabPage1.Controls.Add(this.textBox_RoleID);
             this.tabPage1.Controls.Add(this.label_KullaniciAd);
             this.tabPage1.Controls.Add(this.textBox_KullaniciAd);
             this.tabPage1.Controls.Add(this.button_PerUpdate);
@@ -188,7 +198,7 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(1023, 492);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.Text = "Personel İşlem";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // button_PerDelete
@@ -197,7 +207,7 @@
             this.button_PerDelete.Name = "button_PerDelete";
             this.button_PerDelete.Size = new System.Drawing.Size(75, 23);
             this.button_PerDelete.TabIndex = 18;
-            this.button_PerDelete.Text = "Kalıcı Sil";
+            this.button_PerDelete.Text = "Soft Sil";
             this.button_PerDelete.UseVisualStyleBackColor = true;
             this.button_PerDelete.Click += new System.EventHandler(this.button_PerDelete_Click);
             // 
@@ -221,23 +231,6 @@
             this.radioButton_Status.TabStop = true;
             this.radioButton_Status.Text = "Durum";
             this.radioButton_Status.UseVisualStyleBackColor = true;
-            // 
-            // label_RoleID
-            // 
-            this.label_RoleID.AutoSize = true;
-            this.label_RoleID.Location = new System.Drawing.Point(67, 15);
-            this.label_RoleID.Name = "label_RoleID";
-            this.label_RoleID.Size = new System.Drawing.Size(43, 13);
-            this.label_RoleID.TabIndex = 15;
-            this.label_RoleID.Text = "Role ID";
-            // 
-            // textBox_RoleID
-            // 
-            this.textBox_RoleID.Location = new System.Drawing.Point(150, 8);
-            this.textBox_RoleID.Name = "textBox_RoleID";
-            this.textBox_RoleID.ReadOnly = true;
-            this.textBox_RoleID.Size = new System.Drawing.Size(120, 20);
-            this.textBox_RoleID.TabIndex = 14;
             // 
             // label_KullaniciAd
             // 
@@ -299,7 +292,6 @@
             this.comboBox_RolSecim.Name = "comboBox_RolSecim";
             this.comboBox_RolSecim.Size = new System.Drawing.Size(177, 21);
             this.comboBox_RolSecim.TabIndex = 7;
-            this.comboBox_RolSecim.Click += new System.EventHandler(this.ComboBoxClick_RolSecim);
             // 
             // dataGridViewKullanıcıList
             // 
@@ -335,10 +327,112 @@
             this.textBox_AdSoyad.Size = new System.Drawing.Size(120, 20);
             this.textBox_AdSoyad.TabIndex = 2;
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.button_LotSil);
+            this.tabPage3.Controls.Add(this.button_LotGuncelle);
+            this.tabPage3.Controls.Add(this.button_LotKayit);
+            this.tabPage3.Controls.Add(this.comboBox_UrunLot);
+            this.tabPage3.Controls.Add(this.textBox_LotNo);
+            this.tabPage3.Controls.Add(this.label_LotNo);
+            this.tabPage3.Controls.Add(this.label_UrunID);
+            this.tabPage3.Controls.Add(this.dataGridView_LotList);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(1023, 492);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Lot İşlem";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // button_LotSil
+            // 
+            this.button_LotSil.Location = new System.Drawing.Point(342, 155);
+            this.button_LotSil.Name = "button_LotSil";
+            this.button_LotSil.Size = new System.Drawing.Size(75, 23);
+            this.button_LotSil.TabIndex = 21;
+            this.button_LotSil.Text = "Kalıcı Sil";
+            this.button_LotSil.UseVisualStyleBackColor = true;
+            this.button_LotSil.Click += new System.EventHandler(this.button_LotSil_Click);
+            // 
+            // button_LotGuncelle
+            // 
+            this.button_LotGuncelle.Location = new System.Drawing.Point(231, 155);
+            this.button_LotGuncelle.Name = "button_LotGuncelle";
+            this.button_LotGuncelle.Size = new System.Drawing.Size(75, 23);
+            this.button_LotGuncelle.TabIndex = 20;
+            this.button_LotGuncelle.Text = "Güncelle";
+            this.button_LotGuncelle.UseVisualStyleBackColor = true;
+            this.button_LotGuncelle.Click += new System.EventHandler(this.button_LotGuncelle_Click);
+            // 
+            // button_LotKayit
+            // 
+            this.button_LotKayit.Location = new System.Drawing.Point(134, 155);
+            this.button_LotKayit.Name = "button_LotKayit";
+            this.button_LotKayit.Size = new System.Drawing.Size(75, 23);
+            this.button_LotKayit.TabIndex = 19;
+            this.button_LotKayit.Text = "Kayıt Yap";
+            this.button_LotKayit.UseVisualStyleBackColor = true;
+            this.button_LotKayit.Click += new System.EventHandler(this.button_LotKayit_Click);
+            // 
+            // comboBox_UrunLot
+            // 
+            this.comboBox_UrunLot.FormattingEnabled = true;
+            this.comboBox_UrunLot.Location = new System.Drawing.Point(150, 81);
+            this.comboBox_UrunLot.Name = "comboBox_UrunLot";
+            this.comboBox_UrunLot.Size = new System.Drawing.Size(121, 21);
+            this.comboBox_UrunLot.TabIndex = 4;
+            this.comboBox_UrunLot.Click += new System.EventHandler(this.comboBox_UrunLot_Click);
+            // 
+            // textBox_LotNo
+            // 
+            this.textBox_LotNo.Location = new System.Drawing.Point(150, 41);
+            this.textBox_LotNo.Name = "textBox_LotNo";
+            this.textBox_LotNo.Size = new System.Drawing.Size(100, 20);
+            this.textBox_LotNo.TabIndex = 3;
+            // 
+            // label_LotNo
+            // 
+            this.label_LotNo.AutoSize = true;
+            this.label_LotNo.Location = new System.Drawing.Point(80, 44);
+            this.label_LotNo.Name = "label_LotNo";
+            this.label_LotNo.Size = new System.Drawing.Size(39, 13);
+            this.label_LotNo.TabIndex = 2;
+            this.label_LotNo.Text = "Lot No";
+            // 
+            // label_UrunID
+            // 
+            this.label_UrunID.AutoSize = true;
+            this.label_UrunID.Location = new System.Drawing.Point(80, 84);
+            this.label_UrunID.Name = "label_UrunID";
+            this.label_UrunID.Size = new System.Drawing.Size(30, 13);
+            this.label_UrunID.TabIndex = 1;
+            this.label_UrunID.Text = "Urun";
+            // 
+            // dataGridView_LotList
+            // 
+            this.dataGridView_LotList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_LotList.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.dataGridView_LotList.Location = new System.Drawing.Point(3, 339);
+            this.dataGridView_LotList.Name = "dataGridView_LotList";
+            this.dataGridView_LotList.Size = new System.Drawing.Size(1017, 150);
+            this.dataGridView_LotList.TabIndex = 0;
+            this.dataGridView_LotList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.LotDataGridView_CellDoubleClick);
+            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // button_KaliciSil
+            // 
+            this.button_KaliciSil.Location = new System.Drawing.Point(519, 244);
+            this.button_KaliciSil.Name = "button_KaliciSil";
+            this.button_KaliciSil.Size = new System.Drawing.Size(75, 23);
+            this.button_KaliciSil.TabIndex = 19;
+            this.button_KaliciSil.Text = "Kalıcı Sil";
+            this.button_KaliciSil.UseVisualStyleBackColor = true;
+            this.button_KaliciSil.Click += new System.EventHandler(this.button_KaliciSil_Click);
             // 
             // Islem
             // 
@@ -356,6 +450,9 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKullanıcıList)).EndInit();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_LotList)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -378,8 +475,6 @@
         private System.Windows.Forms.Label label_KullaniciAd;
         private System.Windows.Forms.TextBox textBox_KullaniciAd;
         private System.Windows.Forms.RadioButton radioButton_Status;
-        private System.Windows.Forms.Label label_RoleID;
-        private System.Windows.Forms.TextBox textBox_RoleID;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button_PerDelete;
         private System.Windows.Forms.DataGridView dataGridView_UrunList;
@@ -390,5 +485,15 @@
         private System.Windows.Forms.Button button_UrunSil;
         private System.Windows.Forms.Button button_UrunGuncelle;
         private System.Windows.Forms.Button button_UrunKayit;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.ComboBox comboBox_UrunLot;
+        private System.Windows.Forms.TextBox textBox_LotNo;
+        private System.Windows.Forms.Label label_LotNo;
+        private System.Windows.Forms.Label label_UrunID;
+        private System.Windows.Forms.DataGridView dataGridView_LotList;
+        private System.Windows.Forms.Button button_LotSil;
+        private System.Windows.Forms.Button button_LotGuncelle;
+        private System.Windows.Forms.Button button_LotKayit;
+        private System.Windows.Forms.Button button_KaliciSil;
     }
 }

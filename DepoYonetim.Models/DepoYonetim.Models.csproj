@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0CDB2293-999F-4F2A-9A3B-50C37CEAE8A9}</ProjectGuid>
+    <ProjectGuid>{1A22CD1C-9330-40C9-8C3E-B7B243F64389}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DepoYonetim.Aplication</RootNamespace>
-    <AssemblyName>DepoYonetim.Aplication</AssemblyName>
+    <RootNamespace>DepoYonetim.Models</RootNamespace>
+    <AssemblyName>DepoYonetim.Models</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,22 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PersonelRolMenager.cs" />
+    <Compile Include="Entities\PersonelRol.cs" />
+    <Compile Include="Entities\TblKullanici.cs" />
+    <Compile Include="Entities\TblRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DepoYonetim.Core\DepoYonetim.Core.csproj">
-      <Project>{82248b43-9d90-4863-a6f5-331a07fe5244}</Project>
-      <Name>DepoYonetim.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DepoYonetim.DataAccess\DepoYonetim.DataAccess.csproj">
-      <Project>{88fd0115-dad0-4d46-a9df-c36615915e00}</Project>
-      <Name>DepoYonetim.DataAccess</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DepoYonetim.Models\DepoYonetim.Models.csproj">
-      <Project>{1a22cd1c-9330-40c9-8c3e-b7b243f64389}</Project>
-      <Name>DepoYonetim.Models</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
