@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace DepoYonetim.Models.Entities.Urun
 {
-    public class UrunLot
+    public class LotUrun
     {
-        public int UrunID { get; set; }
-        public string UrunAdi { get; set; }
-        public int LotID { get; set; }
+        public int ID { get; set; }
+        public string UrunAdi { get; set; }       
         public string LotKodu { get; set; }
+        public string UrunKod { get; set; }
+        public bool Status { get; set; }
     }
 }

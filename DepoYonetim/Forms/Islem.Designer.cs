@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.button_UrunSoftSil = new System.Windows.Forms.Button();
             this.button_UrunSil = new System.Windows.Forms.Button();
             this.button_UrunGuncelle = new System.Windows.Forms.Button();
             this.button_UrunKayit = new System.Windows.Forms.Button();
@@ -40,10 +41,10 @@
             this.textBox_UrunKod = new System.Windows.Forms.TextBox();
             this.dataGridView_UrunList = new System.Windows.Forms.DataGridView();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.checkBox_Status = new System.Windows.Forms.CheckBox();
             this.button_KaliciSil = new System.Windows.Forms.Button();
             this.button_PerDelete = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.radioButton_Status = new System.Windows.Forms.RadioButton();
             this.label_KullaniciAd = new System.Windows.Forms.Label();
             this.textBox_KullaniciAd = new System.Windows.Forms.TextBox();
             this.button_PerUpdate = new System.Windows.Forms.Button();
@@ -56,7 +57,7 @@
             this.button_PerKayit = new System.Windows.Forms.Button();
             this.textBox_AdSoyad = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.button_LotSil = new System.Windows.Forms.Button();
+            this.button_LotKaliciSil = new System.Windows.Forms.Button();
             this.button_LotGuncelle = new System.Windows.Forms.Button();
             this.button_LotKayit = new System.Windows.Forms.Button();
             this.comboBox_UrunLot = new System.Windows.Forms.ComboBox();
@@ -65,7 +66,8 @@
             this.label_UrunID = new System.Windows.Forms.Label();
             this.dataGridView_LotList = new System.Windows.Forms.DataGridView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.button_UrunSoftSil = new System.Windows.Forms.Button();
+            this.checkBox_LotStatus = new System.Windows.Forms.CheckBox();
+            this.button_LotSoftSil = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_UrunList)).BeginInit();
@@ -105,6 +107,16 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Urun İşlem";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // button_UrunSoftSil
+            // 
+            this.button_UrunSoftSil.Location = new System.Drawing.Point(348, 186);
+            this.button_UrunSoftSil.Name = "button_UrunSoftSil";
+            this.button_UrunSoftSil.Size = new System.Drawing.Size(75, 23);
+            this.button_UrunSoftSil.TabIndex = 22;
+            this.button_UrunSoftSil.Text = "Soft Sil";
+            this.button_UrunSoftSil.UseVisualStyleBackColor = true;
+            this.button_UrunSoftSil.Click += new System.EventHandler(this.button_UrunSoftSil_Click);
             // 
             // button_UrunSil
             // 
@@ -180,10 +192,10 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.checkBox_Status);
             this.tabPage1.Controls.Add(this.button_KaliciSil);
             this.tabPage1.Controls.Add(this.button_PerDelete);
             this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.radioButton_Status);
             this.tabPage1.Controls.Add(this.label_KullaniciAd);
             this.tabPage1.Controls.Add(this.textBox_KullaniciAd);
             this.tabPage1.Controls.Add(this.button_PerUpdate);
@@ -202,6 +214,16 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Personel İşlem";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_Status
+            // 
+            this.checkBox_Status.AutoSize = true;
+            this.checkBox_Status.Location = new System.Drawing.Point(388, 85);
+            this.checkBox_Status.Name = "checkBox_Status";
+            this.checkBox_Status.Size = new System.Drawing.Size(57, 17);
+            this.checkBox_Status.TabIndex = 20;
+            this.checkBox_Status.Text = "Durum";
+            this.checkBox_Status.UseVisualStyleBackColor = true;
             // 
             // button_KaliciSil
             // 
@@ -232,17 +254,6 @@
             this.label1.TabIndex = 17;
             this.label1.Text = "Şifre";
             this.label1.Visible = false;
-            // 
-            // radioButton_Status
-            // 
-            this.radioButton_Status.AutoSize = true;
-            this.radioButton_Status.Location = new System.Drawing.Point(374, 95);
-            this.radioButton_Status.Name = "radioButton_Status";
-            this.radioButton_Status.Size = new System.Drawing.Size(56, 17);
-            this.radioButton_Status.TabIndex = 16;
-            this.radioButton_Status.TabStop = true;
-            this.radioButton_Status.Text = "Durum";
-            this.radioButton_Status.UseVisualStyleBackColor = true;
             // 
             // label_KullaniciAd
             // 
@@ -341,7 +352,9 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.button_LotSil);
+            this.tabPage3.Controls.Add(this.button_LotSoftSil);
+            this.tabPage3.Controls.Add(this.checkBox_LotStatus);
+            this.tabPage3.Controls.Add(this.button_LotKaliciSil);
             this.tabPage3.Controls.Add(this.button_LotGuncelle);
             this.tabPage3.Controls.Add(this.button_LotKayit);
             this.tabPage3.Controls.Add(this.comboBox_UrunLot);
@@ -357,15 +370,15 @@
             this.tabPage3.Text = "Lot İşlem";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // button_LotSil
+            // button_LotKaliciSil
             // 
-            this.button_LotSil.Location = new System.Drawing.Point(342, 155);
-            this.button_LotSil.Name = "button_LotSil";
-            this.button_LotSil.Size = new System.Drawing.Size(75, 23);
-            this.button_LotSil.TabIndex = 21;
-            this.button_LotSil.Text = "Kalıcı Sil";
-            this.button_LotSil.UseVisualStyleBackColor = true;
-            this.button_LotSil.Click += new System.EventHandler(this.button_LotSil_Click);
+            this.button_LotKaliciSil.Location = new System.Drawing.Point(410, 155);
+            this.button_LotKaliciSil.Name = "button_LotKaliciSil";
+            this.button_LotKaliciSil.Size = new System.Drawing.Size(75, 23);
+            this.button_LotKaliciSil.TabIndex = 21;
+            this.button_LotKaliciSil.Text = "Kalıcı Sil";
+            this.button_LotKaliciSil.UseVisualStyleBackColor = true;
+            this.button_LotKaliciSil.Click += new System.EventHandler(this.button_LotKaliciSil_Click);
             // 
             // button_LotGuncelle
             // 
@@ -436,15 +449,25 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
-            // button_UrunSoftSil
+            // checkBox_LotStatus
             // 
-            this.button_UrunSoftSil.Location = new System.Drawing.Point(348, 186);
-            this.button_UrunSoftSil.Name = "button_UrunSoftSil";
-            this.button_UrunSoftSil.Size = new System.Drawing.Size(75, 23);
-            this.button_UrunSoftSil.TabIndex = 22;
-            this.button_UrunSoftSil.Text = "Soft Sil";
-            this.button_UrunSoftSil.UseVisualStyleBackColor = true;
-            this.button_UrunSoftSil.Click += new System.EventHandler(this.button_UrunSoftSil_Click);
+            this.checkBox_LotStatus.AutoSize = true;
+            this.checkBox_LotStatus.Location = new System.Drawing.Point(360, 85);
+            this.checkBox_LotStatus.Name = "checkBox_LotStatus";
+            this.checkBox_LotStatus.Size = new System.Drawing.Size(57, 17);
+            this.checkBox_LotStatus.TabIndex = 22;
+            this.checkBox_LotStatus.Text = "Durum";
+            this.checkBox_LotStatus.UseVisualStyleBackColor = true;
+            // 
+            // button_LotSoftSil
+            // 
+            this.button_LotSoftSil.Location = new System.Drawing.Point(329, 155);
+            this.button_LotSoftSil.Name = "button_LotSoftSil";
+            this.button_LotSoftSil.Size = new System.Drawing.Size(75, 23);
+            this.button_LotSoftSil.TabIndex = 23;
+            this.button_LotSoftSil.Text = "Soft Sil";
+            this.button_LotSoftSil.UseVisualStyleBackColor = true;
+            this.button_LotSoftSil.Click += new System.EventHandler(this.button_LotSoftSil_Click);
             // 
             // Islem
             // 
@@ -486,7 +509,6 @@
         private System.Windows.Forms.Button button_PerUpdate;
         private System.Windows.Forms.Label label_KullaniciAd;
         private System.Windows.Forms.TextBox textBox_KullaniciAd;
-        private System.Windows.Forms.RadioButton radioButton_Status;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button_PerDelete;
         private System.Windows.Forms.DataGridView dataGridView_UrunList;
@@ -503,10 +525,13 @@
         private System.Windows.Forms.Label label_LotNo;
         private System.Windows.Forms.Label label_UrunID;
         private System.Windows.Forms.DataGridView dataGridView_LotList;
-        private System.Windows.Forms.Button button_LotSil;
+        private System.Windows.Forms.Button button_LotKaliciSil;
         private System.Windows.Forms.Button button_LotGuncelle;
         private System.Windows.Forms.Button button_LotKayit;
         private System.Windows.Forms.Button button_KaliciSil;
         private System.Windows.Forms.Button button_UrunSoftSil;
+        private System.Windows.Forms.CheckBox checkBox_Status;
+        private System.Windows.Forms.CheckBox checkBox_LotStatus;
+        private System.Windows.Forms.Button button_LotSoftSil;
     }
 }

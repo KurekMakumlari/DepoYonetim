@@ -83,7 +83,8 @@ namespace DepoYonetim.Aplication
             if (request_Rol._state != Core.Enums.State.Success) throw new Exception("Rol verileri alınamadı: " + request_Rol.message);
 
             // Map DataTable rows to TblRole objects
-            var roles = request_Rol.dt.AsEnumerable().Select(rolRow => new TblRole
+            var roles = request_Rol.dt.AsEnumerable().Select(rolRow => 
+            new TblRole
             {
                 ID = rolRow.Field<int>("ID"),
                 RoleName = rolRow.Field<string>("RoleName"),

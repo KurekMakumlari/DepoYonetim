@@ -1,19 +1,20 @@
-﻿using System;
+﻿using BCrypt.Net;
+using DepoYonetim.Aplication;
+using DepoYonetim.Core.Enums;
+using DepoYonetim.DataAccess.Repostories;
+using DepoYonetim.Models.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
-using DepoYonetim.DataAccess.Repostories;
-using DepoYonetim.Core.Enums;
-using DepoYonetim.Aplication;
-using BCrypt.Net;
-using System.Diagnostics.Eventing.Reader;
-using DepoYonetim.Models.Entities;
 
 namespace DepoYonetim.Forms
 {
@@ -23,18 +24,22 @@ namespace DepoYonetim.Forms
 
         Repository Repo = new Repository("Data Source=.\\SQLEXPRESS01;Initial Catalog=DepoYonetimi;Integrated Security=True;");
         PersonelRolMenager _personelRolMenager;
-        UrunLotMenager _urunLotMenager;
+        LotUrunMenager _urunLotMenager;
 
         int personelId;
-        int urunId;
+        int lotId;
         private void PersonelIslem_Load(object sender, EventArgs e)
         {
-            _personelRolMenager = new PersonelRolMenager(Repo);
-            RolGetir();
             textBox_AdSoyad.Focus();
+
+            _personelRolMenager = new PersonelRolMenager(Repo);
+            _urunLotMenager = new LotUrunMenager(Repo);
+
+            RolGetir();
+            UrunNameGetir();
+
             PersonelRolGetir();
-            UrunLotGetir();
-            LotDataGridViewListeleme();
+            LotUrunGetir();
         }
         #region Personel
         private void PerDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -44,7 +49,7 @@ namespace DepoYonetim.Forms
             textBox_KullaniciAd.Text = dataGridViewKullanıcıList.Rows[dataGridViewKullanıcıList.SelectedCells[0].RowIndex].Cells["KullaniciAdi"].Value.ToString();
             comboBox_RolSecim.Text = dataGridViewKullanıcıList.Rows[dataGridViewKullanıcıList.SelectedCells[0].RowIndex].Cells["RoleName"].Value.ToString();
             label1.Text = dataGridViewKullanıcıList.Rows[dataGridViewKullanıcıList.SelectedCells[0].RowIndex].Cells["Status"].Value.ToString();
-            radioButton_Status.Checked = label1.Text == "True" ? true : false;
+            checkBox_Status.Checked = label1.Text == "True" ? true : false;
         }
 
         private void button_PerKayit_Click(object sender, EventArgs e)
@@ -57,7 +62,7 @@ namespace DepoYonetim.Forms
             kul.KullaniciAdi = textBox_KullaniciAd.Text;
             kul.SifreHash = passwordHash;
             kul.RoleID = Rol.ID;
-            kul.Status = radioButton_Status.Checked ? true : false;
+            kul.Status = checkBox_Status.Checked ? true : false;
             bool isSave = _personelRolMenager.PersonelKaydet(kul);
 
             DialogResult result = isSave ? MessageBox.Show("Kullanıcı Kaydı Başarılı Olmuştur.") : MessageBox.Show("Kullanıcı Kaydı Başarısız Olmuştur.");
@@ -79,7 +84,7 @@ namespace DepoYonetim.Forms
                 personel.SifreHash = !string.IsNullOrEmpty(textBox_Sifre.Text) ? BCrypt.Net.BCrypt.HashPassword(textBox_Sifre.Text) : personel.SifreHash;
                 var Rol = _personelRolMenager.GetRoleByRoleName(comboBox_RolSecim.SelectedItem.ToString());
                 personel.RoleID = Rol.ID;
-                personel.Status = radioButton_Status.Checked ? true : false;
+                personel.Status = checkBox_Status.Checked ? true : false;
                 bool isUpdate = _personelRolMenager.PersonelGuncelle(personel);
                 DialogResult result = isUpdate ? MessageBox.Show("Kullanıcı Güncelleme Başarılı Olmuştur.") : MessageBox.Show("Kullanıcı Güncelleme Başarısız Olmuştur.");
                 PersonelRolGetir();
@@ -114,57 +119,22 @@ namespace DepoYonetim.Forms
         #region Urun
         private void UrunDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            urunId = Convert.ToInt32(dataGridView_UrunList.Rows[dataGridView_UrunList.SelectedCells[0].RowIndex].Cells["ID"].Value.ToString());
             textBox_UrunAdi.Text = dataGridView_UrunList.Rows[dataGridView_UrunList.SelectedCells[0].RowIndex].Cells["UrunAdi"].Value.ToString();
             textBox_UrunKod.Text = dataGridView_UrunList.Rows[dataGridView_UrunList.SelectedCells[0].RowIndex].Cells["UrunKod"].Value.ToString();
         }
         private void button_UrunKayit_Click(object sender, EventArgs e)
         {
-            TblUrun urun = new TblUrun();
-            urun.UrunAdi = textBox_UrunAdi.Text;
-            urun.UrunKod = textBox_UrunKod.Text;
-            bool isSave = _urunLotMenager.UrunKaydet(urun);
-            DialogResult result = isSave ? MessageBox.Show("Urun başarıyla eklendi.") : MessageBox.Show("Urun ekleme işlemi başarısız.");
-            UrunLotGetir();
+
         }
         private void button_UrunGuncelle_Click(object sender, EventArgs e)
         {
-            DialogResult confirmResult = MessageBox.Show("Ürün bilgilerini güncellemek istediğinize emin misiniz?", "Onay", MessageBoxButtons.YesNo);
-            if (confirmResult == DialogResult.No) { return; /* Kullanıcı hayır dedi, işlemi iptal et*/}
-            // Ürün ID'sini al
-            var urun = _urunLotMenager.GetUrunById(urunId);
-            // Ürünü güncelle
-            if (urun != null)
-            {
-                // Güncelleme işlemi
-                urun.UrunAdi = textBox_UrunAdi.Text;
-                urun.UrunKod = textBox_UrunKod.Text;
-                // Diğer alanlar da güncellenebilir
-                bool isUpdate = _urunLotMenager.UrunGuncelle(urun);
-                DialogResult result = isUpdate ? MessageBox.Show("Urun başarıyla güncellendi.") : MessageBox.Show("Urun güncelleme işlemi başarısız.");
-            }
-            else MessageBox.Show("Güncellenecek ürün bulunamadı.");
-            UrunLotGetir();
         }
         private void button_UrunSoftSil_Click(object sender, EventArgs e)
         {
-            var urun = _urunLotMenager.GetUrunById(urunId);
-            if (urun != null)
-            {
-                DialogResult confirmResult = MessageBox.Show("Urunu silmek istediğinize emin misiniz?", "Onay", MessageBoxButtons.YesNo);
-                if (confirmResult == DialogResult.No) { return; /* Kullanıcı hayır dedi, işlemi iptal et*/}
-                bool isDelete = _urunLotMenager.UrunSoftSil(urunId);
-                DialogResult result = isDelete ? MessageBox.Show("Urun başarıyla silindi.") : default;
-            }
-            else MessageBox.Show("Urun silme işlemi başarısız. Silinecek ürün bulunamadı.");
-            UrunLotGetir();
-
         }
         private void button_UrunSil_Click(object sender, EventArgs e)
         {
-            bool isPermenantDelete = _urunLotMenager.KaliciSil(urunId);
-            DialogResult result = isPermenantDelete ? MessageBox.Show("Urun kalıcı olarak silindi.") : MessageBox.Show("Urun kalıcı silme işlemi başarısız.");
-            UrunLotGetir();
+
         }
 
         #endregion
@@ -172,38 +142,106 @@ namespace DepoYonetim.Forms
         #region Lot
         private void LotDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            TblLot LotId = new TblLot();
+            LotId.ID = Convert.ToInt32(dataGridView_LotList.Rows[dataGridView_LotList.SelectedCells[0].RowIndex].Cells["ID"].Value.ToString());
             textBox_LotNo.Text = dataGridView_LotList.Rows[dataGridView_LotList.SelectedCells[0].RowIndex].Cells["LotNo"].Value.ToString();
             comboBox_UrunLot.Text = dataGridView_LotList.Rows[dataGridView_LotList.SelectedCells[0].RowIndex].Cells["UrunAdi"].Value.ToString();
         }
 
         private void button_LotKayit_Click(object sender, EventArgs e)
         {
-            var (dt, state, message) = Repo.ExecuteSql("INSERT INTO Tbl_Lot (LotNo,UrunID) VALUES ('" + textBox_LotNo.Text + "'," + comboBox_UrunLot.SelectedValue + ")", null);
-            #region Islemin Basarılı Olma Basarısız Olma Durumu
-            string Show5 = state == State.Success ? "Lot başarıyla eklendi." : "Lot ekleme işlemi başarısız: " + message;
-            MessageBox.Show(Show5);
-            #endregion
-            LotDataGridViewListeleme();
+            _urunLotMenager.LotKaydet(new TblLot
+            {
+                LotNo = textBox_LotNo.Text,
+                UrunID = _urunLotMenager.GetUrunByUrunName(comboBox_UrunLot.SelectedItem.ToString()).ID,
+                Status = checkBox_LotStatus.Checked ? true : false
+            });
+
+            UrunNameGetir();
         }
 
         private void button_LotGuncelle_Click(object sender, EventArgs e)
         {
-            var (dt, state, message) = Repo.ExecuteSql("UPDATE Tbl_Lot SET LotNo='" + textBox_LotNo.Text + "', UrunID=" + comboBox_UrunLot.SelectedValue + " WHERE ID=" + dataGridView_LotList.Rows[dataGridView_LotList.SelectedCells[0].RowIndex].Cells["ID"].Value.ToString(), null);
-            #region Islemin Basarılı Olma Basarısız Olma Durumu
-            string Show6 = state == State.Success ? "Lot başarıyla güncellendi." : "Lot güncelleme işlemi başarısız: " + message;
-            MessageBox.Show(Show6);
+            DialogResult confirmResult = MessageBox.Show("Ürün bilgilerini güncellemek istediğinize emin misiniz?", "Onay", MessageBoxButtons.YesNo);
+            if (confirmResult == DialogResult.No) { return; /* Kullanıcı hayır dedi, işlemi iptal et*/}
+            bool İsUpdate = _urunLotMenager.LotGuncelle(new TblLot
+            {
+                ID = lotId,
+                LotNo = textBox_LotNo.Text,
+                UrunID = _urunLotMenager.GetUrunByUrunName(comboBox_UrunLot.SelectedItem.ToString()).ID,
+                Status = checkBox_LotStatus.Checked ? true : false
+
+            });
+            DialogResult result = İsUpdate ? MessageBox.Show("Lot başarıyla güncellendi.") : MessageBox.Show("Lot güncelleme işlemi başarısız.");
+
+
+            UrunNameGetir();
+
+            #region Alternatif Urun Var MI Yok mu Diye Kontrol Ederek Guncelleme Islemi
+            //var urun = _urunLotMenager.GetLotById(urunId);
+            //// Ürünü güncelle
+            //if (urun != null)
+            //{
+            //    // Güncelleme işlemi
+            //    urun.UrunAdi = textBox_UrunAdi.Text;
+            //    urun.UrunKod = textBox_UrunKod.Text;
+            //    // Diğer alanlar da güncellenebilir
+            //    bool isUpdate = _urunLotMenager.UrunGuncelle(urun);
+            //    DialogResult result = isUpdate ? MessageBox.Show("Urun başarıyla güncellendi.") : MessageBox.Show("Urun güncelleme işlemi başarısız.");
+            //}
+            //else MessageBox.Show("Güncellenecek ürün bulunamadı."); 
             #endregion
-            LotDataGridViewListeleme();
+        }
+        private void button_LotSoftSil_Click(object sender, EventArgs e)
+        {
+            DialogResult confirmResult = MessageBox.Show("Lotu silmek istediğinize emin misiniz?", "Onay", MessageBoxButtons.YesNo);
+            if (confirmResult == DialogResult.No) { return; /* Kullanıcı hayır dedi, işlemi iptal et*/}
+            var KontrolLot = _urunLotMenager.GetLotById(lotId);
+            if (KontrolLot == null)
+            {
+                MessageBox.Show("Silinecek lot bulunamadı.");
+                return;
+            }
+            else
+            {
+                DialogResult confirmDelete = MessageBox.Show("Lotu kalıcı olarak silmek istediğinize emin misiniz?", "Onay", MessageBoxButtons.YesNo);
+                if (confirmDelete == DialogResult.No)
+                {
+                    return; // Kullanıcı hayır dedi, işlemi iptal et
+                }
+                else
+                {
+                    bool isDelete = _urunLotMenager.LotGuncelle(new TblLot
+                    {
+                        ID = lotId,
+                        LotNo = KontrolLot.LotNo,
+                        UrunID = KontrolLot.UrunID,
+                        Status = false
+                    });
+                }
+
+            }
+            UrunNameGetir();
+
         }
 
-        private void button_LotSil_Click(object sender, EventArgs e)
+        private void button_LotKaliciSil_Click(object sender, EventArgs e)
         {
-            var (dt, state, message) = Repo.ExecuteSql("DELETE FROM Tbl_Lot WHERE ID=" + dataGridView_LotList.Rows[dataGridView_LotList.SelectedCells[0].RowIndex].Cells["ID"].Value, null);
-            #region Islemin Basarılı Olma Basarısız Olma Durumu
-            string Show7 = state == State.Success ? "Lot başarıyla silindi." : "Lot silme işlemi başarısız: " + message;
-            MessageBox.Show(Show7);
-            #endregion
-            LotDataGridViewListeleme();
+            DialogResult confirmResult = MessageBox.Show("Lotu kalıcı olarak silmek istediğinize emin misiniz?", "Onay", MessageBoxButtons.YesNo);
+            if (confirmResult == DialogResult.No)
+            {
+                return; // Kullanıcı hayır dedi, işlemi iptal et
+            }
+            var result = _urunLotMenager.GetLotById(lotId);
+            DialogResult Kontrol = result == null ? MessageBox.Show("Silinecek lot bulunamadı.") : MessageBox.Show("Lot bulunuyor, silme işlemi gerçekleştiriliyor.");
+            if (result != null)
+            {
+                bool isDelete = _urunLotMenager.LotKaliciSil(lotId);
+                DialogResult finalResult = isDelete ? MessageBox.Show("Lot Kalıcı Silme Başarılı Olmuştur.") : MessageBox.Show("Lot Kalıcı Silme Başarısız Olmuştur.");
+            }
+            UrunNameGetir();
+
+
         }
         private void comboBox_UrunLot_Click(object sender, EventArgs e)
         {
@@ -215,19 +253,7 @@ namespace DepoYonetim.Forms
                 comboBox_UrunLot.ValueMember = "ID";
             }
             else MessageBox.Show("Veri çekme işlemi başarısız: " + message);
-
         }
-        public void LotDataGridViewListeleme()
-        {
-
-            var (dt, state, message) = Repo.GetByData("SELECT * FROM vw_UrunLot");
-            if (state == State.Success)
-            {
-                dataGridView_LotList.DataSource = dt;
-            }
-            else MessageBox.Show("Veri çekme işlemi başarısız: " + message);
-        }
-
 
         #endregion
 
@@ -238,7 +264,7 @@ namespace DepoYonetim.Forms
             textBox_Sifre.Clear();
             textBox_KullaniciAd.Clear();
             comboBox_RolSecim.SelectedIndex = -1;
-            radioButton_Status.Checked = false;
+            checkBox_Status.Checked = false;
             // Ürün sekmesi
             textBox_UrunAdi.Clear();
             textBox_UrunKod.Clear();
@@ -251,13 +277,21 @@ namespace DepoYonetim.Forms
         public void PersonelRolGetir() => dataGridViewKullanıcıList.DataSource = _personelRolMenager.GetAllPersonelRol();
 
         // Ürün Lot Listeleme
-        public void UrunLotGetir() => dataGridView_LotList.DataSource = _urunLotMenager.GetAllUrunLot();
+        public void LotUrunGetir() => dataGridView_LotList.DataSource = _urunLotMenager.GetAllLotUrun();
 
         public void RolGetir()
         {
             if (comboBox_RolSecim.Items.Count > 0) { comboBox_RolSecim.Items.Clear(); }
             comboBox_RolSecim.Items.AddRange(_personelRolMenager.GetAllRoles().Select(r => r.RoleName).ToArray());
         }
+
+        public void UrunNameGetir()
+        {
+            if (comboBox_UrunLot.Items.Count > 0) { comboBox_UrunLot.Items.Clear(); }
+            comboBox_UrunLot.Items.AddRange(_urunLotMenager.GetAllUrun().Select(u => u.UrunAdi).ToArray());
+        }
+
+
 
 
     }

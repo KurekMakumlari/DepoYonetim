@@ -11,6 +11,9 @@ namespace DepoYonetim.Models.Entities
         public int ID { get; set; }
         public string LotNo { get; set; }
         public int UrunID { get; set; }
-        
+        public bool Status { get; set; }
+
+
+
     }
 }
