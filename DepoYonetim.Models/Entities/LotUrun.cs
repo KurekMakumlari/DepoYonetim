@@ -12,6 +12,6 @@ namespace DepoYonetim.Models.Entities.Urun
         public string UrunAdi { get; set; }       
         public string LotKodu { get; set; }
         public string UrunKod { get; set; }
-        public bool Status { get; set; }
+        public bool Status { get; set; }=true;
     }
 }

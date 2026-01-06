@@ -8,49 +8,61 @@ using DepoYonetim.DataAccess.Repostories;
 using DepoYonetim.Models.Entities;
 
 
-namespace DepoYonetim.Aplication
+namespace DepoYonetim.Application
 {
     public class PersonelRolMenager
     {
         private readonly Repository _repository;
 
-        public PersonelRolMenager(Repository repository)
-        {
-            _repository = repository;
-        }
+        public PersonelRolMenager(Repository repository)=> _repository = repository;
 
         // Get all personnel with their roles
         public List<PersonelRol> GetAllPersonelRol()
         {
-            // Retrieve user data
-            var request_Kullanici = _repository.GetByData("SELECT * FROM Tbl_Kullanici");
+            try
+            {
+                // Retrieve user data
+                var request_Kullanici = _repository.GetByData("SELECT * FROM Tbl_Kullanici");
 
-            // Check if the data retrieval was failed
-            if (request_Kullanici._state != Core.Enums.State.Success) throw new Exception("Kullanıcı verileri alınamadı: " + request_Kullanici.message);
+                // Check if the data retrieval was failed
+                if (request_Kullanici._state != Core.Enums.State.Success) throw new Exception("Kullanıcı verileri alınamadı: " + request_Kullanici.message);
 
-            // Retrieve role data
-            var request_Rol = _repository.GetByData("SELECT * FROM Tbl_Role");
+                // Retrieve role data
+                var request_Rol = _repository.GetByData("SELECT * FROM Tbl_Role");
 
-            // Check if the data retrieval was failed
-            if (request_Rol._state != Core.Enums.State.Success) throw new Exception("Rol verileri alınamadı: " + request_Rol.message);
+                // Check if the data retrieval was failed
+                if (request_Rol._state != Core.Enums.State.Success) throw new Exception("Rol verileri alınamadı: " + request_Rol.message);
 
-            // Join user and role data
+                // Join user and role data
 
-            var query = from kullanici in request_Kullanici.dt.AsEnumerable()
-                        join rol in request_Rol.dt.AsEnumerable()
-                        on kullanici.Field<int>("RoleID") equals rol.Field<int>("ID")
-                        // Project the result into PersonelRol objects
-                        select new PersonelRol
-                        {
-                            ID = kullanici.Field<int>("Id"),
-                            AdSoyad = kullanici.Field<string>("AdSoyad"),
-                            KullaniciAdi = kullanici.Field<string>("KullaniciAdi"),
-                            SifreHash = kullanici.Field<string>("SifreHash"),
-                            RoleName = rol.Field<string>("RoleName"),
-                            Status = kullanici.Field<bool>("Status")
-                        };
-            // Return the result as a list
-            return query.ToList();
+                var query = from kullanici in request_Kullanici.dt.AsEnumerable()
+                            join rol in request_Rol.dt.AsEnumerable()
+                            on kullanici.Field<int>("RoleID") equals rol.Field<int>("ID")
+                            // Project the result into PersonelRol objects
+                            select new PersonelRol
+                            {
+                                ID = kullanici.Field<int>("Id"),
+                                AdSoyad = kullanici.Field<string>("AdSoyad"),
+                                KullaniciAdi = kullanici.Field<string>("KullaniciAdi"),
+                                SifreHash = kullanici.Field<string>("SifreHash"),
+                                RoleName = rol.Field<string>("RoleName"),
+                                Status = kullanici.Field<bool>("Status")
+                            };
+                #region Alternatif
+                //foreach (DataRow item in request_Kullanici.dt.Rows)
+                //{
+                //    item["SifreHash"] = "********";
+                //    item.["KullaniciAdi"] = item["KullaniciAdi"].ToString();]
+                //} 
+                #endregion
+                // Return the result as a list
+                return query.ToList();
+            }
+            catch (Exception ex)
+            {
+                // Burada log da atabilirsin
+                throw new Exception("Personel-Rol listesi oluşturulurken hata oluştu.", ex);
+            }
         }
 
         // Get role by role name

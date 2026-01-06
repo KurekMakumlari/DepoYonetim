@@ -57,6 +57,8 @@
             this.button_PerKayit = new System.Windows.Forms.Button();
             this.textBox_AdSoyad = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.button_LotSoftSil = new System.Windows.Forms.Button();
+            this.checkBox_LotStatus = new System.Windows.Forms.CheckBox();
             this.button_LotKaliciSil = new System.Windows.Forms.Button();
             this.button_LotGuncelle = new System.Windows.Forms.Button();
             this.button_LotKayit = new System.Windows.Forms.Button();
@@ -65,9 +67,8 @@
             this.label_LotNo = new System.Windows.Forms.Label();
             this.label_UrunID = new System.Windows.Forms.Label();
             this.dataGridView_LotList = new System.Windows.Forms.DataGridView();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.checkBox_LotStatus = new System.Windows.Forms.CheckBox();
-            this.button_LotSoftSil = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_UrunList)).BeginInit();
@@ -82,6 +83,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -370,6 +372,28 @@
             this.tabPage3.Text = "Lot İşlem";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // button_LotSoftSil
+            // 
+            this.button_LotSoftSil.Location = new System.Drawing.Point(329, 155);
+            this.button_LotSoftSil.Name = "button_LotSoftSil";
+            this.button_LotSoftSil.Size = new System.Drawing.Size(75, 23);
+            this.button_LotSoftSil.TabIndex = 23;
+            this.button_LotSoftSil.Text = "Soft Sil";
+            this.button_LotSoftSil.UseVisualStyleBackColor = true;
+            this.button_LotSoftSil.Click += new System.EventHandler(this.button_LotSoftSil_Click);
+            // 
+            // checkBox_LotStatus
+            // 
+            this.checkBox_LotStatus.AutoSize = true;
+            this.checkBox_LotStatus.Checked = true;
+            this.checkBox_LotStatus.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox_LotStatus.Location = new System.Drawing.Point(360, 85);
+            this.checkBox_LotStatus.Name = "checkBox_LotStatus";
+            this.checkBox_LotStatus.Size = new System.Drawing.Size(57, 17);
+            this.checkBox_LotStatus.TabIndex = 22;
+            this.checkBox_LotStatus.Text = "Durum";
+            this.checkBox_LotStatus.UseVisualStyleBackColor = true;
+            // 
             // button_LotKaliciSil
             // 
             this.button_LotKaliciSil.Location = new System.Drawing.Point(410, 155);
@@ -407,7 +431,6 @@
             this.comboBox_UrunLot.Name = "comboBox_UrunLot";
             this.comboBox_UrunLot.Size = new System.Drawing.Size(121, 21);
             this.comboBox_UrunLot.TabIndex = 4;
-            this.comboBox_UrunLot.Click += new System.EventHandler(this.comboBox_UrunLot_Click);
             // 
             // textBox_LotNo
             // 
@@ -444,30 +467,20 @@
             this.dataGridView_LotList.TabIndex = 0;
             this.dataGridView_LotList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.LotDataGridView_CellDoubleClick);
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(1023, 492);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "tabPage4";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
-            // checkBox_LotStatus
-            // 
-            this.checkBox_LotStatus.AutoSize = true;
-            this.checkBox_LotStatus.Location = new System.Drawing.Point(360, 85);
-            this.checkBox_LotStatus.Name = "checkBox_LotStatus";
-            this.checkBox_LotStatus.Size = new System.Drawing.Size(57, 17);
-            this.checkBox_LotStatus.TabIndex = 22;
-            this.checkBox_LotStatus.Text = "Durum";
-            this.checkBox_LotStatus.UseVisualStyleBackColor = true;
-            // 
-            // button_LotSoftSil
-            // 
-            this.button_LotSoftSil.Location = new System.Drawing.Point(329, 155);
-            this.button_LotSoftSil.Name = "button_LotSoftSil";
-            this.button_LotSoftSil.Size = new System.Drawing.Size(75, 23);
-            this.button_LotSoftSil.TabIndex = 23;
-            this.button_LotSoftSil.Text = "Soft Sil";
-            this.button_LotSoftSil.UseVisualStyleBackColor = true;
-            this.button_LotSoftSil.Click += new System.EventHandler(this.button_LotSoftSil_Click);
             // 
             // Islem
             // 
@@ -533,5 +546,6 @@
         private System.Windows.Forms.CheckBox checkBox_Status;
         private System.Windows.Forms.CheckBox checkBox_LotStatus;
         private System.Windows.Forms.Button button_LotSoftSil;
+        private System.Windows.Forms.TabPage tabPage4;
     }
 }

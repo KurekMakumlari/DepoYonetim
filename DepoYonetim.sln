@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DepoYonetim.DataAccess", "D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DepoYonetim.Core", "DepoYonetim.Core\DepoYonetim.Core.csproj", "{82248B43-9D90-4863-A6F5-331A07FE5244}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DepoYonetim.Aplication", "DepoYonetim.Aplication\DepoYonetim.Aplication.csproj", "{0CDB2293-999F-4F2A-9A3B-50C37CEAE8A9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DepoYonetim.Application", "DepoYonetim.Aplication\DepoYonetim.Application.csproj", "{0CDB2293-999F-4F2A-9A3B-50C37CEAE8A9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DepoYonetim.Models", "DepoYonetim.Models\DepoYonetim.Models.csproj", "{1A22CD1C-9330-40C9-8C3E-B7B243F64389}"
 EndProject

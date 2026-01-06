@@ -14,9 +14,9 @@ namespace DepoYonetim
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Forms.Islem());
+            System.Windows.Forms.Application.Run(new Forms.Islem());
+            System.Windows.Forms.Application.EnableVisualStyles();
+            System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
         }
     }
 }

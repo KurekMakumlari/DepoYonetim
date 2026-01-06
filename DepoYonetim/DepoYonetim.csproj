@@ -104,9 +104,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DepoYonetim.Aplication\DepoYonetim.Aplication.csproj">
+    <ProjectReference Include="..\DepoYonetim.Aplication\DepoYonetim.Application.csproj">
       <Project>{0cdb2293-999f-4f2a-9a3b-50c37ceae8a9}</Project>
-      <Name>DepoYonetim.Aplication</Name>
+      <Name>DepoYonetim.Application</Name>
     </ProjectReference>
     <ProjectReference Include="..\DepoYonetim.Core\DepoYonetim.Core.csproj">
       <Project>{82248b43-9d90-4863-a6f5-331a07fe5244}</Project>

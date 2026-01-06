@@ -10,7 +10,7 @@ using DepoYonetim.Models.Entities.Urun;
 using DepoYonetim.Core.Enums;
 using System.Security.Cryptography.X509Certificates;
 
-namespace DepoYonetim.Aplication
+namespace DepoYonetim.Application
 {
     public class LotUrunMenager
     {
@@ -23,6 +23,7 @@ namespace DepoYonetim.Aplication
         public List<LotUrun> GetAllLotUrun()
         {
             // Retrieve lot data
+                      
 
             var request_Lot = _repository.GetByData("SELECT * FROM Tbl_Lot");
 
@@ -59,16 +60,24 @@ namespace DepoYonetim.Aplication
         //ürün adına göre ürün getir
         public TblUrun GetUrunByUrunName(string urunName)
         {
-            var request_Urun = _repository.GetByData($"SELECT * FROM Tbl_Urun WHERE UrunAdi = '{urunName}'");
-            if (request_Urun._state != State.Success) throw new Exception("Ürün verileri alınamadı: " + request_Urun.message);
-            var UrunRow = request_Urun.dt.AsEnumerable().FirstOrDefault();
-            if (UrunRow == null) throw new Exception("Belirtilen Ürün bulunamadı.");
-            return new TblUrun
+            try
             {
-                ID = UrunRow.Field<int>("ID"),
-                UrunKod = UrunRow.Field<string>("UrunKod"),
-                UrunAdi = UrunRow.Field<string>("UrunAdi")
-            };
+                var request_Urun = _repository.GetByData($"SELECT * FROM Tbl_Urun WHERE UrunAdi = '{urunName}'");
+                if (request_Urun._state != State.Success) throw new Exception("Ürün verileri alınamadı: " + request_Urun.message);
+                var UrunRow = request_Urun.dt.AsEnumerable().FirstOrDefault();
+                if (UrunRow == null) throw new Exception("Belirtilen Ürün bulunamadı.");
+                return new TblUrun
+                {
+                    ID = UrunRow.Field<int>("ID"),
+                    UrunKod = UrunRow.Field<string>("UrunKod"),
+                    UrunAdi = UrunRow.Field<string>("UrunAdi")
+                };
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
         }
         //Tüm ürünleri listele
         public List<TblUrun> GetAllUrun()
@@ -100,7 +109,7 @@ namespace DepoYonetim.Aplication
         }
         public bool LotKaydet(TblLot lot)
         {
-            string insertQuery = $"INSERT INTO Tbl_Lot (ID, LotNo,UrunID,Status) VALUES ('{lot.ID}', '{lot.LotNo}','{lot.UrunID},'{lot.Status})";
+            string insertQuery = $"INSERT INTO Tbl_Lot (LotNo,UrunID,Status) VALUES ('{lot.LotNo}','{lot.UrunID}','{lot.Status}')";
             var result = _repository.ExecuteSql(insertQuery, null);
             bool Ret = State.Success == result._state ? true : false;
             return Ret;
@@ -125,7 +134,7 @@ namespace DepoYonetim.Aplication
 
         public bool LotGuncelle(TblLot lot)
         {
-            string updateQuery = $"UPDATE TBL_Urun SET (LotNo = '{lot.LotNo}', UrunID = '{lot.UrunID}',Status = '{lot.Status} WHERE ID = {lot.ID}";
+            string updateQuery = $"UPDATE Tbl_Lot SET LotNo = '{lot.LotNo}', UrunID = '{lot.UrunID}',Status = '{lot.Status}' WHERE ID = {lot.ID}";
             var result = _repository.ExecuteSql(updateQuery, null);
             if (result._state != State.Success) throw new Exception("lot güncellenemedi: " + result.message);
             else return true;
