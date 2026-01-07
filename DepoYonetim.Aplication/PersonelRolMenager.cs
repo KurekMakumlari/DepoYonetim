@@ -108,7 +108,7 @@ namespace DepoYonetim.Application
         public bool PersonelKaydet(TblKullanici tblKullanici)
         {
             string insertQuery = $"INSERT INTO Tbl_Kullanici (AdSoyad, KullaniciAdi, SifreHash, RoleID, Status) " +
-                                 $"VALUES ('{tblKullanici.AdSoyad}', '{tblKullanici.KullaniciAdi}', '{tblKullanici.SifreHash}', {tblKullanici.RoleID}, {(tblKullanici.Status ? 1 : 0)})";
+                                 $"VALUES ('{tblKullanici.AdSoyad}', '{tblKullanici.KullaniciAdi}', '{tblKullanici.SifreHash}', {tblKullanici.RoleID}, {1})";
             var result = _repository.ExecuteSql(insertQuery, null);
             if (result._state != Core.Enums.State.Success)
             {

@@ -88,9 +88,10 @@ namespace DepoYonetim.Application
             {
                 ID = row.Field<int>("ID"),
                 UrunKod = row.Field<string>("UrunKod"),
-                UrunAdi = row.Field<string>("UrunAdi")
-            }).ToList();
-            return urunList;
+                UrunAdi = row.Field<string>("UrunAdi"),
+                Status = row.Field<bool>("Status")
+            });
+            return urunList.ToList();
         }
 
         public TblLot GetLotByID(int ıd)
@@ -109,7 +110,7 @@ namespace DepoYonetim.Application
         }
         public bool LotKaydet(TblLot lot)
         {
-            string insertQuery = $"INSERT INTO Tbl_Lot (LotNo,UrunID,Status) VALUES ('{lot.LotNo}','{lot.UrunID}','{lot.Status}')";
+            string insertQuery = $"INSERT INTO Tbl_Lot (LotNo,UrunID,Status) VALUES ('{lot.LotNo}','{lot.UrunID}','{1}')";
             var result = _repository.ExecuteSql(insertQuery, null);
             bool Ret = State.Success == result._state ? true : false;
             return Ret;
