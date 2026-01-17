@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Depo Yönetim Sistemi - Kullanım Kılavuzu | DYS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Genel Sıfırlama ve Tipografi */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            /* Koyu Tema Arka Plan */
+            color: #E0E0E0;
+            background-color: #121212;
+            min-height: 100vh;
+            transition: background-color 0.5s ease;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        /* Renk Paleti (Koyu Tema) */
+        :root {
+            --primary: #5e35b1; /* Mor Tonu */
+            --primary-light: #7e57c2;
+            --secondary: #00bcd4; /* Mavi-Turkuaz Tonu */
+            --background-card: #1E1E1E;
+            --text-color: #E0E0E0;
+            --border-color: #333;
+            --success: #66bb6a;
+            --warning: #ffb300;
+            --info: #29b6f6;
+        }
+
+        /* Başlık Alanı (Header) */
+        header {
+            background: linear-gradient(135deg, #1f1f1f 0%, #0a0a0a 100%);
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            margin-bottom: 40px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header h1 {
+            color: var(--primary-light);
+            font-size: 3.2em;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            animation: textShadowPulse 2s infinite alternate;
+        }
+
+        header p {
+            color: #a0a0a0;
+            font-size: 1.2em;
+            font-style: italic;
+        }
+
+        @keyframes textShadowPulse {
+            from {
+                text-shadow: 0 0 5px var(--primary-light);
+            }
+            to {
+                text-shadow: 0 0 15px var(--primary-light), 0 0 25px rgba(94, 53, 177, 0.5);
+            }
+        }
+
+        /* Navigasyon (Menü) */
+        nav {
+            background-color: var(--background-card);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.4);
+            margin-bottom: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            border: 1px solid var(--border-color);
+        }
+
+        nav button {
+            padding: 14px 28px;
+            background: #333;
+            color: var(--text-color);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.05em;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        nav button:hover {
+            background: var(--primary-light);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(94, 53, 177, 0.5);
+        }
+
+        nav button.active {
+            background: var(--primary);
+            box-shadow: 0 5px 15px rgba(94, 53, 177, 0.7);
+            transform: translateY(-1px);
+            border: 2px solid var(--secondary);
+        }
+
+        /* İçerik Alanı */
+        .content {
+            background-color: var(--background-card);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.7s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Başlıklar */
+        h2 {
+            color: var(--secondary);
+            font-size: 2.5em;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--primary);
+            font-weight: 800;
+        }
+
+        h3 {
+            color: var(--primary-light);
+            font-size: 1.8em;
+            margin: 35px 0 20px 0;
+            font-weight: 600;
+        }
+
+        /* Uyarı/Bilgi Kutuları */
+        .info-box, .warning-box, .success-box {
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 12px;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+            font-size: 1.05em;
+        }
+
+        .info-box {
+            background: #2a2a2a;
+            border-left: 5px solid var(--info);
+        }
+
+        .warning-box {
+            background: #332b1a;
+            border-left: 5px solid var(--warning);
+            color: #ffd54f; /* Hafif Sarımsı Metin */
+        }
+        .warning-box h4 { color: var(--warning); }
+
+        .success-box {
+            background: #1a3324;
+            border-left: 5px solid var(--success);
+            color: #a5d6a7; /* Hafif Yeşilimsi Metin */
+        }
+        .success-box strong { color: var(--success); }
+
+        /* Grid Kartları */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .card {
+            background-color: #262626;
+            color: var(--text-color);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s ease-in-out;
+            border: 1px solid #333;
+        }
+
+        .card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 15px var(--primary-light);
+            background-color: #2e2e2e;
+        }
+
+        .card h4 {
+            font-size: 1.5em;
+            margin-bottom: 12px;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+        }
+        .card h4 i {
+            margin-right: 10px;
+            color: var(--primary-light);
+        }
+
+        .card p {
+            font-size: 1em;
+            opacity: 0.9;
+            color: #cccccc;
+        }
+
+        /* Tablolar */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 18px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+
+        th {
+            background: var(--primary);
+            color: var(--text-color);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #1e1e1e;
+        }
+
+        tr:hover {
+            background: #2a2a2a;
+            transition: background-color 0.3s;
+        }
+
+        /* Adım Adım Listeler (Steps) */
+        .steps {
+            counter-reset: step-counter;
+            list-style: none;
+            padding: 0;
+        }
+
+        .steps li {
+            counter-increment: step-counter;
+            position: relative;
+            padding: 25px 25px 25px 70px;
+            margin: 20px 0;
+            background: #262626;
+            border-radius: 12px;
+            transition: all 0.4s ease-in-out;
+            border-left: 4px solid var(--primary-light);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .steps li:hover {
+            background: #2e2e2e;
+            transform: translateX(10px);
+            border-left: 4px solid var(--secondary);
+        }
+
+        .steps li strong {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--secondary);
+            font-size: 1.15em;
+        }
+
+        .steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.4em;
+            border: 3px solid var(--secondary);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Rozetler (Badges) */
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin: 5px 8px 5px 0;
+            font-weight: 600;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+        }
+
+        .badge.success {
+            background: var(--success);
+            color: #121212;
+        }
+
+        .badge.warning {
+            background: var(--warning);
+            color: #121212;
+        }
+
+        .badge.info {
+            background: var(--info);
+            color: #121212;
+        }
+
+        /* Özel Liste */
+        ul.custom-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul.custom-list li {
+            padding: 12px 0 12px 35px;
+            position: relative;
+            border-bottom: 1px dashed #333;
+            transition: background-color 0.3s;
+        }
+
+        ul.custom-list li:last-child {
+            border-bottom: none;
+        }
+
+        ul.custom-list li:hover {
+            background-color: #1e1e1e;
+        }
+
+        ul.custom-list li::before {
+            content: "•"; /* Veya '»' ya da '→' */
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+            font-size: 1.5em;
+            line-height: 1;
+        }
+
+        /* Responsive Tasarım */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 20px;
+            }
+            header h1 {
+                font-size: 2.5em;
+            }
+            .content {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 30px 20px;
+            }
+            header h1 {
+                font-size: 1.8em;
+            }
+            .content {
+                padding: 20px;
+            }
+            nav {
+                flex-direction: column;
+            }
+            nav button {
+                width: 100%;
+            }
+            .steps li {
+                padding-left: 55px;
+            }
+            .steps li::before {
+                width: 30px;
+                height: 30px;
+                font-size: 1.1em;
+            }
+            th, td {
+                padding: 12px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-warehouse"></i> DEPO YÖNETİM SİSTEMİ (DYS)</h1>
+            <p>Kapsamlı Dijital Kullanım Kılavuzu ve Operasyon Dokümantasyonu</p>
+        </header>
+
+        <nav>
+            <button onclick="showSection('giris', event)" class="active"><i class="fas fa-info-circle"></i> Giriş</button>
+            <button onclick="showSection('roller', event)"><i class="fas fa-users-cog"></i> Kullanıcı Rolleri</button>
+            <button onclick="showSection('palet', event)"><i class="fas fa-pallet"></i> Palet Yönetimi</button>
+            <button onclick="showSection('depo', event)"><i class="fas fa-truck-loading"></i> Depo Giriş</button>
+            <button onclick="showSection('stok', event)"><i class="fas fa-cubes"></i> Stok Yönetimi</button>
+            <button onclick="showSection('sevkiyat', event)"><i class="fas fa-shipping-fast"></i> Sevkiyat</button>
+            <button onclick="showSection('raporlar', event)"><i class="fas fa-chart-line"></i> Raporlar</button>
+            <button onclick="showSection('hata', event)"><i class="fas fa-bug"></i> Hata / İstisna</button>
+            <button onclick="showSection('tablo', event)"><i class="fas fa-database"></i> Tablo Yapısı</button>
+        </nav>
+
+        <div class="content">
+            <div id="giris" class="section active">
+                <h2><i class="fas fa-clipboard-list"></i> Proje Amacı ve Kapsam</h2>
+                <p style="font-size: 1.15em; margin: 20px 0; color: #ccc;">
+                    Depo Yönetim Sistemi (DYS), depoya giriş yapan ürünleri <strong>palet bazlı</strong> takip ederek, sevkiyat süreçlerini yöneten, <strong>tam izlenebilirlik</strong> sağlayan ve operasyon hatalarını minimize eden kritik depo otomasyon yazılımıdır.
+                </p>
+                
+                [Image of warehouse management system flow chart dark theme]
+
+                <div class="info-box">
+                    <h3><i class="fas fa-cogs"></i> Temel Özellikler</h3>
+                    <ul class="custom-list">
+                        <li>Kullanıcı rollerine bağlı <strong>detaylı işlem yetkileri</strong></li>
+                        <li>Tüm süreçlerin kullanıcı, zaman ve lokasyon bazında <strong>kayıt altına alınması (log)</strong></li>
+                        <li><strong>Palet bazlı</strong> ürün takibi ve envanter yönetimi</li>
+                        <li>Sevkiyat emri oluşturma, görev atama ve <strong>barkod ile yükleme doğrulama</strong></li>
+                        <li>Tam izlenebilirlik (Kim? Ne zaman? Hangi Palet?)</li>
+                    </ul>
+                </div>
+
+                <h3><i class="fas fa-box-open"></i> Palet Kuralları ve Tanımlamalar</h3>
+                <div class="grid">
+                    <div class="card">
+                        <h4><i class="fas fa-check-circle"></i> Tam Palet</h4>
+                        <p>Her tam palet standardı: <strong>24 ürün</strong>.</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Eksik Palet</h4>
+                        <p>24'ten az ürünle oluşturulabilir ve <strong>"Eksik Palet"</strong> statüsü alır. Sevkiyatta özel onay gerektirir.</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-file-invoice"></i> Depo Giriş Fişi</h4>
+                        <p>Depoya giren her palet setinin sistem kaydı için <strong>zorunlu</strong> belgedir. Onay süreci depo sorumlusuna aittir.</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-barcode"></i> Palet Etiketi</h4>
+                        <p>Palet Kodu, Lot No, Ürün Adedi gibi tüm kritik bilgileri içeren benzersiz barkod/RFID etiketidir.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="roller" class="section">
+                <h2><i class="fas fa-users-cog"></i> Kullanıcı Rolleri ve Yetki Matrisi</h2>
+                <p style="color: #ccc;">Sistem, operasyonel akışı güvence altına almak için dört temel kullanıcı rolüne ayrılmıştır. Yetkisiz erişim ve hatalar rol bazlı kısıtlamalarla önlenir.</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th><i class="fas fa-user-tag"></i> Rol</th>
+                            <th><i class="fas fa-check-double"></i> Temel Yetkiler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Personel</strong> <span class="badge info">Operasyonel</span></td>
+                            <td>
+                                • Palet oluşturma (Paletleme)<br>
+                                • Paleti rafa yerleştirme (Forklift ile)<br>
+                                • Sevkiyat toplama görevlerini tamamlama
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Depo Sorumlusu</strong> <span class="badge warning">Yönetsel</span></td>
+                            <td>
+                                • Depo giriş fişi oluşturma ve <strong>onaylama</strong><br>
+                                • Raf ve lokasyon yönetimi, stok sayım farkı kaydı<br>
+                                • Stok kontrolleri ve blokaj işlemleri
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sevkiyat Sorumlusu</strong> <span class="badge success">Lojistik</span></td>
+                            <td>
+                                • TIR sevkiyatı (manifest) oluşturma<br>
+                                • TIR/Şoför bilgisi kaydetme, Personel görev atama<br>
+                                • Yükleme sonu <strong>sevkiyat onayı</strong> ve stok düşümü
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Admin</strong> <span class="badge info">Sistem</span></td>
+                            <td>
+                                • Kullanıcı/rol ve erişim yönetimi<br>
+                                • Tüm kayıtlar ve <strong>detaylı log takibi</strong><br>
+                                • Sistem yapılandırma ve ayarlar
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3><i class="fas fa-project-diagram"></i> Rol ve Yetki Tasarımı (Özet)</h3>
+                <div class="info-box">
+                    <ul class="custom-list">
+                        <li><strong>Personel:</strong> Palet oluşturma, forklift ile yerleştirme, toplama görevlerini tamamlama.</li>
+                        <li><strong>Depo Sorumlusu:</strong> Depo giriş fişi oluşturma ve onaylama, raf yönetimi, stok kontrolleri.</li>
+                        <li><strong>Sevkiyat Sorumlusu:</strong> TIR sevkiyatı oluşturma, TIR bilgisi girme, görev atama, sevkiyat onayı.</li>
+                        <li><strong>Admin:</strong> Kullanıcı / rol yönetimi, tüm kayıt ve log takibi, sistem ayarları.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="palet" class="section">
+                <h2><i class="fas fa-pallet"></i> Palet Oluşturma ve İzlenebilirlik</h2>
+
+                <h3><i class="fas fa-id-card-alt"></i> Palet Üzerinde Kritik Bilgiler (Etiket)</h3>
+                <div class="grid">
+                    <div class="info-box">
+                        <span class="badge info">Palet Kodu</span>
+                        <p>Benzersiz Barkod/RFID ile hızlı tanımlama</p>
+                    </div>
+                    <div class="info-box">
+                        <span class="badge info">Lot Numarası</span>
+                        <p>Ürün partisi ve geri izleme için zorunlu bilgi</p>
+                    </div>
+                    <div class="info-box">
+                        <span class="badge info">Ürün Adı & Kodu</span>
+                        <p>Ürünün SKU (Stok Tutma Birimi) bilgileri</p>
+                    </div>
+                    <div class="info-box">
+                        <span class="badge info">Ürün Adedi</span>
+                        <p>Gerçek ürün adedi (0-24 arası)</p>
+                    </div>
+                    <div class="info-box">
+                        <span class="badge info">Palet Ağırlığı</span>
+                        <p>Tartım istasyonundan alınan doğrulanmış ağırlık</p>
+                    </div>
+                    <div class="info-box">
+                        <span class="badge info">Paletleme Tarihi</span>
+                        <p>Üretim sonrası paletin oluşturulma zamanı</p>
+                    </div>
+                </div>
+
+                <h3><i class="fas fa-stream"></i> Palet Oluşturma Akışı</h3>
+                <ul class="steps">
+                    <li><strong>Personel paletleme işlemini tamamlar</strong><br>
+                        Ürünler palet üzerine yerleştirilir.</li>
+                    <li><strong>Ürün sayısını ve Lot No'yu sisteme girer</strong><br>
+                        Girilen adede göre sistem otomatik statü belirler.</li>
+                    <li><strong>Sistem otomatik statü belirler</strong><br>
+                        <span class="badge success">24 ürün = Tam Palet</span>, <span class="badge warning">&lt;24 = Eksik Palet</span></li>
+                    <li><strong>Palet tartılır ve ağırlık sisteme kaydedilir</strong><br>
+                        Ağırlık doğrulaması ile süreç güvenceye alınır.</li>
+                    <li><strong>Sistemden Palet etiketi (barkod) basılır</strong><br>
+                        Etiket palete yapıştırılarak fiziksel ve dijital eşleşme sağlanır.</li>
+                    <li><strong>Palet, "Depo Girişine Hazır" statüsüne geçer</strong><br>
+                        Artık depo sorumlusunun onayına hazırdır.</li>
+                </ul>
+            </div>
+
+            <div id="depo" class="section">
+                <h2><i class="fas fa-file-signature"></i> Depo Giriş Fişi ve Onay Süreci</h2>
+
+                <div class="success-box">
+                    <strong><i class="fas fa-user-shield"></i> Sorumluluk:</strong> Bu süreç <strong>Depo Sorumlusu</strong> yetkisinde yürütülür ve onay olmadan hiçbir ürün stoğa girmez.
+                </div>
+
+                <h3><i class="fas fa-database"></i> Fişte Tutulması Gereken Veriler</h3>
+                <ul class="custom-list">
+                    <li><strong>Depo Giriş Fiş No:</strong> Benzersiz ana kayıt numarası.</li>
+                    <li><strong>Tedarikçi / Gönderen Firma Adı:</strong> Ürünlerin kaynağı bilgisi.</li>
+                    <li><strong>Giriş Tarihi ve Saati:</strong> Paletlerin fiziksel olarak depoya giriş anı.</li>
+                    <li><strong>Palet Listesi:</strong> Fişe dahil edilen Palet Kodlarının tam listesi.</li>
+                    <li><strong>Onaylayan Kullanıcı:</strong> İşlemi yapan Depo Sorumlusunun bilgisi (izlenebilirlik).</li>
+                </ul>
+
+                <div class="warning-box">
+                    <h4><i class="fas fa-exclamation-circle"></i> Operasyonel Zorunluluklar</h4>
+                    <ul class="custom-list" style="list-style: none;">
+                        <li style="color: #ffd54f;">Depo fişi oluşturulması ve onaylanması <strong>mutlaka zorunludur</strong>.</li>
+                        <li style="color: #ffd54f;">Fiş onayı tamamlanmadan paletler rafa yerleştirilemez.</li>
+                        <li style="color: #ffd54f;">Tüm Depo Giriş/Onay işlemleri kullanıcı bazında loglanır.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="stok" class="section">
+                <h2><i class="fas fa-sitemap"></i> Stok Takibi ve Envanter Kontrolü</h2>
+
+                <div class="info-box">
+                    <strong><i class="fas fa-eye"></i> Gözetim:</strong> Anlık stok durumu ve envanter yönetimi Depo Sorumlusu ekranlarından takip edilir.
+                </div>
+
+                <h3><i class="fas fa-search-dollar"></i> Kritik Stok Özellikleri</h3>
+                <div class="grid">
+                    <div class="card">
+                        <h4><i class="fas fa-map-pin"></i> Raf Bazlı Lokasyon</h4>
+                        <p>Her paletin depoda bulunduğu net raf ve lokasyon bilgisi. Forklift personelinin görevi tamamlandığında güncellenir.</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-box-tissue"></i> Lot/Palet Filtreleme</h4>
+                        <p>Lot numarası, ürün kodu veya palet statüsüne göre hızlı stok arama ve filtreleme yeteneği.</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-lock"></i> Blokaj ve Rezervasyon</h4>
+                        <p>Sevkiyat veya kalite kontrol amacıyla paletlerin bloke edilmesi, sevkiyata çıkışının engellenmesi.</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-balance-scale"></i> Sayım Yönetimi</h4>
+                        <p>Envanter sayımı sonuçlarının girilmesi ve sistem stoğu ile fiziksel sayım arasındaki farkın yönetimi.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="sevkiyat" class="section">
+                <h2><i class="fas fa-shipping-fast"></i> Sevkiyat Süreci ve TIR Yüklemesi</h2>
+
+                <h3><i class="fas fa-truck"></i> Sevkiyat Formu (TIR Bilgileri)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th><i class="fas fa-tag"></i> Alan</th>
+                            <th><i class="fas fa-comment-dots"></i> Açıklama</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>TIR / Plaka No</strong></td>
+                            <td>Aracın benzersiz plaka numarası.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Şöför Adı & Telefonu</strong></td>
+                            <td>İletişim ve güvenlik için sürücü bilgileri.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Firma (Lojistik)</strong></td>
+                            <td>Taşımacılığı yapan harici lojistik şirketi.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>TIR Kapı No / Dock No</strong></td>
+                            <td>Yükleme yapılan fiziksel kapı (izleme).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sevkiyat Tarihi & Saati</strong></td>
+                            <td>Planlanan çıkış zamanı.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Teslimat Müşterisi</strong></td>
+                            <td>Nihai alıcı firma adı.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Palet Listesi</strong></td>
+                            <td>Sevkiyat emrine atanmış Palet Kodlarının listesi.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3><i class="fas fa-route"></i> Sevkiyat Akış Adımları</h3>
+                <ul class="steps">
+                    <li><strong>Sevkiyat Sorumlusu sevkiyat emri (manifest) açar</strong><br>
+                        TIR ve müşteri bilgileri girilerek kayıt oluşturulur.</li>
+                    <li><strong>Yüklenecek paletleri seçer ve görev ataması yapar</strong><br>
+                        Sistem uygun paletleri önerir. <span class="badge warning">Eksik palet seçildiğinde uyarı çıkar.</span></li>
+                    <li><strong>Personellere (Forklift) toplama görevi atanır</strong><br>
+                        Personel, paletleri raf lokasyonundan sevkiyat alanına taşır.</li>
+                    <li><strong>Paletler TIR'a yüklenir ve tarama ile doğrulanır</strong><br>
+                        Her palet yüklenirken barkod okuyucu ile taranarak doğruluk kontrolü yapılır.</li>
+                    <li><strong>Sevkiyat sorumlusu yükleme onayını verir</strong><br>
+                        Eksik ya da fazla yükleme yoksa son onay gerçekleşir.</li>
+                    <li><strong>Stoktan otomatik düşüm yapılır</strong><br>
+                        Sevkiyat durumu <span class="badge success">"Sevk Edildi"</span> olarak güncellenir ve stok azalır.</li>
+                </ul>
+
+                <div class="warning-box">
+                    <h4><i class="fas fa-stop"></i> Önemli: Yükleme Doğrulaması</h4>
+                    <p>Yükleme esnasında palet barkodunun taranması, yanlış paletin gönderilmesini engelleyen <strong>hayati bir kontrol noktasıdır</strong>. Taranmayan palet, sevkiyata dahil edilemez.</p>
+                </div>
+            </div>
+
+<div id="hata" class="section">
+    <h2><i class="fas fa-bug"></i> Hata / İstisna Senaryoları</h2>
+    <p style="color:#ccc;">
+        Bu bölüm, sahada en sık karşılaşılan hataları ve sistemin beklenen davranışını (uyarı, engelleme, onay akışı ve log)
+        standartlaştırmak için hazırlanmıştır. Amaç: yanlış sevkiyat, stok tutarsızlığı ve izlenebilirlik kaybını önlemek.
+    </p>
+
+    <div class="info-box">
+        <h3><i class="fas fa-clipboard-check"></i> Genel İlke</h3>
+        <ul class="custom-list">
+            <li><strong>Önle:</strong> Hata oluşmadan önce mümkün olduğunca <strong>validasyon</strong> ile engelle.</li>
+            <li><strong>Doğrula:</strong> Kritik adımlarda <strong>barkod tarama</strong> ve durum kontrolü zorunlu olsun.</li>
+            <li><strong>İzle:</strong> Her istisna mutlaka <strong>IslemLog</strong> üzerinde “kim / ne / ne zaman” olarak kaydedilsin.</li>
+        </ul>
+    </div>
+
+    <h3><i class="fas fa-triangle-exclamation"></i> Kritik Senaryolar (Özet)</h3>
+    <div class="grid">
+        <div class="card">
+            <h4><i class="fas fa-barcode"></i> Yanlış Barkod / Koli</h4>
+            <p>Tarama sırasında koli bulunamaz veya format hatalıdır. Sistem işlemi durdurur ve kullanıcıyı uyarır.</p>
+        </div>
+        <div class="card">
+            <h4><i class="fas fa-layer-group"></i> Koli Zaten Bir Palette</h4>
+            <p>Bir koli aynı anda yalnızca <strong>tek palette</strong> bulunabilir. Çakışma varsa ekleme engellenir.</p>
+        </div>
+        <div class="card">
+            <h4><i class="fas fa-file-signature"></i> Onaysız Depo Girişi</h4>
+            <p>Depo giriş fişi onaylanmadan palet rafa yerleştirilemez. İşlem engellenir.</p>
+        </div>
+        <div class="card">
+            <h4><i class="fas fa-truck-fast"></i> Sevkiyatta Yanlış Palet</h4>
+            <p>Yükleme esnasında taranan palet, manifest listesinde yoksa sistem “yüklemeyi durdurur”.</p>
+        </div>
+    </div>
+
+    <h3><i class="fas fa-list-check"></i> Detaylı Senaryolar ve Beklenen Davranış</h3>
+    <ul class="steps">
+        <li>
+            <strong>Senaryo 1 — Yanlış koli barkodu tarandı / koli bulunamadı</strong><br>
+            <span class="badge warning">Beklenen:</span> “Koli bulunamadı / barkod geçersiz” uyarısı gösterilir, işlem devam etmez.<br>
+            <span class="badge info">Log:</span> IslemTipi = <em>KoliBarkodHatasi</em>, ReferansTablo = <em>Koli</em>, Açıklama = barkod değeri + kullanıcı.
+        </li>
+
+        <li>
+            <strong>Senaryo 2 — Koli zaten başka bir palete ekli (çifte kullanım)</strong><br>
+            <span class="badge warning">Beklenen:</span> Palete ekleme engellenir; kullanıcıya ilgili palet kodu gösterilir (“Bu koli X paletinde”).<br>
+            <span class="badge info">Log:</span> IslemTipi = <em>KoliPaletCakisma</em>, ReferansTablo = <em>PaletDetay</em>, ReferansId = hedef palet.
+        </li>
+
+        <li>
+            <strong>Senaryo 3 — Lot / Ürün uyuşmazlığı (koli &rarr; lot &rarr; ürün)</strong><br>
+            <span class="badge warning">Beklenen:</span> Kayıt reddedilir; “Lot ile ürün eşleşmiyor” uyarısı verilir.<br>
+            <span class="badge info">Log:</span> IslemTipi = <em>LotUrunUyusmazligi</em>, ReferansTablo = <em>Lot</em>.
+        </li>
+
+        <li>
+            <strong>Senaryo 4 — Depo giriş fişi onaysızken rafa yerleştirme</strong><br>
+            <span class="badge warning">Beklenen:</span> RafPalet kaydı oluşturulamaz; “Fiş onayı olmadan rafa yerleştirilemez” mesajı gösterilir.<br>
+            <span class="badge info">Log:</span> IslemTipi = <em>DepoOnayEksik</em>, ReferansTablo = <em>DepoGirisFisi</em> veya <em>Palet</em>.
+        </li>
+
+        <li>
+            <strong>Senaryo 5 — Sevkiyat yüklemesinde manifest dışı palet tarandı</strong><br>
+            <span class="badge warning">Beklenen:</span> Palet sevkiyata eklenmez; yükleme akışı durdurulur ve “Yanlış palet” uyarısı verilir.<br>
+            <span class="badge info">Log:</span> IslemTipi = <em>SevkiyatPaletUyusmazligi</em>, ReferansTablo = <em>Sevkiyat</em>, ReferansId = sevkiyat id.
+        </li>
+
+        <li>
+            <strong>Senaryo 6 — SevkEdildi durumundaki palete koli ekleme/çıkarma denemesi</strong><br>
+            <span class="badge warning">Beklenen:</span> İşlem kesin olarak engellenir (immutability).<br>
+            <span class="badge info">Log:</span> IslemTipi = <em>SevkSonrasiDegisiklik</em>, ReferansTablo = <em>Palet</em>.
+        </li>
+    </ul>
+
+    <div class="warning-box">
+        <h4><i class="fas fa-shield-halved"></i> Operasyonel Not</h4>
+        <p>
+            Bu senaryolar, sadece kullanıcı uyarısı değil; aynı zamanda veri bütünlüğü için zorunlu kontrol noktalarıdır.
+            Özellikle <strong>barkod doğrulaması</strong>, <strong>statü kontrolü</strong> ve <strong>unique kısıtları</strong> birlikte çalışmalıdır.
+        </p>
+    </div>
+</div>
+
+            <div id="raporlar" class="section">
+                <h2><i class="fas fa-chart-pie"></i> Analitik ve Raporlama</h2>
+                <p style="color: #ccc;">DYS, iş kararlarını desteklemek ve operasyonel verimliliği ölçmek için kapsamlı raporlama yetenekleri sunar.</p>
+
+                <h3><i class="fas fa-table"></i> Temel Rapor Türleri</h3>
+                <div class="grid">
+                    <div class="card">
+                        <h4><i class="fas fa-arrow-alt-circle-down"></i> Depo Giriş/Çıkış Raporu</h4>
+                        <p>Belirtilen tarih aralığında giren ve çıkan paletlerin Lot/Ürün bazında detaylı dökümü.</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-pallet"></i> Anlık Stok Durum Raporu</h4>
+                        <p>Raf lokasyonu, palet statüsü (Tam/Eksik) ve Lot bazlı güncel envanter listesi.</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-history"></i> İzlenebilirlik Raporu (Log)</h4>
+                        <p>Bir palet kodu için; kimin, ne zaman paletlediği, rafa yerleştirdiği ve sevk ettiği kaydı.</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-user-clock"></i> Kullanıcı Verimlilik Raporu</h4>
+                        <p>Kullanıcı bazında tamamlanan paletleme, yerleştirme ve toplama görevlerinin performansı.</p>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <h3><i class="fas fa-download"></i> Rapor Özellikleri</h3>
+                    <ul class="custom-list">
+                        <li>Tarih aralığı, ürün kodu ve Lot numarası ile gelişmiş filtreleme.</li>
+                        <li>Verileri <strong>Excel ve PDF</strong> formatında dışa aktarma (export).</li>
+                        <li><strong>Gerçek zamanlı</strong> veri görüntüleme ve dashboard desteği.</li>
+                    </ul>
+                </div>
+
+                <h3><i class="fas fa-list-alt"></i> Detaylı Rapor Tanımları</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rapor</th>
+                            <th>Kaynak Tablolar</th>
+                            <th>Filtreler / Notlar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Depo Giriş Raporu</strong></td>
+                            <td>DepoGirisFisi + DepoGirisFisiPalet</td>
+                            <td>Günlük / haftalık / aylık tarih filtreleri, tedarikçi, kullanıcı bazlı filtreleme.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Stok Durum Raporu</strong></td>
+                            <td>Palet + RafPalet + Lot + Urun</td>
+                            <td>Raf bazlı ve lot bazlı filtreler, tam / eksik palet sayıları.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Eksik Palet Raporu</strong></td>
+                            <td>Palet</td>
+                            <td>Statü = “Eksik Palet” kriterine göre listeler.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sevkiyat Raporu</strong></td>
+                            <td>Sevkiyat + SevkiyatPalet</td>
+                            <td>TIR bilgisi, müşteri, tarih ve sevk edilen palet listesini içerir.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kullanıcı İşlem Raporu</strong></td>
+                            <td>IslemLog</td>
+                            <td>“Kim ne yaptı? Ne zaman yaptı?” sorularını yanıtlayan tüm işlem loglarını sunar.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box">
+                    <h3><i class="fas fa-code"></i> Teknik Uygulama Notu</h3>
+                    <ul class="custom-list">
+                        <li>Her rapor için ayrı bir Application servisi (örneğin: <strong>RaporServisi</strong>) tasarlanmalıdır.</li>
+                        <li>Veritabanı tarafında <strong>VIEW</strong> tanımları ile karmaşık JOIN yapıları sadeleştirilebilir.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="tablo" class="section">
+    <h2><i class="fas fa-database"></i> Veri Modeli ve Tablo Yapısı</h2>
+    <p style="color:#ccc;">Bu bölümde DYS’nin veritabanı tarafındaki temel tabloları ve alanlarını özet halinde görebilirsiniz. Uygulamanın tüm ekranları ve raporları bu veri modeline dayanır.</p>
+
+    <h3><i class="fas fa-user-friends"></i> Kullanıcı &amp; Rol Tabloları</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Tablo</th>
+                <th>Alanlar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Kullanici</strong></td>
+                <td>Id, AdSoyad, KullaniciAdi, SifreHash, RolId (FK)</td>
+            </tr>
+            <tr>
+                <td><strong>Rol</strong></td>
+                <td>Id, Ad (Personel / DepoSorumlusu / SevkiyatSorumlusu / Admin)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3><i class="fas fa-boxes"></i> Ürün &amp; Lot Tabloları</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Tablo</th>
+                <th>Alanlar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Urun</strong></td>
+                <td>Id, UrunKodu, UrunAdi, BirimAgirlik, AktifMi</td>
+            </tr>
+            <tr>
+                <td><strong>Lot</strong></td>
+                <td>Id, LotNo, UrunId (FK)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="info-box">
+        <h3><i class="fas fa-lightbulb"></i> Ürün &amp; Lot İçin İş Kuralları (Öneri)</h3>
+        <ul class="custom-list">
+            <li><strong>UrunKodu</strong> alanı <strong>unique</strong> olmalıdır (çakışma kabul edilmez).</li>
+            <li><strong>AktifMi = false</strong> olan ürün için yeni <strong>Koli</strong> oluşturma / paletleme engellenebilir (operasyonel hata önler).</li>
+            <li>Lot ile ürün ilişkisi tutarlı olmalıdır: <strong>Lot.UrunId</strong>, koli ve palet detayındaki ürün bilgisiyle uyumlu olmalıdır.</li>
+        </ul>
+    </div>
+
+    <h3><i class="fas fa-box"></i> Koli Tablosu (Barkod Bazlı İzlenebilirlik)</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Tablo</th>
+                <th>Alanlar ve Kurallar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Koli</strong></td>
+                <td>
+                    Id, KoliKodu (Barcode), UrunId (FK), LotId (FK), NetAgirlik, OlusturmaTarihi
+                    <br><br>
+                    <strong>Öneri:</strong> <strong>KoliKodu</strong> alanı <strong>unique</strong> olmalıdır.
+                    <br>
+                    <strong>Validasyon:</strong> <strong>NetAgirlik &gt; 0</strong> olmalı ve <strong>Lot</strong> ile <strong>Urun</strong> tutarlılığı doğrulanmalıdır (Lot’un UrunId’si farklıysa kayıt reddedilmelidir).
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3><i class="fas fa-pallet"></i> Palet Tablosu</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Tablo</th>
+                <th>Alanlar ve İş Kuralları</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Palet</strong></td>
+                <td>
+                    Id, PaletKodu, PaletEtiketNo, PaletlemeTarihi, Statü, OlusturanKullaniciId, OlusturmaTarihi
+                    <br><br>
+                    <strong>Öneri:</strong> <strong>PaletKodu</strong> ve/veya <strong>PaletEtiketNo</strong> alanı <strong>unique</strong> olmalıdır.
+                    <br>
+                    <strong>Durum (Statü) Önerisi:</strong> Olusturuldu / DepoGirisHazir / Depoda / SevkiyatAlaninda / SevkEdildi / Iptal
+                    <br>
+                    <strong>Kural:</strong> Palet <strong>SevkEdildi</strong> olduktan sonra palet içeriği (detay) değiştirilmemelidir (izlenebilirlik için kritik).
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3><i class="fas fa-list"></i> PaletDetay Tablosu (Koli Bazlı Palet İçeriği)</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Tablo</th>
+                <th>Alanlar ve Kurallar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>PaletDetay</strong></td>
+                <td>
+                    Id, PaletId (FK), KoliId (FK), UrunId (FK), LotId (FK), NetAgirlik
+                    <br><br>
+                    <strong>Not:</strong> <strong>UrunId</strong> denormalize tutulabilir; rapor ve performans için <strong>altın değerinde</strong> bir hız kazancı sağlar.
+                    <br>
+                    <strong>Kural:</strong> Aynı <strong>Koli</strong> birden fazla palete girememelidir &rarr; <strong>KoliId</strong> için <strong>unique</strong> kısıt önerilir.
+                    <br>
+                    <strong>Kural:</strong> Aynı palete aynı koli iki kez eklenmemelidir &rarr; <strong>(PaletId, KoliId)</strong> için <strong>unique</strong> kısıt önerilir.
+                    <br>
+                    <strong>Doğrulama:</strong> PaletDetay.UrunId = Koli.UrunId, PaletDetay.LotId = Koli.LotId, PaletDetay.NetAgirlik = Koli.NetAgirlik (veya “snapshot” olarak açıklanabilir).
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="info-box">
+        <h3><i class="fas fa-shield-alt"></i> Veri Bütünlüğü &amp; Performans (Önerilen Kısıtlar / Index)</h3>
+        <ul class="custom-list">
+            <li><strong>Unique</strong>: Urun(UrunKodu), Koli(KoliKodu), Palet(PaletKodu) veya Palet(PaletEtiketNo), PaletDetay(KoliId), PaletDetay(PaletId,KoliId).</li>
+            <li><strong>Check</strong>: Koli.NetAgirlik &gt; 0, Urun.BirimAgirlik &gt; 0 (kullanılıyorsa).</li>
+            <li><strong>Index</strong>: Koli(UrunId, LotId), PaletDetay(PaletId), PaletDetay(UrunId), PaletDetay(LotId). Yoğun raporlama varsa PaletDetay(UrunId, LotId, PaletId).</li>
+            <li><strong>Rapor Avantajı</strong>: Palet → PaletDetay üzerinden ürün/lot kırılımı hızlı çıkar; JOIN maliyeti düşer.</li>
+        </ul>
+    </div>
+
+    <h3><i class="fas fa-file-alt"></i> Depo Giriş Fişi Tabloları</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Tablo</th>
+                <th>Alanlar ve Kurallar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>DepoGirisFisi</strong></td>
+                <td>Id, FisNo, TedarikciAdi / GonderenFirma, GirisTarihi, OnaylayanKullaniciId</td>
+            </tr>
+            <tr>
+                <td><strong>DepoGirisFisiPalet</strong></td>
+                <td>DepoGirisFisiId (FK), PaletId (FK)<br><br>
+                    <strong>Kural:</strong> Depoya giren her palet için depo fişi zorunludur. Yani Palet kaydı mutlaka DepoGirisFisiPalet içinde yer almalıdır.
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3><i class="fas fa-warehouse"></i> Raf / Stok Tabloları</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Tablo</th>
+                <th>Alanlar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Raf</strong></td>
+                <td>Id, Kod (ör: A-01-01), Açıklama</td>
+            </tr>
+            <tr>
+                <td><strong>RafPalet</strong></td>
+                <td>Id, RafId (FK), PaletId (FK), YerlesmeTarihi, AktifMi (palet kalkınca false)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3><i class="fas fa-truck-moving"></i> Sevkiyat / TIR Tabloları</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Tablo</th>
+                <th>Alanlar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Sevkiyat</strong></td>
+                <td>
+                    Id, SevkiyatNo, TirPlakaNo, SoforAdi, SoforTelefon, Firma (Lojistik),
+                    TirKapiNo, SevkiyatTarihiSaati, Guzergah, CikisDeposu, TeslimatMusterisi,
+                    Durum (Olusturuldu / YüklemeDevam / SevkEdildi)
+                </td>
+            </tr>
+            <tr>
+                <td><strong>SevkiyatPalet</strong></td>
+                <td>SevkiyatId (FK), PaletId (FK)<br><br>
+                    TIR / plaka, şoför, firma, kapı no, güzergah, palet listesi gibi sevkiyat detayları bu yapı üzerinden ilişkilendirilir.
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3><i class="fas fa-history"></i> Log / İzlenebilirlik Tablosu</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Tablo</th>
+                <th>Alanlar ve Kurallar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>IslemLog</strong></td>
+                <td>
+                    Id, KullaniciId, TarihSaat, IslemTipi (PaletOlusturma, DepoGirisOnayi, SevkiyatOnayi, PaletDetayEkle, KoliIptal vb.),
+                    ReferansTablo (Palet, Koli, Sevkiyat, DepoGirisFisi), ReferansId, Açıklama<br><br>
+                    <strong>Kural:</strong> “Kim ne yaptı, ne zaman yaptı?” sorularına cevap verecek tüm kritik işlemler burada loglanmalıdır.
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId, event) {
+            // Tüm section'ları gizle
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Seçili section'ı göster
+            document.getElementById(sectionId).classList.add('active');
+
+            // Buton aktif durumunu güncelle
+            const buttons = document.querySelectorAll('nav button');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+            // Tıklanan butonu aktif yap
+            if (event) {
+                event.currentTarget.classList.add('active');
+            } else {
+                // Sayfa ilk yüklendiğinde varsayılan aktifliği koru
+                document.querySelector(`nav button[onclick*='${sectionId}']`).classList.add('active');
+            }
+
+            // Sayfa başına kaydır
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Sayfa yüklendiğinde "Giriş" bölümünü varsayılan olarak göster
+        document.addEventListener('DOMContentLoaded', () => {
+            showSection('giris');
+        });
+    </script>
+
+    <!-- Kaynak dosyalar:  -->
+</body>
+</html>
