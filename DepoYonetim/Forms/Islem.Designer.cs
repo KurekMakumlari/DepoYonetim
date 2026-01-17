@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.TabPages = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.button_UrunSoftSil = new System.Windows.Forms.Button();
             this.button_UrunSil = new System.Windows.Forms.Button();
@@ -67,27 +67,33 @@
             this.dataGridView_LotList = new System.Windows.Forms.DataGridView();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tabControl1.SuspendLayout();
+            this.button_UretimBaslat = new System.Windows.Forms.Button();
+            this.textBox_LotNoWrite = new System.Windows.Forms.TextBox();
+            this.comboBox_UrunWrite = new System.Windows.Forms.ComboBox();
+            this.dataGridView_Uretilen = new System.Windows.Forms.DataGridView();
+            this.TabPages.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_UrunList)).BeginInit();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKullanıcıList)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_LotList)).BeginInit();
+            this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Uretilen)).BeginInit();
             this.SuspendLayout();
             // 
-            // tabControl1
+            // TabPages
             // 
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1031, 518);
-            this.tabControl1.TabIndex = 0;
+            this.TabPages.Controls.Add(this.tabPage2);
+            this.TabPages.Controls.Add(this.tabPage1);
+            this.TabPages.Controls.Add(this.tabPage3);
+            this.TabPages.Controls.Add(this.tabPage4);
+            this.TabPages.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TabPages.Location = new System.Drawing.Point(0, 0);
+            this.TabPages.Name = "TabPages";
+            this.TabPages.SelectedIndex = 0;
+            this.TabPages.Size = new System.Drawing.Size(1031, 518);
+            this.TabPages.TabIndex = 0;
             // 
             // tabPage2
             // 
@@ -444,12 +450,17 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.dataGridView_Uretilen);
+            this.tabPage4.Controls.Add(this.comboBox_UrunWrite);
+            this.tabPage4.Controls.Add(this.textBox_LotNoWrite);
+            this.tabPage4.Controls.Add(this.button_UretimBaslat);
+            this.tabPage4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage4.Size = new System.Drawing.Size(1023, 492);
             this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "tabPage4";
+            this.tabPage4.Text = "Uretim";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // contextMenuStrip1
@@ -457,16 +468,50 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
+            // button_UretimBaslat
+            // 
+            this.button_UretimBaslat.Location = new System.Drawing.Point(757, 46);
+            this.button_UretimBaslat.Name = "button_UretimBaslat";
+            this.button_UretimBaslat.Size = new System.Drawing.Size(82, 35);
+            this.button_UretimBaslat.TabIndex = 0;
+            this.button_UretimBaslat.Text = "Baslat";
+            this.button_UretimBaslat.UseVisualStyleBackColor = true;
+            this.button_UretimBaslat.Click += new System.EventHandler(this.button_UretimBaslat_Click);
+            // 
+            // textBox_LotNoWrite
+            // 
+            this.textBox_LotNoWrite.Location = new System.Drawing.Point(17, 49);
+            this.textBox_LotNoWrite.Name = "textBox_LotNoWrite";
+            this.textBox_LotNoWrite.Size = new System.Drawing.Size(172, 29);
+            this.textBox_LotNoWrite.TabIndex = 1;
+            // 
+            // comboBox_UrunWrite
+            // 
+            this.comboBox_UrunWrite.FormattingEnabled = true;
+            this.comboBox_UrunWrite.Location = new System.Drawing.Point(263, 49);
+            this.comboBox_UrunWrite.Name = "comboBox_UrunWrite";
+            this.comboBox_UrunWrite.Size = new System.Drawing.Size(174, 32);
+            this.comboBox_UrunWrite.TabIndex = 2;
+            // 
+            // dataGridView_Uretilen
+            // 
+            this.dataGridView_Uretilen.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_Uretilen.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.dataGridView_Uretilen.Location = new System.Drawing.Point(3, 339);
+            this.dataGridView_Uretilen.Name = "dataGridView_Uretilen";
+            this.dataGridView_Uretilen.Size = new System.Drawing.Size(1017, 150);
+            this.dataGridView_Uretilen.TabIndex = 3;
+            // 
             // Islem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1031, 518);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.TabPages);
             this.Name = "Islem";
             this.Text = "Main";
             this.Load += new System.EventHandler(this.PersonelIslem_Load);
-            this.tabControl1.ResumeLayout(false);
+            this.TabPages.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_UrunList)).EndInit();
@@ -476,13 +521,16 @@
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_LotList)).EndInit();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Uretilen)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl TabPages;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Button button_PerKayit;
@@ -520,5 +568,9 @@
         private System.Windows.Forms.Button button_UrunSoftSil;
         private System.Windows.Forms.Button button_LotSoftSil;
         private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.ComboBox comboBox_UrunWrite;
+        private System.Windows.Forms.TextBox textBox_LotNoWrite;
+        private System.Windows.Forms.Button button_UretimBaslat;
+        private System.Windows.Forms.DataGridView dataGridView_Uretilen;
     }
 }

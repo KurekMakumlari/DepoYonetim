@@ -47,6 +47,7 @@
     <Compile Include="Entities\TblRole.cs" />
     <Compile Include="Entities\TblUrun.cs" />
     <Compile Include="Entities\LotUrun.cs" />
+    <Compile Include="Entities\UretilenUrun.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -1,4 +1,5 @@
 ﻿using BCrypt.Net;
+using DepoYonetim.Aplication;
 using DepoYonetim.Application;
 using DepoYonetim.Core.Enums;
 using DepoYonetim.DataAccess.Repostories;
@@ -27,7 +28,7 @@ namespace DepoYonetim.Forms
         PersonelRolMenager _personelRolMenager;
         LotUrunMenager _urunLotMenager;
         UrunManager _urunManager;
-
+        Uretim _uretim;
         int personelId;
         int lotId;
         int urunId;
@@ -38,13 +39,15 @@ namespace DepoYonetim.Forms
             _personelRolMenager = new PersonelRolMenager(Repo);
             _urunLotMenager = new LotUrunMenager(Repo);
             _urunManager = new UrunManager(Repo);
-
+            _uretim = new Uretim(Repo);
             RolGetir();
             UrunNameGetir();
 
             PersonelRolGetir();
             LotUrunGetir();
             UrunGetir();
+            
+
         }
         #region Personel
         private void PerDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -384,6 +387,15 @@ namespace DepoYonetim.Forms
             comboBox_UrunLot.Items.AddRange(_urunLotMenager.GetAllUrun().Select(u => u.UrunAdi).ToArray());
         }
 
+        private void button_UretimBaslat_Click(object sender, EventArgs e)
+        {
+            UretilenUrunler();
+        }
 
+        public void UretilenUrunler() 
+        {
+            dataGridView_Uretilen.DataSource = _uretim.GetUretilenUrun(textBox_LotNoWrite.Text).Any(c => c.LotNo != textBox_LotNoWrite.Text); 
+            throw new Exception("Bu Lot Kodu İle Üretim Yapılamaz.");
+        }
     }
 }

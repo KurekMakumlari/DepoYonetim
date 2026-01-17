@@ -23,7 +23,7 @@ namespace DepoYonetim.Application
         public List<LotUrun> GetAllLotUrun()
         {
             // Retrieve lot data
-                      
+
 
             var request_Lot = _repository.GetByData("SELECT * FROM Tbl_Lot");
 
@@ -52,6 +52,9 @@ namespace DepoYonetim.Application
                             Status = lot.Field<bool?>("Status") ?? false
 
                         };
+
+
+
 
 
             // Return the result as a list
