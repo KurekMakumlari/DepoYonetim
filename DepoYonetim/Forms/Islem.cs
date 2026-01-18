@@ -393,7 +393,7 @@ namespace DepoYonetim.Forms
             label_UrunAd.Text = result.FirstOrDefault(x => x.urunAdi!=null).urunAdi;
             label_UrunKodRead.Text=result.FirstOrDefault(k=>k.urunKodu!=null).urunKodu;
 
-        }
+        } 
 
         public void UretilenUrunler() 
         {
