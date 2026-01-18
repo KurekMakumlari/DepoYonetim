@@ -1,0 +1,30 @@
+Sql Database Güncellemesi
+
+Urun
+- Id
+- UrunKodu
+- UrunAdi
+- BirimAgirlik
+- AktifMi
+Koli
+- Id
+- KoliKodu (Barcode)
+- UrunId (FK)
+- LotId (FK)
+- NetAgirlik
+- OlusturmaTarihi
+Palet
+- Id
+- PaletKodu
+- PaletEtiketNo
+- PaletlemeTarihi
+- Statü
+- OlusturanKullaniciId
+- OlusturmaTarihi
+PaletDetay
+- Id
+- PaletId (FK)
+- KoliId (FK)
+- UrunId (FK)   // denormalize ama rapor için altın değerinde
+- LotId (FK)
+- NetAgirlik
