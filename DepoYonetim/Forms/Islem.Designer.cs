@@ -74,6 +74,7 @@
             this.button_UretimBaslat = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.textBox_LotNoRead = new System.Windows.Forms.TextBox();
+            this.label_Agirlik = new System.Windows.Forms.Label();
             this.TabPages.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_UrunList)).BeginInit();
@@ -453,6 +454,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.label_Agirlik);
             this.tabPage4.Controls.Add(this.textBox_LotNoRead);
             this.tabPage4.Controls.Add(this.label_UrunKodRead);
             this.tabPage4.Controls.Add(this.label_UrunAd);
@@ -472,7 +474,7 @@
             // label_UrunKodRead
             // 
             this.label_UrunKodRead.AutoSize = true;
-            this.label_UrunKodRead.Location = new System.Drawing.Point(659, 88);
+            this.label_UrunKodRead.Location = new System.Drawing.Point(617, 88);
             this.label_UrunKodRead.Name = "label_UrunKodRead";
             this.label_UrunKodRead.Size = new System.Drawing.Size(60, 24);
             this.label_UrunKodRead.TabIndex = 6;
@@ -481,7 +483,7 @@
             // label_UrunAd
             // 
             this.label_UrunAd.AutoSize = true;
-            this.label_UrunAd.Location = new System.Drawing.Point(502, 88);
+            this.label_UrunAd.Location = new System.Drawing.Point(474, 88);
             this.label_UrunAd.Name = "label_UrunAd";
             this.label_UrunAd.Size = new System.Drawing.Size(60, 24);
             this.label_UrunAd.TabIndex = 5;
@@ -490,7 +492,7 @@
             // label_LotVar
             // 
             this.label_LotVar.AutoSize = true;
-            this.label_LotVar.Location = new System.Drawing.Point(345, 88);
+            this.label_LotVar.Location = new System.Drawing.Point(331, 88);
             this.label_LotVar.Name = "label_LotVar";
             this.label_LotVar.Size = new System.Drawing.Size(60, 24);
             this.label_LotVar.TabIndex = 4;
@@ -514,7 +516,7 @@
             // 
             // button_UretimBaslat
             // 
-            this.button_UretimBaslat.Location = new System.Drawing.Point(816, 83);
+            this.button_UretimBaslat.Location = new System.Drawing.Point(903, 82);
             this.button_UretimBaslat.Name = "button_UretimBaslat";
             this.button_UretimBaslat.Size = new System.Drawing.Size(82, 37);
             this.button_UretimBaslat.TabIndex = 0;
@@ -533,6 +535,15 @@
             this.textBox_LotNoRead.Name = "textBox_LotNoRead";
             this.textBox_LotNoRead.Size = new System.Drawing.Size(172, 29);
             this.textBox_LotNoRead.TabIndex = 7;
+            // 
+            // label_Agirlik
+            // 
+            this.label_Agirlik.AutoSize = true;
+            this.label_Agirlik.Location = new System.Drawing.Point(760, 88);
+            this.label_Agirlik.Name = "label_Agirlik";
+            this.label_Agirlik.Size = new System.Drawing.Size(60, 24);
+            this.label_Agirlik.TabIndex = 8;
+            this.label_Agirlik.Text = "_____";
             // 
             // Islem
             // 
@@ -607,5 +618,6 @@
         private System.Windows.Forms.Label label_UrunAd;
         private System.Windows.Forms.Label label_LotVar;
         private System.Windows.Forms.TextBox textBox_LotNoRead;
+        private System.Windows.Forms.Label label_Agirlik;
     }
 }

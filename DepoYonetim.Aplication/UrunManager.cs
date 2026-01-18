@@ -23,7 +23,9 @@ namespace DepoYonetim.Application
             {
                 ID = s.Field<int>("ID"),
                 UrunKod = s.Field<string>("UrunKod"),
-                UrunAdi = s.Field<string>("UrunAdi")
+                UrunAdi = s.Field<string>("UrunAdi"),
+                BirimAgirlik = s.Field<string>("BirimAgirlik"),
+                Status=s.Field<bool>("status")
             });
 
             return query.ToList();
@@ -39,7 +41,9 @@ namespace DepoYonetim.Application
             {
                 ID = s.Field<int>("ID"),
                 UrunKod = s.Field<string>("UrunKod"),
-                UrunAdi = s.Field<string>("UrunAdi")
+                UrunAdi = s.Field<string>("UrunAdi"),
+                BirimAgirlik = s.Field<string>("BirimAgirlik"),
+                Status = s.Field<bool>("status")
             }
             );
             return query.FirstOrDefault();
@@ -75,6 +79,10 @@ namespace DepoYonetim.Application
         {
             string delQuery = ($"Delete from Tbl_Urun where ID={id}");
             return _repository.ExecuteSql(delQuery, null)._state == State.Success ? true : false;
+        }
+
+        public void UrunAgirlikGüncelleme(int Agirlik)
+        {
         }
 
     }

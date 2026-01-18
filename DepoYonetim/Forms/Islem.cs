@@ -396,6 +396,8 @@ namespace DepoYonetim.Forms
 
             label_UrunKodRead.Text=result.FirstOrDefault(k=>k.urunKodu!=null).urunKodu;
 
+            label_Agirlik.Text = _uretim.AgirlikAtama().ToString();
+
         } 
 
         public void UretilenUrunler() 
