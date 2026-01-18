@@ -46,8 +46,7 @@ namespace DepoYonetim.Forms
             PersonelRolGetir();
             LotUrunGetir();
             UrunGetir();
-            
-
+            Console.WriteLine();
         }
         #region Personel
         private void PerDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -389,7 +388,11 @@ namespace DepoYonetim.Forms
 
         private void button_UretimBaslat_Click(object sender, EventArgs e)
         {
-            UretilenUrunler();
+            var result = _uretim.UrunConfirm(textBox_LotNoWrite.Text);
+            label_LotVar.Text= result.Any(x => x.lotNo == textBox_LotNoRead.Text).ToString();
+            label_UrunAd.Text = result.FirstOrDefault(x => x.urunAdi!=null).urunAdi;
+            label_UrunKodRead.Text=result.FirstOrDefault(k=>k.urunKodu!=null).urunKodu;
+
         }
 
         public void UretilenUrunler() 

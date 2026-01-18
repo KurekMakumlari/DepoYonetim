@@ -66,11 +66,14 @@
             this.label_UrunID = new System.Windows.Forms.Label();
             this.dataGridView_LotList = new System.Windows.Forms.DataGridView();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.button_UretimBaslat = new System.Windows.Forms.Button();
-            this.textBox_LotNoWrite = new System.Windows.Forms.TextBox();
-            this.comboBox_UrunWrite = new System.Windows.Forms.ComboBox();
+            this.label_UrunKodRead = new System.Windows.Forms.Label();
+            this.label_UrunAd = new System.Windows.Forms.Label();
+            this.label_LotVar = new System.Windows.Forms.Label();
             this.dataGridView_Uretilen = new System.Windows.Forms.DataGridView();
+            this.textBox_LotNoWrite = new System.Windows.Forms.TextBox();
+            this.button_UretimBaslat = new System.Windows.Forms.Button();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.textBox_LotNoRead = new System.Windows.Forms.TextBox();
             this.TabPages.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_UrunList)).BeginInit();
@@ -450,8 +453,11 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.textBox_LotNoRead);
+            this.tabPage4.Controls.Add(this.label_UrunKodRead);
+            this.tabPage4.Controls.Add(this.label_UrunAd);
+            this.tabPage4.Controls.Add(this.label_LotVar);
             this.tabPage4.Controls.Add(this.dataGridView_Uretilen);
-            this.tabPage4.Controls.Add(this.comboBox_UrunWrite);
             this.tabPage4.Controls.Add(this.textBox_LotNoWrite);
             this.tabPage4.Controls.Add(this.button_UretimBaslat);
             this.tabPage4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
@@ -463,35 +469,32 @@
             this.tabPage4.Text = "Uretim";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // contextMenuStrip1
+            // label_UrunKodRead
             // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            this.label_UrunKodRead.AutoSize = true;
+            this.label_UrunKodRead.Location = new System.Drawing.Point(659, 88);
+            this.label_UrunKodRead.Name = "label_UrunKodRead";
+            this.label_UrunKodRead.Size = new System.Drawing.Size(60, 24);
+            this.label_UrunKodRead.TabIndex = 6;
+            this.label_UrunKodRead.Text = "_____";
             // 
-            // button_UretimBaslat
+            // label_UrunAd
             // 
-            this.button_UretimBaslat.Location = new System.Drawing.Point(757, 46);
-            this.button_UretimBaslat.Name = "button_UretimBaslat";
-            this.button_UretimBaslat.Size = new System.Drawing.Size(82, 35);
-            this.button_UretimBaslat.TabIndex = 0;
-            this.button_UretimBaslat.Text = "Baslat";
-            this.button_UretimBaslat.UseVisualStyleBackColor = true;
-            this.button_UretimBaslat.Click += new System.EventHandler(this.button_UretimBaslat_Click);
+            this.label_UrunAd.AutoSize = true;
+            this.label_UrunAd.Location = new System.Drawing.Point(502, 88);
+            this.label_UrunAd.Name = "label_UrunAd";
+            this.label_UrunAd.Size = new System.Drawing.Size(60, 24);
+            this.label_UrunAd.TabIndex = 5;
+            this.label_UrunAd.Text = "_____";
             // 
-            // textBox_LotNoWrite
+            // label_LotVar
             // 
-            this.textBox_LotNoWrite.Location = new System.Drawing.Point(17, 49);
-            this.textBox_LotNoWrite.Name = "textBox_LotNoWrite";
-            this.textBox_LotNoWrite.Size = new System.Drawing.Size(172, 29);
-            this.textBox_LotNoWrite.TabIndex = 1;
-            // 
-            // comboBox_UrunWrite
-            // 
-            this.comboBox_UrunWrite.FormattingEnabled = true;
-            this.comboBox_UrunWrite.Location = new System.Drawing.Point(263, 49);
-            this.comboBox_UrunWrite.Name = "comboBox_UrunWrite";
-            this.comboBox_UrunWrite.Size = new System.Drawing.Size(174, 32);
-            this.comboBox_UrunWrite.TabIndex = 2;
+            this.label_LotVar.AutoSize = true;
+            this.label_LotVar.Location = new System.Drawing.Point(345, 88);
+            this.label_LotVar.Name = "label_LotVar";
+            this.label_LotVar.Size = new System.Drawing.Size(60, 24);
+            this.label_LotVar.TabIndex = 4;
+            this.label_LotVar.Text = "_____";
             // 
             // dataGridView_Uretilen
             // 
@@ -501,6 +504,35 @@
             this.dataGridView_Uretilen.Name = "dataGridView_Uretilen";
             this.dataGridView_Uretilen.Size = new System.Drawing.Size(1017, 150);
             this.dataGridView_Uretilen.TabIndex = 3;
+            // 
+            // textBox_LotNoWrite
+            // 
+            this.textBox_LotNoWrite.Location = new System.Drawing.Point(76, 86);
+            this.textBox_LotNoWrite.Name = "textBox_LotNoWrite";
+            this.textBox_LotNoWrite.Size = new System.Drawing.Size(172, 29);
+            this.textBox_LotNoWrite.TabIndex = 1;
+            // 
+            // button_UretimBaslat
+            // 
+            this.button_UretimBaslat.Location = new System.Drawing.Point(816, 83);
+            this.button_UretimBaslat.Name = "button_UretimBaslat";
+            this.button_UretimBaslat.Size = new System.Drawing.Size(82, 37);
+            this.button_UretimBaslat.TabIndex = 0;
+            this.button_UretimBaslat.Text = "Baslat";
+            this.button_UretimBaslat.UseVisualStyleBackColor = true;
+            this.button_UretimBaslat.Click += new System.EventHandler(this.button_UretimBaslat_Click);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // textBox_LotNoRead
+            // 
+            this.textBox_LotNoRead.Location = new System.Drawing.Point(76, 24);
+            this.textBox_LotNoRead.Name = "textBox_LotNoRead";
+            this.textBox_LotNoRead.Size = new System.Drawing.Size(172, 29);
+            this.textBox_LotNoRead.TabIndex = 7;
             // 
             // Islem
             // 
@@ -568,9 +600,12 @@
         private System.Windows.Forms.Button button_UrunSoftSil;
         private System.Windows.Forms.Button button_LotSoftSil;
         private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.ComboBox comboBox_UrunWrite;
         private System.Windows.Forms.TextBox textBox_LotNoWrite;
         private System.Windows.Forms.Button button_UretimBaslat;
         private System.Windows.Forms.DataGridView dataGridView_Uretilen;
+        private System.Windows.Forms.Label label_UrunKodRead;
+        private System.Windows.Forms.Label label_UrunAd;
+        private System.Windows.Forms.Label label_LotVar;
+        private System.Windows.Forms.TextBox textBox_LotNoRead;
     }
 }

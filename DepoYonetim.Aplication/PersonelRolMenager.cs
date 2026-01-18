@@ -35,38 +35,38 @@ namespace DepoYonetim.Application
 
                 // Join user and role data
 
-                //var query = from kullanici in request_Kullanici.dt.AsEnumerable()
-                //            join rol in request_Rol.dt.AsEnumerable()
-                //            on kullanici.Field<int>("RoleID") equals rol.Field<int>("ID")
-                //            // Project the result into PersonelRol objects
-                //            select new PersonelRol
-                //            {
-                //                ID = kullanici.Field<int>("Id"),
-                //                AdSoyad = kullanici.Field<string>("AdSoyad"),
-                //                KullaniciAdi = kullanici.Field<string>("KullaniciAdi"),
-                //                SifreHash = kullanici.Field<string>("SifreHash"),
-                //                RoleName = rol.Field<string>("RoleName"),
-                //                Status = kullanici.Field<bool>("Status")
-                //            };
+                var query = from kullanici in request_Kullanici.dt.AsEnumerable()
+                            join rol in request_Rol.dt.AsEnumerable()
+                            on kullanici.Field<int>("RoleID") equals rol.Field<int>("ID")
+                            // Project the result into PersonelRol objects
+                            select new PersonelRol
+                            {
+                                ID = kullanici.Field<int>("Id"),
+                                AdSoyad = kullanici.Field<string>("AdSoyad"),
+                                KullaniciAdi = kullanici.Field<string>("KullaniciAdi"),
+                                SifreHash = kullanici.Field<string>("SifreHash"),
+                                RoleName = rol.Field<string>("RoleName"),
+                                Status = kullanici.Field<bool>("Status")
+                            };
 
 
                 #region Alternatif
 
-                var query = request_Kullanici.dt.AsEnumerable()
-                  .Join(
-                        request_Rol.dt.AsEnumerable(),
-                        kullanici => kullanici.Field<int>("RoleId"),
-                        rol => rol.Field<int>("Id"),
-                         (kullanici, rol) => new PersonelRol
-                         {
-                             ID = kullanici.Field<int>("Id"),
-                             AdSoyad = kullanici.Field<string>("AdSoyad"),
-                             KullaniciAdi = kullanici.Field<string>("KullaniciAdi"),
-                             SifreHash = kullanici.Field<string>("SifreHash"),
-                             RoleName = rol.Field<string>("RoleName"),
-                             Status = kullanici.Field<bool>("Status")
-                         }
-                        ).ToList();
+                //var query = request_Kullanici.dt.AsEnumerable()
+                //  .Join(
+                //        request_Rol.dt.AsEnumerable(),
+                //        kullanici => kullanici.Field<int>("RoleId"),
+                //        rol => rol.Field<int>("Id"),
+                //         (kullanici, rol) => new PersonelRol
+                //         {
+                //             ID = kullanici.Field<int>("Id"),
+                //             AdSoyad = kullanici.Field<string>("AdSoyad"),
+                //             KullaniciAdi = kullanici.Field<string>("KullaniciAdi"),
+                //             SifreHash = kullanici.Field<string>("SifreHash"),
+                //             RoleName = rol.Field<string>("RoleName"),
+                //             Status = kullanici.Field<bool>("Status")
+                //         }
+                //        ).ToList();
                 #endregion
 
 

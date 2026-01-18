@@ -48,6 +48,7 @@
     <Compile Include="Entities\TblUrun.cs" />
     <Compile Include="Entities\LotUrun.cs" />
     <Compile Include="Entities\UretilenUrun.cs" />
+    <Compile Include="Entities\UretimLotUrun.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
