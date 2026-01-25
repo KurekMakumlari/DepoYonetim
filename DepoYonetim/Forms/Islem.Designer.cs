@@ -66,6 +66,8 @@
             this.label_UrunID = new System.Windows.Forms.Label();
             this.dataGridView_LotList = new System.Windows.Forms.DataGridView();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.label_Agirlik = new System.Windows.Forms.Label();
+            this.textBox_LotNoRead = new System.Windows.Forms.TextBox();
             this.label_UrunKodRead = new System.Windows.Forms.Label();
             this.label_UrunAd = new System.Windows.Forms.Label();
             this.label_LotVar = new System.Windows.Forms.Label();
@@ -73,8 +75,8 @@
             this.textBox_LotNoWrite = new System.Windows.Forms.TextBox();
             this.button_UretimBaslat = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.textBox_LotNoRead = new System.Windows.Forms.TextBox();
-            this.label_Agirlik = new System.Windows.Forms.Label();
+            this.label_UrunAgirlik = new System.Windows.Forms.Label();
+            this.textBox_UrunAgirlik = new System.Windows.Forms.TextBox();
             this.TabPages.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_UrunList)).BeginInit();
@@ -101,6 +103,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label_UrunAgirlik);
+            this.tabPage2.Controls.Add(this.textBox_UrunAgirlik);
             this.tabPage2.Controls.Add(this.button_UrunSoftSil);
             this.tabPage2.Controls.Add(this.button_UrunSil);
             this.tabPage2.Controls.Add(this.button_UrunGuncelle);
@@ -199,6 +203,7 @@
             this.dataGridView_UrunList.RowTemplate.ReadOnly = true;
             this.dataGridView_UrunList.Size = new System.Drawing.Size(1017, 200);
             this.dataGridView_UrunList.TabIndex = 0;
+            this.dataGridView_UrunList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_UrunList_CellContentClick);
             this.dataGridView_UrunList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.UrunDataGridView_CellDoubleClick);
             // 
             // tabPage1
@@ -471,6 +476,22 @@
             this.tabPage4.Text = "Uretim";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // label_Agirlik
+            // 
+            this.label_Agirlik.AutoSize = true;
+            this.label_Agirlik.Location = new System.Drawing.Point(760, 88);
+            this.label_Agirlik.Name = "label_Agirlik";
+            this.label_Agirlik.Size = new System.Drawing.Size(60, 24);
+            this.label_Agirlik.TabIndex = 8;
+            this.label_Agirlik.Text = "_____";
+            // 
+            // textBox_LotNoRead
+            // 
+            this.textBox_LotNoRead.Location = new System.Drawing.Point(76, 24);
+            this.textBox_LotNoRead.Name = "textBox_LotNoRead";
+            this.textBox_LotNoRead.Size = new System.Drawing.Size(172, 29);
+            this.textBox_LotNoRead.TabIndex = 7;
+            // 
             // label_UrunKodRead
             // 
             this.label_UrunKodRead.AutoSize = true;
@@ -529,21 +550,21 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
-            // textBox_LotNoRead
+            // label_UrunAgirlik
             // 
-            this.textBox_LotNoRead.Location = new System.Drawing.Point(76, 24);
-            this.textBox_LotNoRead.Name = "textBox_LotNoRead";
-            this.textBox_LotNoRead.Size = new System.Drawing.Size(172, 29);
-            this.textBox_LotNoRead.TabIndex = 7;
+            this.label_UrunAgirlik.AutoSize = true;
+            this.label_UrunAgirlik.Location = new System.Drawing.Point(76, 149);
+            this.label_UrunAgirlik.Name = "label_UrunAgirlik";
+            this.label_UrunAgirlik.Size = new System.Drawing.Size(61, 13);
+            this.label_UrunAgirlik.TabIndex = 24;
+            this.label_UrunAgirlik.Text = "Urun Ağırlık";
             // 
-            // label_Agirlik
+            // textBox_UrunAgirlik
             // 
-            this.label_Agirlik.AutoSize = true;
-            this.label_Agirlik.Location = new System.Drawing.Point(760, 88);
-            this.label_Agirlik.Name = "label_Agirlik";
-            this.label_Agirlik.Size = new System.Drawing.Size(60, 24);
-            this.label_Agirlik.TabIndex = 8;
-            this.label_Agirlik.Text = "_____";
+            this.textBox_UrunAgirlik.Location = new System.Drawing.Point(139, 146);
+            this.textBox_UrunAgirlik.Name = "textBox_UrunAgirlik";
+            this.textBox_UrunAgirlik.Size = new System.Drawing.Size(100, 20);
+            this.textBox_UrunAgirlik.TabIndex = 23;
             // 
             // Islem
             // 
@@ -619,5 +640,7 @@
         private System.Windows.Forms.Label label_LotVar;
         private System.Windows.Forms.TextBox textBox_LotNoRead;
         private System.Windows.Forms.Label label_Agirlik;
+        private System.Windows.Forms.Label label_UrunAgirlik;
+        private System.Windows.Forms.TextBox textBox_UrunAgirlik;
     }
 }

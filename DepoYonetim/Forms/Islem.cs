@@ -1,22 +1,11 @@
-﻿using BCrypt.Net;
-using DepoYonetim.Aplication;
+﻿using DepoYonetim.Aplication;
 using DepoYonetim.Application;
-using DepoYonetim.Core.Enums;
 using DepoYonetim.DataAccess.Repostories;
 using DepoYonetim.Models.Entities;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Diagnostics.Eventing.Reader;
-using System.Drawing;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace DepoYonetim.Forms
 {
@@ -142,6 +131,9 @@ namespace DepoYonetim.Forms
             urunId = Convert.ToInt32(dataGridView_UrunList.Rows[e.RowIndex].Cells["ID"].Value);
             textBox_UrunAdi.Text = dataGridView_UrunList.Rows[dataGridView_UrunList.SelectedCells[0].RowIndex].Cells["UrunAdi"].Value.ToString();
             textBox_UrunKod.Text = dataGridView_UrunList.Rows[dataGridView_UrunList.SelectedCells[0].RowIndex].Cells["UrunKod"].Value.ToString();
+            textBox_UrunAgirlik.Text = dataGridView_UrunList.Rows[dataGridView_UrunList.SelectedCells[0].RowIndex].Cells["BirimAgirlik"].Value.ToString();
+
+
         }
         private void button_UrunKayit_Click(object sender, EventArgs e)
         {
@@ -152,6 +144,7 @@ namespace DepoYonetim.Forms
             {
                 UrunKod = textBox_UrunKod.Text,
                 UrunAdi = textBox_UrunAdi.Text,
+                BirimAgirlik = textBox_UrunAgirlik.Text,
                 Status = true
             });
 
@@ -162,20 +155,23 @@ namespace DepoYonetim.Forms
             DialogResult confirmResult = MessageBox.Show("Ürün bilgilerini güncellemek istediğinize emin misiniz?", "Onay", MessageBoxButtons.YesNo);
             if (confirmResult == DialogResult.Yes)
             {
+                // Ürün ID'sini al
                 var KontrolUrun = _urunManager.GetUrunById(urunId);
+                // Güncellenecek ürünün varlığını kontrol et
                 if (KontrolUrun == null)
                 {
                     MessageBox.Show("Güncellenecek ürün bulunamadı.");
                     return;
                 }
+                // Alanların boş olup olmadığını kontrol et
                 if (string.IsNullOrWhiteSpace(textBox_UrunKod.Text) || string.IsNullOrWhiteSpace(textBox_UrunAdi.Text))
                 {
                     MessageBox.Show("Lütfen tüm alanları doldurun.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
+                // Ürün kodunun benzersizliğini kontrol et
                 if (KontrolUrun.UrunKod != textBox_UrunKod.Text)
                 {
-
                     bool IsExistUrunKodu = _urunManager.GetAllUrun().Any(x => x.UrunKod == textBox_UrunKod.Text);
                     if (IsExistUrunKodu)
                     {
@@ -183,8 +179,10 @@ namespace DepoYonetim.Forms
                         return;// return olmaz ise  alt tarafdaki kodlar  çalışır
                     }
                 }
+                // Güncelleme işlemi
                 KontrolUrun.UrunKod = textBox_UrunKod.Text;
                 KontrolUrun.UrunAdi = textBox_UrunAdi.Text.Equals(KontrolUrun.UrunAdi) ? KontrolUrun.UrunAdi : textBox_UrunAdi.Text;
+                KontrolUrun.BirimAgirlik = textBox_UrunAgirlik.Text.Equals(KontrolUrun.BirimAgirlik) ? KontrolUrun.BirimAgirlik : textBox_UrunAgirlik.Text; 
 
 
                 //Güncelleme  Bu  sekilde olmaz Lot güncelemesini kontrol et!!!!!
@@ -340,7 +338,7 @@ namespace DepoYonetim.Forms
                 bool isDelete = _urunLotMenager.LotKaliciSil(lot.ID);
                 DialogResult finalResult = isDelete ? MessageBox.Show("Lot Kalıcı Silme Başarılı Olmuştur.") : MessageBox.Show("Lot Kalıcı Silme Başarısız Olmuştur.");
             }
-                     LotUrunGetir();
+            LotUrunGetir();
 
 
         }
@@ -390,20 +388,22 @@ namespace DepoYonetim.Forms
         {
             var result = _uretim.UrunConfirm(textBox_LotNoWrite.Text);
 
-            label_LotVar.Text= result.Any(x => x.lotNo == textBox_LotNoRead.Text).ToString();
+            label_LotVar.Text = result.Any(x => x.lotNo == textBox_LotNoRead.Text).ToString();
 
-            label_UrunAd.Text = result.FirstOrDefault(x => x.urunAdi!=null).urunAdi;
+            label_UrunAd.Text = result.FirstOrDefault(x => x.urunAdi != null).urunAdi;
 
-            label_UrunKodRead.Text=result.FirstOrDefault(k=>k.urunKodu!=null).urunKodu;
+            label_UrunKodRead.Text = result.FirstOrDefault(k => k.urunKodu != null).urunKodu;
 
             label_Agirlik.Text = _uretim.AgirlikAtama().ToString();
 
-        } 
+        }
 
-        public void UretilenUrunler() 
+        public void UretilenUrunler()
         {
-            dataGridView_Uretilen.DataSource = _uretim.GetUretilenUrun(textBox_LotNoWrite.Text).Any(c => c.LotNo != textBox_LotNoWrite.Text); 
+            dataGridView_Uretilen.DataSource = _uretim.GetUretilenUrun(textBox_LotNoWrite.Text).Any(c => c.LotNo != textBox_LotNoWrite.Text);
             throw new Exception("Bu Lot Kodu İle Üretim Yapılamaz.");
         }
+
+
     }
 }

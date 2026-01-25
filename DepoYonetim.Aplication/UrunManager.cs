@@ -51,7 +51,7 @@ namespace DepoYonetim.Application
 
         public bool UrunKaydet(TblUrun dt)
         {
-            string insertQuery = $"INSERT INTO Tbl_Urun (UrunKod,UrunAdi,Status) VALUES ('{dt.UrunKod}','{dt.UrunAdi}',{1})";
+            string insertQuery = $"INSERT INTO Tbl_Urun (UrunKod,UrunAdi,BirimAgirlik,Status) VALUES ('{dt.UrunKod}','{dt.UrunAdi}','{dt.BirimAgirlik}',{1})";
             #region DiffQuery
             //string diffrentquery = $"IF NOT EXISTS (SELECT 1 FROM Tbl_Urun WHERE UrunKod = '{dt.UrunKod}') BEGIN {insertQuery} END";
             //string insertQuery2 = $"INSERT INTO Tbl_Urun (UrunKod,UrunAdi) SELECT '{dt.UrunKod}','{dt.UrunAdi}' WHERE NOT EXISTS (SELECT 1 FROM Tbl_Urun WHERE UrunKod = '{dt.UrunKod}')";
@@ -63,7 +63,7 @@ namespace DepoYonetim.Application
 
         public bool UrunGuncelle(TblUrun dt)
         {
-            string queryUpdate = ($"Update Tbl_Urun set UrunKod='{dt.UrunKod}',UrunAdi='{dt.UrunAdi}' where ID={dt.ID}");
+            string queryUpdate = ($"Update Tbl_Urun set UrunKod='{dt.UrunKod}',UrunAdi='{dt.UrunAdi}' BirimAgirlik = '{dt.BirimAgirlik}''where ID={dt.ID}");
             var request = _repository.ExecuteSql(queryUpdate, null);
             if (request._state != State.Success) return false;
             else return true;
@@ -81,9 +81,7 @@ namespace DepoYonetim.Application
             return _repository.ExecuteSql(delQuery, null)._state == State.Success ? true : false;
         }
 
-        public void UrunAgirlikGüncelleme(int Agirlik)
-        {
-        }
+        
 
     }
 }

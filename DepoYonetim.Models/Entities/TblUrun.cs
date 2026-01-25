@@ -12,7 +12,6 @@ namespace DepoYonetim.Models.Entities
         public string UrunKod { get; set; }
         public string UrunAdi { get; set; }
         public string BirimAgirlik { get; set; }
-
         public bool Status { get; set; }
 
     }
