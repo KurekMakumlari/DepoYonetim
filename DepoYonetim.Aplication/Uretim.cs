@@ -20,9 +20,7 @@ namespace DepoYonetim.Aplication
         public Uretim(Repository Repo) => _repository = Repo;
 
         Random rnd = new Random();
-
-
-
+        
         public List<UretilenUrun> GetUretilenUrun(string LotNo)
         {
             var Lotrequest = _repository.GetByData($"SELECT * FROM Tbl_Lot WHERE LotNo = '{LotNo}'");
@@ -44,7 +42,7 @@ namespace DepoYonetim.Aplication
                         };
             return query.ToList();
         }
-
+        
         public List<UretimLotUrun> UrunConfirm(string LotNo)
         {
             var urunRequest = _repository.GetByData("SELECT * FROM Tbl_Urun");

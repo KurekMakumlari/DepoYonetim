@@ -53,10 +53,6 @@ namespace DepoYonetim.Application
 
                         };
 
-
-
-
-
             // Return the result as a list
             return query.ToList();
         }

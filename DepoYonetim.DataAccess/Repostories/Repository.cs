@@ -14,9 +14,8 @@ namespace DepoYonetim.DataAccess.Repostories
         private readonly string _conString;
 
         // Constructor - Repository sınıfı oluşturulduğunda bağlantı cümlesi atanır
-        public Repository(string conString) => _conString = conString;
-
-
+        public Repository(string conString) => _conString = conString;        
+        
         /// <summary>
         /// Verilen SQL sorgusuna göre veritabanından veri çeker ve DataTable olarak döner
         /// </summary>

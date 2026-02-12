@@ -36,7 +36,21 @@ namespace DepoYonetim.Forms
             LotUrunGetir();
             UrunGetir();
             Console.WriteLine();
+            
         }
+
+        public static void AnalyzeString(string str)
+        {
+            Console.WriteLine($"Length: {str.Length}");
+            Console.WriteLine($"Substring: {str.Substring(7)}");
+            Console.WriteLine($"Substring 2: {str.Substring(0,5)}");
+            Console.WriteLine($"Starts with 'Hello': {str.StartsWith("Hello")}");
+            Console.WriteLine($"Lowercase: {str.ToLower()}");
+
+
+        }
+
+       
         #region Personel
         private void PerDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {

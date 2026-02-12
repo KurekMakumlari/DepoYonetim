@@ -203,7 +203,6 @@
             this.dataGridView_UrunList.RowTemplate.ReadOnly = true;
             this.dataGridView_UrunList.Size = new System.Drawing.Size(1017, 200);
             this.dataGridView_UrunList.TabIndex = 0;
-            this.dataGridView_UrunList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_UrunList_CellContentClick);
             this.dataGridView_UrunList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.UrunDataGridView_CellDoubleClick);
             // 
             // tabPage1
