@@ -43,8 +43,11 @@ namespace DepoYonetim.Aplication
             return query.ToList();
         }
         
+
+
         public List<UretimLotUrun> UrunConfirm(string LotNo)
         {
+
             var urunRequest = _repository.GetByData("SELECT * FROM Tbl_Urun");
             if (urunRequest._state != State.Success) { return null; throw new Exception("Üretim verileri alınamadı: " + urunRequest.message); }
 
@@ -73,9 +76,13 @@ namespace DepoYonetim.Aplication
             return list.ToList() ;
 
             
-        }
+        }       
         public int AgirlikAtama() { int sayi = rnd.Next(1, 11); return sayi; }
         
+        public bool UrunControl(string ıd)
+        {
+
+        }
 
           
 

@@ -49,6 +49,23 @@ namespace DepoYonetim.Application
             return query.FirstOrDefault();
         }
 
+        public TblUrun GetUrunByUrunkod(string Id)
+        {
+            var request = _repository.GetByData($"Select * From Tbl_Urun Where UrunKod='{Id}' ");
+            if (request._state != State.Success) throw new Exception("Ürün verisi alınamadı: " + request.message);
+            if (request.dt.Rows.Count == 0) return null;
+            var query = request.dt.AsEnumerable().Select(s => new TblUrun
+            {
+                ID = s.Field<int>("ID"),
+                UrunKod = s.Field<string>("UrunKod"),
+                UrunAdi = s.Field<string>("UrunAdi"),
+                BirimAgirlik = s.Field<string>("BirimAgirlik"),
+                Status = s.Field<bool>("status")
+            }
+            );
+            return query.FirstOrDefault();
+        }
+
         public bool UrunKaydet(TblUrun dt)
         {
             string insertQuery = $"INSERT INTO Tbl_Urun (UrunKod,UrunAdi,BirimAgirlik,Status) VALUES ('{dt.UrunKod}','{dt.UrunAdi}','{dt.BirimAgirlik}',{1})";
