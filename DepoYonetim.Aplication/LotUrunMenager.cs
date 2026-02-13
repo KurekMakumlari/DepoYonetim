@@ -93,6 +93,7 @@ namespace DepoYonetim.Application
             return urunList.ToList();
         }
 
+
         public TblLot GetLotByID(int ıd)
         {
             var request_Lot = _repository.GetByData($"SELECT * FROM Tbl_Lot WHERE ID = {ıd}");

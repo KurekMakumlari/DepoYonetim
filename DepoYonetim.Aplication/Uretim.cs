@@ -79,10 +79,7 @@ namespace DepoYonetim.Aplication
         }       
         public int AgirlikAtama() { int sayi = rnd.Next(1, 11); return sayi; }
         
-        public bool UrunControl(string ıd)
-        {
-
-        }
+        
 
           
 

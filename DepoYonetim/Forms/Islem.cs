@@ -386,15 +386,29 @@ namespace DepoYonetim.Forms
             comboBox_UrunLot.Items.AddRange(_urunLotMenager.GetAllUrun().Select(u => u.UrunAdi).ToArray());
         }
 
-        private void button_UretimBaslat_Click(object sender, EventArgs e)
+        private void button_BarkodKontrol_Click(object sender, EventArgs e)
         {
-            var result = _uretim.UrunConfirm(comboBox_LotNoWrite.SelectedItem.ToString());
-            label_LotVar.Text = result.Any(x => x.lotNo == textBox_LotNoRead.Text).ToString();
-            label_UrunAd.Text = result.FirstOrDefault(x => x.urunAdi != null).urunAdi;
-            label_UrunKodRead.Text = result.FirstOrDefault(k => k.urunKodu != null).urunKodu;
-            label_Agirlik.Text = _uretim.AgirlikAtama().ToString();
+            try
+            {
 
 
+                int UrunId = GetUrunIdByUrunkod(comboBox_LotNoWrite.SelectedItem.ToString());
+                var lotk = _urunLotMenager.GetLotById(UrunId);
+                if (lotk.UrunID == UrunId)
+                {
+                    var result = _uretim.UrunConfirm(comboBox_LotNoWrite.SelectedItem.ToString());
+                    label_LotVar.Text = result.Any(x => x.lotNo == textBox_LotNoRead.Text).ToString();
+                    label_UrunAd.Text = result.FirstOrDefault(x => x.urunAdi != null).urunAdi;
+                    label_UrunKodRead.Text = result.FirstOrDefault(k => k.urunKodu != null).urunKodu;
+                    label_Agirlik.Text = _uretim.AgirlikAtama().ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
         }
 
@@ -406,9 +420,9 @@ namespace DepoYonetim.Forms
 
         public void UrunLotNoGetir() => comboBox_LotNoWrite.Items.AddRange(_urunLotMenager.GetAllLotUrun().Where(w => w.Status == true).Select(x => x.LotKodu).ToArray());
 
-        public int GetUrunByUrunkod(string urunKod)
+        public int GetUrunIdByUrunkod(string urunKod)
         {
-            var urun= _urunManager.GetUrunByUrunkod(urunKod);
+            var urun = _urunManager.GetUrunByUrunkod(urunKod);
             if (urun != null)
             {
                 return urun.ID;

@@ -68,6 +68,14 @@
             this.label_UrunID = new System.Windows.Forms.Label();
             this.dataGridView_LotList = new System.Windows.Forms.DataGridView();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.comboBox_LotNoWrite = new System.Windows.Forms.ComboBox();
+            this.button_PaletBıtır = new System.Windows.Forms.Button();
+            this.button_Kaydet = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label_Agirlik = new System.Windows.Forms.Label();
             this.textBox_LotNoRead = new System.Windows.Forms.TextBox();
@@ -75,16 +83,8 @@
             this.label_UrunAd = new System.Windows.Forms.Label();
             this.label_LotVar = new System.Windows.Forms.Label();
             this.dataGridView_Uretilen = new System.Windows.Forms.DataGridView();
-            this.button_UretimBaslat = new System.Windows.Forms.Button();
+            this.button_BarkodKontrol = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.button_Kaydet = new System.Windows.Forms.Button();
-            this.button_PaletBıtır = new System.Windows.Forms.Button();
-            this.comboBox_LotNoWrite = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.TabPages.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_UrunList)).BeginInit();
@@ -497,7 +497,7 @@
             this.tabPage4.Controls.Add(this.label_UrunAd);
             this.tabPage4.Controls.Add(this.label_LotVar);
             this.tabPage4.Controls.Add(this.dataGridView_Uretilen);
-            this.tabPage4.Controls.Add(this.button_UretimBaslat);
+            this.tabPage4.Controls.Add(this.button_BarkodKontrol);
             this.tabPage4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
@@ -506,6 +506,78 @@
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Uretim";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // comboBox_LotNoWrite
+            // 
+            this.comboBox_LotNoWrite.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_LotNoWrite.FormattingEnabled = true;
+            this.comboBox_LotNoWrite.Location = new System.Drawing.Point(124, 25);
+            this.comboBox_LotNoWrite.Name = "comboBox_LotNoWrite";
+            this.comboBox_LotNoWrite.Size = new System.Drawing.Size(843, 32);
+            this.comboBox_LotNoWrite.TabIndex = 16;
+            // 
+            // button_PaletBıtır
+            // 
+            this.button_PaletBıtır.Location = new System.Drawing.Point(890, 270);
+            this.button_PaletBıtır.Name = "button_PaletBıtır";
+            this.button_PaletBıtır.Size = new System.Drawing.Size(95, 37);
+            this.button_PaletBıtır.TabIndex = 15;
+            this.button_PaletBıtır.Text = "Palet Bitir";
+            this.button_PaletBıtır.UseVisualStyleBackColor = true;
+            // 
+            // button_Kaydet
+            // 
+            this.button_Kaydet.Location = new System.Drawing.Point(903, 200);
+            this.button_Kaydet.Name = "button_Kaydet";
+            this.button_Kaydet.Size = new System.Drawing.Size(82, 37);
+            this.button_Kaydet.TabIndex = 14;
+            this.button_Kaydet.Text = "Kaydet";
+            this.button_Kaydet.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(28, 25);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(65, 24);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "Lot No";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(760, 76);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(61, 24);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Agırlık";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(604, 76);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(87, 24);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "Urun kod";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(464, 76);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(80, 24);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Urun Ad";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(108, 76);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(90, 24);
+            this.label7.TabIndex = 9;
+            this.label7.Text = "Urun Kod";
             // 
             // label2
             // 
@@ -568,92 +640,20 @@
             this.dataGridView_Uretilen.Size = new System.Drawing.Size(1017, 150);
             this.dataGridView_Uretilen.TabIndex = 3;
             // 
-            // button_UretimBaslat
+            // button_BarkodKontrol
             // 
-            this.button_UretimBaslat.Location = new System.Drawing.Point(903, 117);
-            this.button_UretimBaslat.Name = "button_UretimBaslat";
-            this.button_UretimBaslat.Size = new System.Drawing.Size(82, 60);
-            this.button_UretimBaslat.TabIndex = 0;
-            this.button_UretimBaslat.Text = "Barkod kontrol";
-            this.button_UretimBaslat.UseVisualStyleBackColor = true;
-            this.button_UretimBaslat.Click += new System.EventHandler(this.button_UretimBaslat_Click);
+            this.button_BarkodKontrol.Location = new System.Drawing.Point(903, 117);
+            this.button_BarkodKontrol.Name = "button_BarkodKontrol";
+            this.button_BarkodKontrol.Size = new System.Drawing.Size(82, 60);
+            this.button_BarkodKontrol.TabIndex = 0;
+            this.button_BarkodKontrol.Text = "Barkod kontrol";
+            this.button_BarkodKontrol.UseVisualStyleBackColor = true;
+            this.button_BarkodKontrol.Click += new System.EventHandler(this.button_BarkodKontrol_Click);
             // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(464, 76);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(80, 24);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "Urun Ad";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(604, 76);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(87, 24);
-            this.label4.TabIndex = 11;
-            this.label4.Text = "Urun kod";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(760, 76);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(61, 24);
-            this.label5.TabIndex = 12;
-            this.label5.Text = "Agırlık";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(28, 25);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(65, 24);
-            this.label6.TabIndex = 13;
-            this.label6.Text = "Lot No";
-            // 
-            // button_Kaydet
-            // 
-            this.button_Kaydet.Location = new System.Drawing.Point(903, 200);
-            this.button_Kaydet.Name = "button_Kaydet";
-            this.button_Kaydet.Size = new System.Drawing.Size(82, 37);
-            this.button_Kaydet.TabIndex = 14;
-            this.button_Kaydet.Text = "Kaydet";
-            this.button_Kaydet.UseVisualStyleBackColor = true;
-            // 
-            // button_PaletBıtır
-            // 
-            this.button_PaletBıtır.Location = new System.Drawing.Point(890, 270);
-            this.button_PaletBıtır.Name = "button_PaletBıtır";
-            this.button_PaletBıtır.Size = new System.Drawing.Size(95, 37);
-            this.button_PaletBıtır.TabIndex = 15;
-            this.button_PaletBıtır.Text = "Palet Bitir";
-            this.button_PaletBıtır.UseVisualStyleBackColor = true;
-            // 
-            // comboBox_LotNoWrite
-            // 
-            this.comboBox_LotNoWrite.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_LotNoWrite.FormattingEnabled = true;
-            this.comboBox_LotNoWrite.Location = new System.Drawing.Point(124, 25);
-            this.comboBox_LotNoWrite.Name = "comboBox_LotNoWrite";
-            this.comboBox_LotNoWrite.Size = new System.Drawing.Size(843, 32);
-            this.comboBox_LotNoWrite.TabIndex = 16;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(108, 76);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(90, 24);
-            this.label7.TabIndex = 9;
-            this.label7.Text = "Urun Kod";
             // 
             // Islem
             // 
@@ -721,7 +721,7 @@
         private System.Windows.Forms.Button button_UrunSoftSil;
         private System.Windows.Forms.Button button_LotSoftSil;
         private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.Button button_UretimBaslat;
+        private System.Windows.Forms.Button button_BarkodKontrol;
         private System.Windows.Forms.DataGridView dataGridView_Uretilen;
         private System.Windows.Forms.Label label_UrunKodRead;
         private System.Windows.Forms.Label label_UrunAd;
