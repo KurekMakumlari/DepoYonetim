@@ -45,21 +45,21 @@ namespace DepoYonetim.Aplication
 
 
 
-        public List<UretimLotUrun> UrunConfirm(string LotNo)
+        public (List<UretimLotUrun> , string Agirlik) UrunConfirm(string LotNo)
         {
 
             var urunRequest = _repository.GetByData("SELECT * FROM Tbl_Urun");
-            if (urunRequest._state != State.Success) { return null; throw new Exception("Üretim verileri alınamadı: " + urunRequest.message); }
+            if (urunRequest._state != State.Success) { return (null, null); throw new Exception("Üretim verileri alınamadı: " + urunRequest.message); }
 
             if (urunRequest.dt == null) throw new Exception("UrunRequest.dt NULL geldi.");
 
             LotNo = LotNo.Trim();
             var lotRequest = _repository.GetByData($"SELECT * FROM Tbl_Lot WHERE LotNo='{LotNo}'");
-            if (lotRequest._state != State.Success) { return null; throw new Exception("Üretim verileri alınamadı: " + lotRequest.message); }
+            if (lotRequest._state != State.Success) { return (null, null); throw new Exception("Üretim verileri alınamadı: " + lotRequest.message); }
 
             if (lotRequest.dt == null) throw new Exception("LotRequest.dt NULL geldi (Repository GetByData DataTable üretmedi).");
 
-            AgirlikAtama();
+            string netAgirlik = AgirlikAtama();
 
             var list = from urun in urunRequest.dt.AsEnumerable()
                        join lot in lotRequest.dt.AsEnumerable()
@@ -73,9 +73,9 @@ namespace DepoYonetim.Aplication
                            lotDurumu = lot.Field<bool?>("Status") ?? false
                        };
 
-            return list.ToList();
+            return (list.ToList(), netAgirlik);
         }
-        public int AgirlikAtama() { int sayi = rnd.Next(1, 11); return sayi; }
+        public string AgirlikAtama() { int sayi = rnd.Next(1, 11); return sayi.ToString(); }
 
 
 

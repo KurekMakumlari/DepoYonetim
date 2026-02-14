@@ -9,6 +9,7 @@ using DepoYonetim.Models.Entities;
 using DepoYonetim.Models.Entities.Urun;
 using DepoYonetim.Core.Enums;
 using System.Security.Cryptography.X509Certificates;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace DepoYonetim.Application
 {
@@ -23,7 +24,7 @@ namespace DepoYonetim.Application
         public List<LotUrun> GetAllLotUrun()
         {
             // Retrieve lot data
-           
+
 
             var request_Lot = _repository.GetByData("SELECT * FROM Tbl_Lot");
 
@@ -94,9 +95,9 @@ namespace DepoYonetim.Application
         }
 
 
-        public TblLot GetLotByID(int ıd)
+        public TblLot GetLotByID(int id)
         {
-            var request_Lot = _repository.GetByData($"SELECT * FROM Tbl_Lot WHERE ID = {ıd}");
+            var request_Lot = _repository.GetByData($"SELECT * FROM Tbl_Lot WHERE ID = {id}");
             if (request_Lot._state != State.Success) throw new Exception("Lot verileri alınamadı: " + request_Lot.message);
             var LotRow = request_Lot.dt.AsEnumerable().FirstOrDefault();
             if (LotRow == null) throw new Exception("Belirtilen Lot bulunamadı.");
@@ -108,6 +109,25 @@ namespace DepoYonetim.Application
                 Status = LotRow.Field<bool>("Status")
             };
         }
+
+        public int GetIdByLotNo(string pLotNo)
+        {
+            var request_Lot = _repository.GetByData($"SELECT ID FROM Tbl_Lot WHERE LotNo = '{pLotNo}' and Status = 1");
+            if (request_Lot._state != State.Success) throw new Exception("Lot verileri alınamadı: " + request_Lot.message);
+            var LotRow = request_Lot.dt.AsEnumerable().FirstOrDefault();
+            if (LotRow == null) throw new Exception("Belirtilen Lot bulunamadı.");
+            return LotRow.Field<int>("ID");
+        }
+
+        public bool ExistUrunId(string pLotNo, int pUrunId)
+        {
+            var request_Urun = _repository.GetByData($"SELECT * FROM [DepoYonetimi].[dbo].[Tbl_Lot] where LotNo='{pLotNo}' and  UrunID={pUrunId} and Status = 1 ");
+            if (request_Urun._state != State.Success) throw new Exception("Lot verileri alınamadı: " + request_Urun.message);
+            var LotRow = request_Urun.dt.AsEnumerable().FirstOrDefault();
+            if (LotRow == null) return false;
+            return true;
+        }
+
         public bool LotKaydet(TblLot lot)
         {
             string insertQuery = $"INSERT INTO Tbl_Lot (LotNo,UrunID,Status) VALUES ('{lot.LotNo}','{lot.UrunID}','{1}')";
@@ -132,6 +152,7 @@ namespace DepoYonetim.Application
                 Status = LotRow.Field<bool>("Status")
             };
         }
+
 
         public bool LotGuncelle(TblLot lot)
         {

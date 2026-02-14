@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\TblKoli.cs" />
     <Compile Include="Entities\PersonelRol.cs" />
     <Compile Include="Entities\TblKullanici.cs" />
     <Compile Include="Entities\TblLot.cs" />

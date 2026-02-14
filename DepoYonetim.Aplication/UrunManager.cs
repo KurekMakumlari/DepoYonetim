@@ -45,9 +45,9 @@ namespace DepoYonetim.Application
             );
             return query.FirstOrDefault();
         }
-        public TblUrun GetUrunByUrunkod(string Id)
+        public TblUrun GetUrunByUrunkod(string UrunKod)
         {
-            var request = _repository.GetByData($"Select * From Tbl_Urun Where UrunKod='{Id}' ");
+            var request = _repository.GetByData($"Select * From Tbl_Urun Where LTRIM(RTRIM(UrunKod)) = '{UrunKod.Trim()}' ");
             if (request._state != State.Success) throw new Exception("Ürün verisi alınamadı: " + request.message);
             if (request.dt.Rows.Count == 0) return null;
             var query = request.dt.AsEnumerable().Select(s => new TblUrun

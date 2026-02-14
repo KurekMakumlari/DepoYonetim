@@ -13,14 +13,17 @@ namespace DepoYonetim.Forms
     {
         public Islem() => InitializeComponent();
 
+
         Repository Repo = new Repository("Data Source=.\\SQLEXPRESS01;Initial Catalog=DepoYonetimi;Integrated Security=True;");
         PersonelRolMenager _personelRolMenager;
         LotUrunMenager _urunLotMenager;
         UrunManager _urunManager;
         Uretim _uretim;
+        KoliManager _koliManager;
         int personelId;
         int lotId;
         int urunId;
+       
         private void PersonelIslem_Load(object sender, EventArgs e)
         {
             textBox_AdSoyad.Focus();
@@ -29,6 +32,8 @@ namespace DepoYonetim.Forms
             _urunLotMenager = new LotUrunMenager(Repo);
             _urunManager = new UrunManager(Repo);
             _uretim = new Uretim(Repo);
+            _koliManager = new KoliManager(Repo);
+           
             RolGetir();
             UrunNameGetir();
             PersonelRolGetir();
@@ -351,12 +356,16 @@ namespace DepoYonetim.Forms
             textBox_Sifre.Clear();
             textBox_KullaniciAd.Clear();
             comboBox_RolSecim.SelectedIndex = -1;
+
             // Ürün sekmesi
             textBox_UrunAdi.Clear();
             textBox_UrunKod.Clear();
+            textBox_UrunAgirlik.Clear();
+
             // Lot sekmesi
             textBox_LotNo.Clear();
             comboBox_UrunLot.SelectedIndex = -1;
+
         }
 
         // Personel Rol Listeleme
@@ -375,10 +384,7 @@ namespace DepoYonetim.Forms
 
         public void UrunNameGetir()
         {
-            if (comboBox_UrunLot.Items.Count > 0)
-            {
-                comboBox_UrunLot.Items.Clear();
-            }
+            if (comboBox_UrunLot.Items.Count > 0) { comboBox_UrunLot.Items.Clear(); }
             comboBox_UrunLot.Items.AddRange(_urunLotMenager.GetAllUrun().Select(u => u.UrunAdi).ToArray());
         }
 
@@ -386,11 +392,11 @@ namespace DepoYonetim.Forms
         {
             try
             {
-                int UrunId = GetUrunIdByUrunkod(comboBox_LotNoWrite.SelectedItem.ToString());
-                var lotk = _urunLotMenager.GetLotById(UrunId);
-                if (lotk.UrunID == UrunId)
+                int UrunId = GetUrunIdByUrunkod(textBox_LotNoRead.Text);
+                //var lotk = _urunLotMenager.GetLotById(UrunId);
+                if (_urunLotMenager.ExistUrunId(comboBox_LotNoWrite.SelectedItem.ToString(), UrunId)) 
                 {
-                    var result = _uretim.UrunConfirm(comboBox_LotNoWrite.SelectedItem.ToString());
+                    var (result , agirlik) = _uretim.UrunConfirm(comboBox_LotNoWrite.SelectedItem.ToString());
                     label_LotVar.Text = result.Any(x => x.lotNo == textBox_LotNoRead.Text).ToString();
                     label_UrunAd.Text = result.FirstOrDefault(x => x.urunAdi != null).urunAdi;
                     label_UrunKodRead.Text = result.FirstOrDefault(k => k.urunKodu != null).urunKodu;
@@ -401,7 +407,6 @@ namespace DepoYonetim.Forms
             {
                 MessageBox.Show(ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
         public void UretilenUrunler()
         {
@@ -413,9 +418,7 @@ namespace DepoYonetim.Forms
         public int GetUrunIdByUrunkod(string urunKod)
         {
             var urun = _urunManager.GetUrunByUrunkod(urunKod);
-
             if (urun != null) { return urun.ID; }
-
             return -1;//kayıt yok
         }
     }
