@@ -43,10 +43,14 @@ namespace DepoYonetim.Aplication
         //}
 
 
-        public bool KoliKayit (TblKoli dt)
+        public bool KoliKayit(TblKoli dt)
         {
+            string insertQuery = $"INSERT INTO Tbl_Koli (KoliKodu,UrunId,LotId,NetAgirlik,OlusturmaTarih)VALUES('{dt.KoliKodu}','{dt.UrunId}','{dt.LotId}','{dt.NetAgirlik}',{dt.OlusturmaTarih})";
 
-            return true;
+            var request = _repository.ExecuteSql(insertQuery, null);
+            
+
+            return (request._state != State.Success) ? false : true; 
         }
 
 
