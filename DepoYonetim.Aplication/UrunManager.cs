@@ -27,11 +27,8 @@ namespace DepoYonetim.Application
                 BirimAgirlik = s.Field<string>("BirimAgirlik"),
                 Status=s.Field<bool>("status")
             });
-
             return query.ToList();
-
         }
-
         public TblUrun GetUrunById(int Id)
         {
             var request = _repository.GetByData($"Select * From Tbl_Urun Where ID='{Id}' ");
@@ -48,7 +45,6 @@ namespace DepoYonetim.Application
             );
             return query.FirstOrDefault();
         }
-
         public TblUrun GetUrunByUrunkod(string Id)
         {
             var request = _repository.GetByData($"Select * From Tbl_Urun Where UrunKod='{Id}' ");
@@ -96,9 +92,6 @@ namespace DepoYonetim.Application
         {
             string delQuery = ($"Delete from Tbl_Urun where ID={id}");
             return _repository.ExecuteSql(delQuery, null)._state == State.Success ? true : false;
-        }
-
-        
-
+        }       
     }
 }

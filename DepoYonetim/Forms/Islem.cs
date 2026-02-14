@@ -35,9 +35,7 @@ namespace DepoYonetim.Forms
             LotUrunGetir();
             UrunGetir();
             UrunLotNoGetir();
-
         }
-
 
         #region Personel
         private void PerDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -346,7 +344,6 @@ namespace DepoYonetim.Forms
         }
 
         #endregion
-
         public void ClearAllFields()
         {
             // Personel sekmesi
@@ -381,7 +378,6 @@ namespace DepoYonetim.Forms
             if (comboBox_UrunLot.Items.Count > 0)
             {
                 comboBox_UrunLot.Items.Clear();
-
             }
             comboBox_UrunLot.Items.AddRange(_urunLotMenager.GetAllUrun().Select(u => u.UrunAdi).ToArray());
         }
@@ -390,8 +386,6 @@ namespace DepoYonetim.Forms
         {
             try
             {
-
-
                 int UrunId = GetUrunIdByUrunkod(comboBox_LotNoWrite.SelectedItem.ToString());
                 var lotk = _urunLotMenager.GetLotById(UrunId);
                 if (lotk.UrunID == UrunId)
@@ -402,31 +396,26 @@ namespace DepoYonetim.Forms
                     label_UrunKodRead.Text = result.FirstOrDefault(k => k.urunKodu != null).urunKodu;
                     label_Agirlik.Text = _uretim.AgirlikAtama().ToString();
                 }
-
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
-
         public void UretilenUrunler()
         {
             dataGridView_Uretilen.DataSource = _uretim.GetUretilenUrun(comboBox_LotNoWrite.SelectedItem.ToString()).Any(c => c.LotNo != comboBox_LotNoWrite.SelectedItem.ToString());
             throw new Exception("Bu Lot Kodu İle Üretim Yapılamaz.");
         }
-
         public void UrunLotNoGetir() => comboBox_LotNoWrite.Items.AddRange(_urunLotMenager.GetAllLotUrun().Where(w => w.Status == true).Select(x => x.LotKodu).ToArray());
 
         public int GetUrunIdByUrunkod(string urunKod)
         {
             var urun = _urunManager.GetUrunByUrunkod(urunKod);
-            if (urun != null)
-            {
-                return urun.ID;
-            }
+
+            if (urun != null) { return urun.ID; }
+
             return -1;//kayıt yok
         }
     }

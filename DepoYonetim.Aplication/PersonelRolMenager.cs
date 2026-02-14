@@ -7,13 +7,11 @@ using System.Threading.Tasks;
 using DepoYonetim.DataAccess.Repostories;
 using DepoYonetim.Models.Entities;
 
-
 namespace DepoYonetim.Application
 {
     public class PersonelRolMenager
     {
         private readonly Repository _repository;
-
         public PersonelRolMenager(Repository repository) => _repository = repository;
 
         // Get all personnel with their roles
@@ -48,8 +46,6 @@ namespace DepoYonetim.Application
                                 RoleName = rol.Field<string>("RoleName"),
                                 Status = kullanici.Field<bool>("Status")
                             };
-
-
                 #region Alternatif
 
                 //var query = request_Kullanici.dt.AsEnumerable()
@@ -68,9 +64,6 @@ namespace DepoYonetim.Application
                 //         }
                 //        ).ToList();
                 #endregion
-
-
-
 
                 #region Alternatif
                 //foreach (DataRow item in request_Kullanici.dt.Rows)
