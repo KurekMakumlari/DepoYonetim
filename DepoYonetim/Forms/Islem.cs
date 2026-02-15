@@ -424,13 +424,14 @@ namespace DepoYonetim.Forms
             if (Koli == null) { MessageBox.Show("Kayıt Bulunamadı"); return; }
             else
             {
-                Koli.KoliKodu = _koliManager.GetKoli(comboBox_LotNoWrite.Text).FirstOrDefault().KoliKodu;
-                Koli.UrunId = _koliManager.GetKoli(comboBox_LotNoWrite.Text).FirstOrDefault().UrunId;
-                Koli.LotId = _koliManager.GetKoli(comboBox_LotNoWrite.Text).FirstOrDefault().LotId;
-                Koli.NetAgirlik = _koliManager.GetKoli(comboBox_LotNoWrite.Text).FirstOrDefault().NetAgirlik;
-                Koli.OlusturmaTarih = _koliManager.GetKoli(comboBox_LotNoWrite.Text).FirstOrDefault().OlusturmaTarih;
+                Koli.KoliKodu = _koliManager.GetKoliByLotNo(comboBox_LotNoWrite.SelectedItem.ToString(),null).FirstOrDefault().KoliKodu;
+                Koli.UrunId = _koliManager.GetKoliByLotNo(null,textBox_LotNoRead.Text).FirstOrDefault().UrunId;
+                Koli.LotId = _koliManager.GetKoliByLotNo(comboBox_LotNoWrite.SelectedItem.ToString(), null).FirstOrDefault().LotId;
+                Koli.NetAgirlik = _koliManager.GetKoliByLotNo(comboBox_LotNoWrite.SelectedItem.ToString(), null).FirstOrDefault().NetAgirlik;
+                Koli.OlusturmaTarih = _koliManager.GetKoliByLotNo(comboBox_LotNoWrite.SelectedItem.ToString(), null).FirstOrDefault().OlusturmaTarih;
 
                 bool issaved = _koliManager.KoliKayit(Koli);
+                KoliGetir();
             }
         }
 

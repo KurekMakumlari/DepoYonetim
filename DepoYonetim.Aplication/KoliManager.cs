@@ -43,10 +43,10 @@ namespace DepoYonetim.Aplication
 
         public string GenerateKoliKod() { return "KOL-" + Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper(); }
 
-        public List<TblKoli> GetKoli(string LotNo)
+        public List<TblKoli> GetKoliByLotNo(string LotNo,string UrunKod )
         {
             string koliKod = GenerateKoliKod();
-            int urunId = _urunManager.GetUrunByUrunkod(LotNo).ID;
+            int urunId = _urunManager.GetUrunByUrunkod(UrunKod).ID;
             int lotId = _LotUrunMenager.GetIdByLotNo(LotNo);
             string netAgirlik = _Uretim.UrunConfirm(LotNo).Agirlik;
             DateTime Date = DateTime.Now;
