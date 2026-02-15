@@ -434,12 +434,7 @@ namespace DepoYonetim.Forms
                 KoliGetir();
             }
         }
-
             public void KoliGetir(){ dataGridView_Uretilen.DataSource = _koliManager.GetAllKoli(); }
-
-
-
-
         }
     }
 
