@@ -23,7 +23,7 @@ namespace DepoYonetim.Forms
         int personelId;
         int lotId;
         int urunId;
-       
+
         private void PersonelIslem_Load(object sender, EventArgs e)
         {
             textBox_AdSoyad.Focus();
@@ -33,7 +33,7 @@ namespace DepoYonetim.Forms
             _urunManager = new UrunManager(Repo);
             _uretim = new Uretim(Repo);
             _koliManager = new KoliManager(Repo);
-           
+
             RolGetir();
             UrunNameGetir();
             PersonelRolGetir();
@@ -41,7 +41,6 @@ namespace DepoYonetim.Forms
             UrunGetir();
             UrunLotNoGetir();
         }
-
         #region Personel
         private void PerDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -51,7 +50,6 @@ namespace DepoYonetim.Forms
             comboBox_RolSecim.Text = dataGridViewKullanıcıList.Rows[dataGridViewKullanıcıList.SelectedCells[0].RowIndex].Cells["RoleName"].Value.ToString();
             label1.Text = dataGridViewKullanıcıList.Rows[dataGridViewKullanıcıList.SelectedCells[0].RowIndex].Cells["Status"].Value.ToString();
         }
-
         private void button_PerKayit_Click(object sender, EventArgs e)
         {
             try
@@ -72,7 +70,6 @@ namespace DepoYonetim.Forms
                 kul.Status = true;
                 bool isSave = _personelRolMenager.PersonelKaydet(kul);
                 DialogResult result = isSave ? MessageBox.Show("Kullanıcı Kaydı Başarılı Olmuştur.") : MessageBox.Show("Kullanıcı Kaydı Başarısız Olmuştur.");
-
             }
             catch (Exception ex)
             {
@@ -125,7 +122,6 @@ namespace DepoYonetim.Forms
             bool isDelete = _personelRolMenager.PersonelKaldir(personelId);
             DialogResult result = isDelete ? MessageBox.Show("Kullanıcı Kalıcı Silme Başarılı Olmuştur.") : MessageBox.Show("Kullanıcı Kalıcı Silme Başarısız Olmuştur.");
         }
-
         #endregion
 
         #region Urun
@@ -394,9 +390,9 @@ namespace DepoYonetim.Forms
             {
                 int UrunId = GetUrunIdByUrunkod(textBox_LotNoRead.Text);
                 //var lotk = _urunLotMenager.GetLotById(UrunId);
-                if (_urunLotMenager.ExistUrunId(comboBox_LotNoWrite.SelectedItem.ToString(), UrunId)) 
+                if (_urunLotMenager.ExistUrunId(comboBox_LotNoWrite.SelectedItem.ToString(), UrunId))
                 {
-                    var (result , agirlik) = _uretim.UrunConfirm(comboBox_LotNoWrite.SelectedItem.ToString());
+                    var (result, agirlik) = _uretim.UrunConfirm(comboBox_LotNoWrite.SelectedItem.ToString());
                     label_LotVar.Text = result.Any(x => x.lotNo == textBox_LotNoRead.Text).ToString();
                     label_UrunAd.Text = result.FirstOrDefault(x => x.urunAdi != null).urunAdi;
                     label_UrunKodRead.Text = result.FirstOrDefault(k => k.urunKodu != null).urunKodu;
@@ -414,12 +410,35 @@ namespace DepoYonetim.Forms
             throw new Exception("Bu Lot Kodu İle Üretim Yapılamaz.");
         }
         public void UrunLotNoGetir() => comboBox_LotNoWrite.Items.AddRange(_urunLotMenager.GetAllLotUrun().Where(w => w.Status == true).Select(x => x.LotKodu).ToArray());
-
         public int GetUrunIdByUrunkod(string urunKod)
         {
             var urun = _urunManager.GetUrunByUrunkod(urunKod);
             if (urun != null) { return urun.ID; }
             return -1;//kayıt yok
         }
+
+        private void button_Kaydet_Click(object sender, EventArgs e)
+        {
+            TblKoli Koli = new TblKoli();
+
+            if (Koli == null) { MessageBox.Show("Kayıt Bulunamadı"); return; }
+            else
+            {
+                Koli.KoliKodu = _koliManager.GetKoli(comboBox_LotNoWrite.Text).FirstOrDefault().KoliKodu;
+                Koli.UrunId = _koliManager.GetKoli(comboBox_LotNoWrite.Text).FirstOrDefault().UrunId;
+                Koli.LotId = _koliManager.GetKoli(comboBox_LotNoWrite.Text).FirstOrDefault().LotId;
+                Koli.NetAgirlik = _koliManager.GetKoli(comboBox_LotNoWrite.Text).FirstOrDefault().NetAgirlik;
+                Koli.OlusturmaTarih = _koliManager.GetKoli(comboBox_LotNoWrite.Text).FirstOrDefault().OlusturmaTarih;
+
+                bool issaved = _koliManager.KoliKayit(Koli);
+            }
+        }
+
+            public void KoliGetir(){ dataGridView_Uretilen.DataSource = _koliManager.GetAllKoli(); }
+
+
+
+
+        }
     }
-}
+

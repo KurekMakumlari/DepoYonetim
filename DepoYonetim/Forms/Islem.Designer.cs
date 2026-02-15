@@ -533,6 +533,7 @@
             this.button_Kaydet.TabIndex = 14;
             this.button_Kaydet.Text = "Kaydet";
             this.button_Kaydet.UseVisualStyleBackColor = true;
+            this.button_Kaydet.Click += new System.EventHandler(this.button_Kaydet_Click);
             // 
             // label6
             // 

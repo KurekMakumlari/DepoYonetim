@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DepoYonetim.DataAccess.Repostories;
 using DepoYonetim.Models.Entities;
+using DepoYonetim.Core.Enums;
 
 namespace DepoYonetim.Application
 {
@@ -23,13 +24,13 @@ namespace DepoYonetim.Application
                 var request_Kullanici = _repository.GetByData("SELECT * FROM Tbl_Kullanici");
 
                 // Check if the data retrieval was failed
-                if (request_Kullanici._state != Core.Enums.State.Success) throw new Exception("Kullanıcı verileri alınamadı: " + request_Kullanici.message);
+                if (request_Kullanici._state != State.Success) throw new Exception("Kullanıcı verileri alınamadı: " + request_Kullanici.message);
 
                 // Retrieve role data
                 var request_Rol = _repository.GetByData("SELECT * FROM Tbl_Role");
 
                 // Check if the data retrieval was failed
-                if (request_Rol._state != Core.Enums.State.Success) throw new Exception("Rol verileri alınamadı: " + request_Rol.message);
+                if (request_Rol._state != State.Success) throw new Exception("Rol verileri alınamadı: " + request_Rol.message);
 
                 // Join user and role data
 
@@ -88,7 +89,7 @@ namespace DepoYonetim.Application
             var request_Rol = _repository.GetByData($"SELECT * FROM Tbl_Role WHERE RoleName = '{roleName}'");
 
             // Check if the data retrieval was failed
-            if (request_Rol._state != Core.Enums.State.Success) throw new Exception("Rol verileri alınamadı: " + request_Rol.message);
+            if (request_Rol._state != State.Success) throw new Exception("Rol verileri alınamadı: " + request_Rol.message);
 
             // Get the first matching role
             var rolRow = request_Rol.dt.AsEnumerable().FirstOrDefault();
@@ -109,7 +110,7 @@ namespace DepoYonetim.Application
         public List<TblRole> GetAllRoles()
         {
             var request_Rol = _repository.GetByData("SELECT * FROM Tbl_Role");
-            if (request_Rol._state != Core.Enums.State.Success) throw new Exception("Rol verileri alınamadı: " + request_Rol.message);
+            if (request_Rol._state != State.Success) throw new Exception("Rol verileri alınamadı: " + request_Rol.message);
 
             // Map DataTable rows to TblRole objects
             var roles = request_Rol.dt.AsEnumerable().Select(rolRow =>
@@ -127,7 +128,7 @@ namespace DepoYonetim.Application
             string insertQuery = $"INSERT INTO Tbl_Kullanici (AdSoyad, KullaniciAdi, SifreHash, RoleID, Status) " +
                                  $"VALUES ('{tblKullanici.AdSoyad}', '{tblKullanici.KullaniciAdi}', '{tblKullanici.SifreHash}', {tblKullanici.RoleID}, {1})";
             var result = _repository.ExecuteSql(insertQuery, null);
-            if (result._state != Core.Enums.State.Success)
+            if (result._state != State.Success)
             {
                 return false;
             }
@@ -140,7 +141,7 @@ namespace DepoYonetim.Application
             var request_Kullanici = _repository.GetByData($"SELECT * FROM Tbl_Kullanici WHERE ID = {personelId}");
 
             // Check if the data retrieval was failed
-            if (request_Kullanici._state != Core.Enums.State.Success) throw new Exception("Kullanıcı verileri alınamadı: " + request_Kullanici.message);
+            if (request_Kullanici._state != State.Success) throw new Exception("Kullanıcı verileri alınamadı: " + request_Kullanici.message);
 
             // Get the first matching user
             var kullaniciRow = request_Kullanici.dt.AsEnumerable().FirstOrDefault();
@@ -171,7 +172,7 @@ namespace DepoYonetim.Application
                                  $"Status = {(tblKullanici.Status ? 1 : 0)} " +
                                  $"WHERE ID = {tblKullanici.ID}";
             var result = _repository.ExecuteSql(updateQuery, null);
-            if (result._state != Core.Enums.State.Success)
+            if (result._state != State.Success)
             {
                 return false;
             }
@@ -183,7 +184,7 @@ namespace DepoYonetim.Application
         {
             string updateQuery = $"UPDATE Tbl_Kullanici SET Status = 0 WHERE ID = {personelId}";
             var result = _repository.ExecuteSql(updateQuery, null);
-            if (result._state != Core.Enums.State.Success)
+            if (result._state != State.Success)
             {
                 return false;
             }
@@ -195,7 +196,7 @@ namespace DepoYonetim.Application
         {
             string deleteQuery = $"DELETE FROM Tbl_Kullanici WHERE ID = {personelId}";
             var result = _repository.ExecuteSql(deleteQuery, null);
-            if (result._state != Core.Enums.State.Success)
+            if (result._state != State.Success)
             {
                 return false;
             }
