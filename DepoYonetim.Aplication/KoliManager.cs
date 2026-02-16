@@ -37,7 +37,13 @@ namespace DepoYonetim.Aplication
             var urunId = 0;
             if (!string.IsNullOrWhiteSpace(urunKod))
             {
-                urunId = _urunManager.GetUrunByUrunkod(urunKod)?.ID ?? 0;
+                var urun = _urunManager.GetUrunByUrunkod(urunKod);
+                if (urun == null)
+                {
+                    throw new InvalidOperationException($"Geçersiz ürün kodu: {urunKod}");
+                }
+
+                urunId = urun.ID;
             }
 
             if (urunId == 0 && !string.IsNullOrWhiteSpace(lotNo))
@@ -51,6 +57,11 @@ namespace DepoYonetim.Aplication
             var lotId = !string.IsNullOrWhiteSpace(lotNo)
                 ? _lotUrunMenager.GetIdByLotNo(lotNo)
                 : _repository.Query<TblLot>().Where(x => x.UrunID == urunId && x.Status).Select(x => x.ID).FirstOrDefault();
+
+            if (urunId <= 0 || lotId <= 0)
+            {
+                throw new InvalidOperationException("Koli oluşturmak için geçerli ürün ve lot bilgisi gereklidir.");
+            }
 
             var netAgirlik = !string.IsNullOrWhiteSpace(lotNo)
                 ? _uretim.UrunConfirm(lotNo).Agirlik
