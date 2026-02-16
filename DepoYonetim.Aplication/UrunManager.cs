@@ -1,12 +1,8 @@
-﻿using DepoYonetim.Core.Enums;
-using DepoYonetim.DataAccess.Repostories;
+﻿using DepoYonetim.DataAccess.Repostories;
 using DepoYonetim.Models.Entities;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DepoYonetim.Application
 {
@@ -17,81 +13,63 @@ namespace DepoYonetim.Application
 
         public List<TblUrun> GetAllUrun()
         {
-            var request_Urun = _repository.GetByData("SELECT * FROM Tbl_Urun");
-            if (request_Urun._state != State.Success) throw new Exception("Ürün verileri alınamadı: " + request_Urun.message);
-            var query = request_Urun.dt.AsEnumerable().Select(s => new TblUrun
-            {
-                ID = s.Field<int>("ID"),
-                UrunKod = s.Field<string>("UrunKod"),
-                UrunAdi = s.Field<string>("UrunAdi"),
-                BirimAgirlik = s.Field<string>("BirimAgirlik"),
-                Status=s.Field<bool>("status")
-            });
-            return query.ToList();
+            return _repository.Query<TblUrun>().ToList();
         }
-        public TblUrun GetUrunById(int Id)
+
+        public TblUrun GetUrunById(int id)
         {
-            var request = _repository.GetByData($"Select * From Tbl_Urun Where ID='{Id}' ");
-            if (request._state != State.Success) throw new Exception("Ürün verisi alınamadı: " + request.message);
-            if (request.dt.Rows.Count == 0) return null;
-            var query = request.dt.AsEnumerable().Select(s => new TblUrun
+            return _repository.Query<TblUrun>().FirstOrDefault(x => x.ID == id);
+        }
+
+        public TblUrun GetUrunByUrunkod(string urunKod)
+        {
+            var kod = (urunKod ?? string.Empty).Trim();
+            return _repository.Query<TblUrun>().FirstOrDefault(x => x.UrunKod.Trim() == kod);
+        }
+
+        public bool UrunKaydet(TblUrun urun)
+        {
+            urun.Status = true;
+            return _repository.Add(urun).state == Core.Enums.State.Success;
+        }
+
+        public bool UrunGuncelle(TblUrun urun)
+        {
+            var current = GetUrunById(urun.ID);
+            if (current == null)
             {
-                ID = s.Field<int>("ID"),
-                UrunKod = s.Field<string>("UrunKod"),
-                UrunAdi = s.Field<string>("UrunAdi"),
-                BirimAgirlik = s.Field<string>("BirimAgirlik"),
-                Status = s.Field<bool>("status")
+                return false;
             }
-            );
-            return query.FirstOrDefault();
-        }
-        public TblUrun GetUrunByUrunkod(string UrunKod)
-        {
-            var request = _repository.GetByData($"Select * From Tbl_Urun Where LTRIM(RTRIM(UrunKod)) = '{UrunKod.Trim()}' ");
-            if (request._state != State.Success) throw new Exception("Ürün verisi alınamadı: " + request.message);
-            if (request.dt.Rows.Count == 0) return null;
-            var query = request.dt.AsEnumerable().Select(s => new TblUrun
-            {
-                ID = s.Field<int>("ID"),
-                UrunKod = s.Field<string>("UrunKod"),
-                UrunAdi = s.Field<string>("UrunAdi"),
-                BirimAgirlik = s.Field<string>("BirimAgirlik"),
-                Status = s.Field<bool>("status")
-            }
-            );
-            return query.FirstOrDefault();
-        }
 
-        public bool UrunKaydet(TblUrun dt)
-        {
-            string insertQuery = $"INSERT INTO Tbl_Urun (UrunKod,UrunAdi,BirimAgirlik,Status) VALUES ('{dt.UrunKod}','{dt.UrunAdi}','{dt.BirimAgirlik}',{1})";
-            #region DiffQuery
-            //string diffrentquery = $"IF NOT EXISTS (SELECT 1 FROM Tbl_Urun WHERE UrunKod = '{dt.UrunKod}') BEGIN {insertQuery} END";
-            //string insertQuery2 = $"INSERT INTO Tbl_Urun (UrunKod,UrunAdi) SELECT '{dt.UrunKod}','{dt.UrunAdi}' WHERE NOT EXISTS (SELECT 1 FROM Tbl_Urun WHERE UrunKod = '{dt.UrunKod}')";
-            #endregion
+            current.UrunKod = urun.UrunKod;
+            current.UrunAdi = urun.UrunAdi;
+            current.BirimAgirlik = urun.BirimAgirlik;
+            current.Status = urun.Status;
 
-            var request = _repository.ExecuteSql(insertQuery, null);
-            return request._state == State.Success ? true : false; throw new Exception("Urun Kaydedilemedi");
-        }
-
-        public bool UrunGuncelle(TblUrun dt)
-        {
-            string queryUpdate = ($"Update Tbl_Urun set UrunKod='{dt.UrunKod}',UrunAdi='{dt.UrunAdi}' BirimAgirlik = '{dt.BirimAgirlik}''where ID={dt.ID}");
-            var request = _repository.ExecuteSql(queryUpdate, null);
-            if (request._state != State.Success) return false;
-            else return true;
+            return _repository.Update(current).state == Core.Enums.State.Success;
         }
 
         public bool UrunSoftSil(int id)
         {
-            string softDelQuery = ($"Update Tbl_Urun set Status=0 where ID={id}");
-            return _repository.ExecuteSql(softDelQuery, null)._state == State.Success ? true : false;
+            var current = GetUrunById(id);
+            if (current == null)
+            {
+                return false;
+            }
+
+            current.Status = false;
+            return _repository.Update(current).state == Core.Enums.State.Success;
         }
 
         public bool UrunKaliciSil(int id)
         {
-            string delQuery = ($"Delete from Tbl_Urun where ID={id}");
-            return _repository.ExecuteSql(delQuery, null)._state == State.Success ? true : false;
-        }       
+            var current = GetUrunById(id);
+            if (current == null)
+            {
+                return false;
+            }
+
+            return _repository.Delete(current).state == Core.Enums.State.Success;
+        }
     }
 }

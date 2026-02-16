@@ -31,24 +31,35 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DepoYonetimDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repostories\Repository.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DepoYonetim.Core\DepoYonetim.Core.csproj">
       <Project>{82248b43-9d90-4863-a6f5-331a07fe5244}</Project>
       <Name>DepoYonetim.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DepoYonetim.Models\DepoYonetim.Models.csproj">
+      <Project>{1A22CD1C-9330-40C9-8C3E-B7B243F64389}</Project>
+      <Name>DepoYonetim.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

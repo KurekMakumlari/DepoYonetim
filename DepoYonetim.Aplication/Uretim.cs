@@ -1,87 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DepoYonetim.DataAccess.Repostories;
 using DepoYonetim.Models.Entities;
-using DepoYonetim.Core.Enums;
-using System.Data;
-using DepoYonetim.Application;
-using System.ComponentModel.Design;
-using System.Security.Cryptography.X509Certificates;
 
 namespace DepoYonetim.Aplication
 {
     public class Uretim
     {
         private readonly Repository _repository;
+        private readonly Random _rnd = new Random();
 
-        public Uretim(Repository Repo) => _repository = Repo;
+        public Uretim(Repository repo) => _repository = repo;
 
-        Random rnd = new Random();
-
-        public List<UretilenUrun> GetUretilenUrun(string LotNo)
+        public List<UretilenUrun> GetUretilenUrun(string lotNo)
         {
-            var Lotrequest = _repository.GetByData($"SELECT * FROM Tbl_Lot WHERE LotNo = '{LotNo}'");
-            if (Lotrequest._state != State.Success) throw new Exception("Üretim verileri alınamadı: " + Lotrequest.message);
+            var lotlar = _repository.Query<TblLot>().Where(x => x.LotNo == lotNo);
+            var urunler = _repository.Query<TblUrun>();
 
-            var UrunRequest = _repository.GetByData("SELECT * FROM Tbl_Urun");
-            if (UrunRequest._state != State.Success) throw new Exception("Üretim verileri alınamadı: " + UrunRequest.message);
+            return (from lot in lotlar
+                    join urun in urunler on lot.UrunID equals urun.ID
+                    select new UretilenUrun
+                    {
+                        AktifUrunAd = urun.UrunAdi,
+                        LotNo = lot.LotNo,
+                        Agirlik = _rnd.Next(1, 11),
+                        Tarih = DateTime.Now,
+                        Status = lot.Status
+                    }).ToList();
+        }
 
-            var query = from lot in Lotrequest.dt.AsEnumerable()
-                        join urun in UrunRequest.dt.AsEnumerable()
-                        on lot.Field<int>("ID") equals urun.Field<int>("ID")
-                        select new UretilenUrun
+        public (List<UretimLotUrun>, string Agirlik) UrunConfirm(string lotNo)
+        {
+            lotNo = (lotNo ?? string.Empty).Trim();
+
+            var lotlar = _repository.Query<TblLot>().Where(x => x.LotNo == lotNo);
+            var urunler = _repository.Query<TblUrun>();
+            var netAgirlik = AgirlikAtama();
+
+            var list = (from urun in urunler
+                        join lot in lotlar on urun.ID equals lot.UrunID
+                        select new UretimLotUrun
                         {
-                            AktifUrunAd = urun.Field<string>("UrunAdi"),
-                            LotNo = lot.Field<string>("LotNo"),
-                            Agirlik = rnd.Next(0, 10),
-                            Tarih = urun.Field<DateTime>("Tarih"),
-                            Status = lot.Field<bool>("Status")
-                        };
-            return query.ToList();
+                            lotNo = lot.LotNo,
+                            urunAdi = urun.UrunAdi,
+                            urunKodu = urun.UrunKod,
+                            lotDurumu = lot.Status
+                        }).ToList();
+
+            return (list, netAgirlik);
         }
 
-
-
-        public (List<UretimLotUrun> , string Agirlik) UrunConfirm(string LotNo)
+        public string AgirlikAtama()
         {
-
-            var urunRequest = _repository.GetByData("SELECT * FROM Tbl_Urun");
-            if (urunRequest._state != State.Success) { return (null, null); throw new Exception("Üretim verileri alınamadı: " + urunRequest.message); }
-
-            if (urunRequest.dt == null) throw new Exception("UrunRequest.dt NULL geldi.");
-
-            LotNo = LotNo.Trim();
-            var lotRequest = _repository.GetByData($"SELECT * FROM Tbl_Lot WHERE LotNo='{LotNo}'");
-            if (lotRequest._state != State.Success) { return (null, null); throw new Exception("Üretim verileri alınamadı: " + lotRequest.message); }
-
-            if (lotRequest.dt == null) throw new Exception("LotRequest.dt NULL geldi (Repository GetByData DataTable üretmedi).");
-
-            string netAgirlik = AgirlikAtama();
-
-            var list = from urun in urunRequest.dt.AsEnumerable()
-                       join lot in lotRequest.dt.AsEnumerable()
-                       on urun.Field<int>("ID") equals lot.Field<int>("UrunID")
-                       // Project the result into PersonelRol objects
-                       select new UretimLotUrun
-                       {
-                           lotNo = lot.Field<string>("LotNo"),
-                           urunAdi = urun.Field<string>("UrunAdi"),
-                           urunKodu = urun.Field<string>("UrunKod"),
-                           lotDurumu = lot.Field<bool?>("Status") ?? false
-                       };
-
-            return (list.ToList(), netAgirlik);
+            var sayi = _rnd.Next(1, 11);
+            return sayi.ToString();
         }
-        public string AgirlikAtama() { int sayi = rnd.Next(1, 11); return sayi.ToString(); }
-
-
-
-
-
-
-
     }
 }
